@@ -2,7 +2,7 @@
 
 Assinaturas de e-mail corporativas, servidas por GitHub Pages a partir
 deste repositório. Titulares: Rafael Serra (CEO) e Camila Melo
-(Coordenadora de Operações). Os dados de cada pessoa ficam em
+(Gerente de Operações). Os dados de cada pessoa ficam em
 `ferramentas/pessoas.py`; as peças e o HTML são gerados a partir dali.
 
 **→ Leia o `CLAUDE.md` para entender o projeto inteiro.** Este README é o

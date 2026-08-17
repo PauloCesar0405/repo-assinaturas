@@ -45,7 +45,7 @@ PESSOAS = {
     },
     "camila-melo": {
         "nome": "Camila Melo",
-        "cargo": "COORDENADORA DE OPERAÇÕES",
+        "cargo": "GERENTE DE OPERAÇÕES",
         "tel": "+55 21 96725-1171",
         "whatsapp": "5521967251171",
         "email": "camila@timeforte.com",
