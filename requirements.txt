@@ -2,3 +2,10 @@
 # Instale com: pip install -r requirements.txt
 pillow>=10
 numpy>=1.24
+
+# Só para preparar foto nova (remoção de fundo). Não é usado pelos geradores
+# em si — se você só vai rodar build.py com fotos já recortadas em insumos/,
+# pode pular estes dois. O scipy vem junto porque o alpha matting do rembg
+# depende dele (é o que preserva os fios de cabelo na borda do recorte).
+rembg>=2.0
+scipy>=1.10

@@ -76,16 +76,21 @@ linkado no card, na faixa de marcas e na barra.
 ```
 v1/                        ← ativos servidos pelo Pages. IMUTÁVEL (ver Regras)
   comum/                   ← faixa-marcas.gif, barra-chamada.png
-  pessoas/                 ← <slug>.png, <slug>-contatos.png
-assinaturas-html/          ← um .html por pessoa, URLs já preenchidas
+  pessoas/                 ← <slug>.png + <slug>-contatos{,-tel,-email,-end}.png
+assinaturas-html/          ← um .html por pessoa, GERADO (não editar na mão)
 ferramentas/               ← a "fábrica"
-  build.py                 ← regenera TODAS as peças de v1/
+  pessoas.py               ← CADASTRO: única fonte dos dados pessoais
+  build.py                 ← gera as peças de v1/ para um slug
   gerar_card.py            ← card + faixa + barra
   gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
+  gerar_html.py            ← monta o .html medindo as fatias no disco
   fontes/                  ← Ubuntu (Bold/Regular) + Audiowide; o texto de
                              cada licença vive ao lado do .ttf (UFL 1.0 e
                              SIL OFL 1.1 exigem isso na redistribuição)
-  insumos/                 ← logos-fonte, foto do CEO sem fundo (recorte-limpo.png)
+  insumos/                 ← logos-fonte + fotos JÁ RECORTADAS (<slug>-limpo.png)
+fotos/                     ← originais das fotos. FORA do git (.gitignore):
+                             candid de evento costuma ter terceiros ao fundo,
+                             e o repo é público. Só o recorte entra em insumos/
 docs/como-instalar.md      ← guia de instalação no Gmail/Outlook
 index.html                 ← página de verificação do deploy
 CLAUDE.md                  ← este arquivo
@@ -143,37 +148,55 @@ publicado ou as URLs diretas das imagens.
 
 ## Adicionar uma nova pessoa (rumo às ~30)
 
-Hoje o fluxo é manual por pessoa; o próximo passo natural é parametrizar.
-Manualmente:
+O fluxo é orientado a dados: **nenhum texto pessoal vive dentro dos
+geradores**, tudo está em `ferramentas/pessoas.py`.
 
-1. Ponha a foto sem fundo em `ferramentas/insumos/` (o `recorte-limpo.png`
-   do Rafael foi gerado com remoção de fundo + limpeza de halo; replicar
-   esse tratamento para a nova foto).
-2. Em `gerar_card.py` e `gerar_contatos.py`, troque nome, cargo, telefone,
-   e-mail (são strings no topo/corpo dos arquivos). Ajuste o `SLUG` em
-   `build.py` — ele nomeia **as duas** peças (o card e, via argumento, a
-   faixa de contatos).
-3. `python3 build.py` → gera `<slug>.png` e as 3 fatias de contatos
-   (`<slug>-contatos-tel/-email/-end.png`, mais a faixa inteira para
-   compatibilidade). O build **recusa sobrescrever** qualquer peça que já
-   exista em `v1/` (inclusive as compartilhadas de `v1/comum/`). Se
-   abortar, é a regra 1 funcionando — não use `--forcar` numa peça já
-   publicada.
-4. Duplique `assinaturas-html/rafael-serra.html` para `<slug>.html`,
-   trocando: nome do card, os 3 `src` das fatias, telefone (link `wa.me`
-   + texto no alt), e-mail (link `mailto:` + alt), endereço (link do Maps
-   + alt), e as **larguras/alturas das fatias** que o build imprimiu no
-   JSON — elas mudam por pessoa, porque dependem da largura do telefone e
-   do e-mail renderizados. A soma das duas larguras da linha 1 tem que dar
-   exatamente 600.
-5. Commit + push.
+1. **Recorte a foto.** Original vai em `fotos/` (fora do git). Recorte com
+   fundo removido vai em `ferramentas/insumos/<slug>-limpo.png`. O que usei:
 
-**Evolução recomendada (bom candidato a tarefa para o Claude Code):**
-transformar isso numa fábrica orientada a dados — uma planilha/CSV com
-nome, cargo, telefone, e-mail, arquivo da foto → um script que gera os 30
-cards, 30 contatos e 30 HTMLs de uma vez. Se for fazer, os geradores já
-estão modulares o suficiente; falta abstrair as strings pessoais para
-parâmetros e iterar sobre o CSV.
+   ```python
+   from rembg import remove, new_session
+   remove(Image.open("fotos/x.jpg").convert("RGB"),
+          session=new_session("u2net"), alpha_matting=True,
+          alpha_matting_foreground_threshold=240,
+          alpha_matting_background_threshold=15,
+          alpha_matting_erode_size=8)
+   ```
+
+   O `alpha_matting` é o que preserva os fios de cabelo — sem ele a borda
+   fica serrilhada sobre o laranja. Confira se sobrou halo claro: a
+   luminância média dos pixels de borda deve ficar bem abaixo de 200.
+2. **Cadastre em `pessoas.py`.** Copie uma entrada existente e troque os
+   campos. O `crop` é o que dá trabalho: proporção ~1.283 (largura/altura),
+   enquadrando cabeça e ombros e cortando acima de qualquer objeto na
+   frente da pessoa. Ele pode ultrapassar a borda da foto — o gerador
+   preenche com transparência, que vira laranja do painel.
+3. **`python3 build.py <slug>`** → gera `<slug>.png` e as fatias de
+   contatos. Peça que já existe em `v1/` é **pulada com aviso**, nunca
+   sobrescrita (é por isso que gerar a 2ª pessoa não toca em `v1/comum/`).
+4. **`python3 gerar_html.py <slug>`** → monta o `.html` medindo as fatias
+   no disco. Não escreva esse HTML na mão: larguras, links e alt saem todos
+   do cadastro, e o script aborta se as fatias da linha 1 não somarem 600.
+5. Confira o card gerado com o olho antes de publicar, depois commit + push.
+
+**Limites que o gerador impõe** (ele aborta em vez de publicar peça
+cortada, porque em `v1/` isso só se conserta criando `v2/`):
+
+| Campo    | Cabe até        | Exemplo que estoura                   |
+|----------|-----------------|---------------------------------------|
+| nome     | ~23 caracteres  | `Maria Fernanda dos Santos Oliveira`  |
+| cargo    | ~24 caracteres  | `COORDENADORA DE MARKETING ESPORTIVO` |
+| e-mail   | ~191px (~23 ch) | `maria.fernanda@timeforte.com`        |
+| endereço | 22px de folga   | qualquer coisa maior que o da sede    |
+
+O e-mail é o mais apertado porque divide a linha 1 com o telefone — o
+padrão `nome.sobrenome@timeforte.com` **não cabe** no layout atual.
+
+**O que ainda falta para escalar aos ~30:** ler `pessoas.py` de um CSV/
+planilha (hoje é um dicionário editado à mão) e um laço que rode os dois
+passos para todos os slugs de uma vez. `gerar_html.py --todos` já faz isso
+para os HTMLs. O trabalho real que não dá para automatizar é o `crop` de
+cada foto, que precisa de olho humano.
 
 ## Instalar a assinatura (resumo; detalhes em docs/como-instalar.md)
 

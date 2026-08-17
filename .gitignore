@@ -12,3 +12,9 @@ __pycache__/
 *.pyc
 .DS_Store
 Thumbs.db
+
+# fotos originais dos titulares: ficam FORA do repo publico. A candid de
+# evento da Camila, por exemplo, tem outras pessoas identificaveis ao fundo
+# que nao tem nada a ver com a assinatura. O que entra em insumos/ e so o
+# recorte ja limpo, com a pessoa isolada.
+fotos/

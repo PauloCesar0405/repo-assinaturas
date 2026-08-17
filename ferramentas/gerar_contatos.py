@@ -41,6 +41,16 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
+import pessoas
+
+# o console do Windows abre em cp1252 e engasga com acento; os dados das
+# pessoas tem acento, entao forca UTF-8 na saida.
+for _f in (sys.stdout, sys.stderr):
+    try:
+        _f.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 PESSOAS = os.path.join(BASE, "..", "v1", "pessoas")
 LARANJA = (245, 134, 52)
@@ -54,10 +64,7 @@ W = WD * ESC
 PADL = 250 * ESC    # coluna alinhada ao nome do card
 PADR = 20 * ESC
 
-SLUG = "rafael-serra"   # sobrescrito por argv[1]; nomeia as pecas
-TEL = "+55 21 98124-6506"
-EMAIL = "rafael@timeforte.com"
-END = "R. Barão de Ipanema, 56/301 — Copacabana, Rio de Janeiro/RJ"
+SLUG_PADRAO = "rafael-serra"   # sobrescrito por argv[1]; os dados vêm de pessoas.py
 
 
 def fonte(arq, tam):
@@ -72,12 +79,15 @@ def par(v):
 
 
 def main():
-    slug, forcar = SLUG, False
+    slug, forcar = SLUG_PADRAO, False
     for arg in sys.argv[1:]:
         if arg == "--forcar":
             forcar = True
         else:
             slug = arg
+
+    p = pessoas.pega(slug)
+    TEL, EMAIL, END = p["tel"], p["email"], p["endereco"]
 
     f1 = fonte("Ubuntu-Regular.ttf", 14 * ESC)
     f2 = fonte("Ubuntu-Regular.ttf", 11 * ESC)

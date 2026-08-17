@@ -18,10 +18,20 @@ import math
 import os
 import sys
 
+# o console do Windows abre em cp1252 e engasga com acento; os dados das
+# pessoas tem acento, entao forca UTF-8 na saida.
+for _f in (sys.stdout, sys.stderr):
+    try:
+        _f.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFont
+
+import pessoas
 
 LARANJA = (245, 134, 52)
 PRETO = (32, 30, 30)
@@ -32,9 +42,8 @@ CARD_TOP = 6
 RAIO, BORDA = 18, 4
 X = 500
 
-# dados do titular (ao clonar para outra pessoa, troque aqui)
-NOME = "Rafael Serra"
-CARGO = "CEO"
+# os dados do titular vivem em pessoas.py; aqui só o slug default
+SLUG_PADRAO = "rafael-serra"
 
 UP = os.path.join(BASE, "insumos") + os.sep
 UBUNTU_B, UBUNTU_R = "Ubuntu-Bold.ttf", "Ubuntu-Regular.ttf"
@@ -83,7 +92,7 @@ def encaixar(im, mw, mh):
 
 
 # ------------------------------------------------------------------ card 2x
-def card_topo():
+def card_topo(p):
     """Nova abordagem para a foto: painel laranja em gradiente ocupando a
     esquerda do card, com a borda direita inclinada nos 14.7 graus do
     logotipo (medidos no glifo I). A foto vive DENTRO do painel, cortada
@@ -113,11 +122,19 @@ def card_topo():
     tela.alpha_composite(painel)
 
     # ---- foto: preenche o painel de ponta a ponta, cortes secos
-    foto = Image.open(os.path.join(BASE, "insumos", "recorte-limpo.png")).convert("RGBA").crop((132, 14, 545, 336))
+    src = Image.open(os.path.join(BASE, "insumos", p["foto"])).convert("RGBA")
+    if p.get("espelhar"):
+        src = src.transpose(Image.FLIP_LEFT_RIGHT)
+    x0, y0, x1, y1 = p["crop"]
+    # lona propria: o recorte pode ultrapassar a borda da foto (preenche
+    # com transparencia, que vira laranja do painel)
+    foto = Image.new("RGBA", (x1 - x0, y1 - y0), (0, 0, 0, 0))
+    foto.alpha_composite(src, (-x0, -y0))
     ESC = (P_BASE - P_TOP) / foto.height
     foto = foto.resize((round(foto.width * ESC), round(foto.height * ESC)), Image.LANCZOS)
     tela.alpha_composite(foto, (26, P_TOP))
 
+    NOME, CARGO = p["nome"], p["cargo"]
     d = ImageDraw.Draw(tela)
     f_nome, f_cargo = fonte(UBUNTU_B, 50), fonte(UBUNTU_B, 21)
 
@@ -234,6 +251,7 @@ def barra():
 
 
 if __name__ == "__main__":
-    card_topo()
+    slug = sys.argv[1] if len(sys.argv) > 1 and not sys.argv[1].startswith("-") else SLUG_PADRAO
+    card_topo(pessoas.pega(slug))
     faixa_marcas()
     barra()
