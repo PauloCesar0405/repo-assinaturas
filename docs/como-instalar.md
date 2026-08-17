@@ -1,13 +1,15 @@
 # Assinatura de e-mail Time Forte — instalação
 
-A assinatura é uma pilha de **4 imagens** hospedadas no GitHub Pages, montada
+A assinatura é uma pilha de **4 blocos** (o do meio fatiado em 3 imagens
+clicáveis, então 6 arquivos ao todo) hospedados no GitHub Pages, montada
 por uma `<table>` num arquivo HTML. As URLs já vêm preenchidas — não há nada
 para hospedar nem para substituir. Vá direto ao **Passo único**, abaixo.
 
 Os contatos (telefone, e-mail, endereço) são **imagem**, não texto. Isso é
 deliberado: como texto HTML eles encolhiam no celular e o dark mode clareava o
-fundo. Os cliques voltam por um `<map>` de áreas no HTML. Não "conserte" isso
-voltando para texto — ver `CLAUDE.md`, "Histórico de decisões".
+fundo (a "faixa branca"). Para continuarem clicáveis, a faixa é cortada em
+**3 fatias**, cada uma dentro do próprio link. Não "conserte" isso voltando
+para texto nem para `<map>` — ver `CLAUDE.md`, "Histórico de decisões".
 
 ## Arquivos
 
@@ -15,7 +17,9 @@ voltando para texto — ver `CLAUDE.md`, "Histórico de decisões".
 |------------------------------------------|--------------------------------------|
 | `assinaturas-html/<pessoa>.html`         | A assinatura, URLs já preenchidas    |
 | `v1/pessoas/<pessoa>.png`                | Card: foto, nome, cargo (600×145)    |
-| `v1/pessoas/<pessoa>-contatos.png`       | Contatos + mapa de cliques (600×48)  |
+| `v1/pessoas/<pessoa>-contatos-tel.png`   | Fatia telefone → WhatsApp (375×26)   |
+| `v1/pessoas/<pessoa>-contatos-email.png` | Fatia e-mail → mailto (225×26)       |
+| `v1/pessoas/<pessoa>-contatos-end.png`   | Fatia endereço → Maps (600×23)       |
 | `v1/comum/faixa-marcas.gif`              | Marcas licenciadas deslizando (600×38) |
 | `v1/comum/barra-chamada.png`             | Barra WWW.TIMEFORTE.COM (600×36)     |
 
@@ -42,16 +46,17 @@ Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
 
 ## Comportamentos esperados
 
-- **No celular, tocar nos contatos pode não abrir nada.** Alguns apps de
-  e-mail ignoram `<map>`. A imagem continua perfeita e legível (dá para
-  copiar o telefone/e-mail), só o toque não responde. É um limite conhecido
-  e aceito — o cliente escolheu "visual idêntico em todo lugar" em vez de
-  "clique garantido no celular". No computador o mapa clica os 4 destinos.
+- **Depois de instalar, teste os cliques no próprio Gmail** — mandando um
+  e-mail para você mesmo e clicando. Não basta testar abrindo o `.html` no
+  navegador: já houve uma versão que funcionava no navegador e chegava sem
+  nenhum clique no Gmail (era `<map>`, que não sobrevive ao copiar-colar).
+  Telefone abre o WhatsApp, e-mail abre o compositor, endereço abre o Maps.
+  Funciona também no celular.
 - Outlook do Windows congela o GIF da faixa no frame 1 (Flamengo visível).
 - Destinatários novos podem ver "Exibir imagens" — padrão de qualquer
   assinatura com imagem hospedada. Com as imagens bloqueadas, o texto
   alternativo carrega nome, cargo, telefone, e-mail e endereço.
-- Peso total das 4 peças ~436 KB; o HTML tem ~4 KB, longe do limite de
+- Peso total das peças ~450 KB; o HTML tem ~5 KB, longe do limite de
   clipping do Gmail.
 
 ## Onde as imagens moram
@@ -60,7 +65,7 @@ GitHub Pages, servido de `master`:
 `https://paulocesar0405.github.io/repo-assinaturas/v1/...`
 
 Para conferir se o deploy está no ar, abra o `index.html` publicado — ele
-mostra as 4 peças na ordem da assinatura.
+mostra as 6 peças na ordem da assinatura.
 
 > Pendência registrada no `CLAUDE.md`: apontar `assinaturas.timeforte.com`
 > por CNAME antes do rollout do time, para as URLs saírem de uma conta

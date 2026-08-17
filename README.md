@@ -11,7 +11,7 @@ resumo operacional.
 
 - Ao vivo: https://paulocesar0405.github.io/repo-assinaturas/
 - Branch de publicação: **`master`**
-- Verificação: abra `index.html` publicado; as 4 imagens devem aparecer,
+- Verificação: abra `index.html` publicado; as 6 imagens devem aparecer,
   a faixa de marcas animando.
 
 ## Uso rápido

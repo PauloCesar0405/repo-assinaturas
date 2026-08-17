@@ -1,35 +1,35 @@
 <!--
   ASSINATURA DE E-MAIL - TIME FORTE MARKETING ESPORTIVO
-  Rafael Serra, CEO  |  contatos como imagem + mapa de cliques
+  Rafael Serra, CEO  |  contatos como imagem fatiada, cada fatia com seu link
 
-  Por que os contatos viraram imagem: era o unico texto HTML da assinatura,
-  e texto reflui/encolhe em tela estreita - no celular ficava minusculo e o
-  dark mode clareava o fundo. Como imagem, fica identico em todo lugar e
-  imune ao dark mode. O <map> devolve os cliques:
-    telefone -> WhatsApp | e-mail -> mailto | endereco -> Maps | resto -> site
-  (No computador o mapa clica tudo; alguns apps de celular ignoram <map> -
-   nesses, os contatos ficam legiveis para copiar. Card, faixa e barra
-   permanecem imagens/GIF exatamente como antes.)
+  Por que os contatos sao imagem: era o unico texto HTML da assinatura, e
+  texto reflui/encolhe em tela estreita - no celular ficava minusculo e o
+  dark mode clareava o fundo (a "faixa branca"). Como imagem, fica identico
+  em todo lugar e imune ao dark mode.
 
-  Pecas no GitHub Pages (paulocesar0405/repo-assinaturas):
-    card, contatos, faixa (GIF animado) e barra.
+  Por que FATIAS e nao <map>: a versao anterior era uma imagem unica com
+  <map>/<area>. Isso funciona ao abrir este arquivo no navegador, mas NAO
+  sobrevive a instalacao - o fluxo e Ctrl+A/Ctrl+C na pagina renderizada e
+  colar no editor de assinatura do Gmail, e o <map> se perde no caminho: a
+  <img> chega com um usemap apontando para um mapa que nao existe mais e
+  nada fica clicavel. Era exatamente o sintoma relatado (telefone nao abria
+  o WhatsApp, e-mail nao abria o compositor, endereco nao abria o Maps).
+  Fatia + <a> em volta e o mesmo mecanismo do card e da barra, que sempre
+  funcionaram: sobrevive ao copiar-colar, ao Gmail, ao Outlook E ao celular.
 
-  ATENCAO ao duplicar este arquivo para outra pessoa - troque TAMBEM:
-    - o name/id do <map> e o usemap (usam o slug: contatos-<slug>).
-      Se duas assinaturas diferentes aparecerem no mesmo e-mail (thread
-      com resposta citada), um <map> de nome repetido faz a imagem da 2a
-      pessoa usar as areas da 1a - clica no e-mail de um, abre o de outro.
-    - as coords do <map>, que sao proprias de cada pessoa (dependem da
-      largura do telefone/e-mail renderizados).
+  Cliques:
+    linha 1 esquerda (telefone) -> WhatsApp
+    linha 1 direita  (e-mail)   -> mailto
+    linha 2          (endereco) -> Google Maps
+    card / faixa de marcas / barra -> site
 
-  COORDS: as coords abaixo correspondem ao PNG que esta publicado em v1/.
-  Conferidas por sobreposicao sobre a imagem real. NAO as substitua pelo
-  que gerar_contatos.py imprime hoje sem antes regerar o PNG: as metricas
-  de fonte mudam entre versoes do Pillow/FreeType, e o gerador atual imprime
-  valores ~4px diferentes dos que valem para a imagem publicada.
+  As fatias sao geradas por ferramentas/gerar_contatos.py, que corta no
+  vazio preto entre o telefone e o bullet e entre as duas linhas - nenhuma
+  letra e cortada. As larguras abaixo (375+225=600) e as alturas (26+23=49)
+  sao as que o gerador imprime; ao clonar para outra pessoa, use as DELA.
 -->
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
-       style="max-width: 600px; font-family: Arial, sans-serif;">
+       style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
 
     <!-- CARD -->
@@ -43,19 +43,39 @@
       </td>
     </tr>
 
-    <!-- CONTATOS (imagem + mapa de cliques) -->
+    <!-- CONTATOS (imagem fatiada; uma fatia = um link) -->
     <tr>
       <td style="font-size: 0; line-height: 0;">
-        <img src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra-contatos.png"
-             alt="Telefone +55 21 98124-6506, e-mail rafael@timeforte.com, R. Barao de Ipanema 56/301 Copacabana Rio de Janeiro"
-             width="600" height="48" border="0" usemap="#contatos-rafael-serra"
-             style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;">
-        <map name="contatos-rafael-serra" id="contatos-rafael-serra">
-          <area shape="rect" coords="248,6,373,26" href="https://wa.me/5521981246506" alt="WhatsApp" title="Falar no WhatsApp">
-          <area shape="rect" coords="386,6,532,26" href="mailto:rafael@timeforte.com" alt="E-mail" title="Enviar e-mail">
-          <area shape="rect" coords="248,26,564,42" href="https://maps.google.com/?q=R.+Bar%C3%A3o+de+Ipanema,+56,+Copacabana,+Rio+de+Janeiro" alt="Mapa" title="Ver no mapa">
-          <area shape="default" href="https://www.timeforte.com" alt="Site" title="timeforte.com">
-        </map>
+        <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
+               style="max-width: 600px; border-collapse: collapse;">
+          <tbody>
+            <tr>
+              <td width="375" style="font-size: 0; line-height: 0;">
+                <a href="https://wa.me/5521981246506" style="text-decoration: none; border: 0;"><img
+                   src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra-contatos-tel.png"
+                   alt="Telefone e WhatsApp: +55 21 98124-6506"
+                   width="375" height="26" border="0"
+                   style="display: block; border: 0; outline: none; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;"></a>
+              </td>
+              <td width="225" style="font-size: 0; line-height: 0;">
+                <a href="mailto:rafael@timeforte.com" style="text-decoration: none; border: 0;"><img
+                   src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra-contatos-email.png"
+                   alt="E-mail: rafael@timeforte.com"
+                   width="225" height="26" border="0"
+                   style="display: block; border: 0; outline: none; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;"></a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2" style="font-size: 0; line-height: 0;">
+                <a href="https://maps.google.com/?q=R.+Bar%C3%A3o+de+Ipanema,+56,+Copacabana,+Rio+de+Janeiro" style="text-decoration: none; border: 0;"><img
+                   src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra-contatos-end.png"
+                   alt="Endereco: R. Barao de Ipanema, 56/301 - Copacabana, Rio de Janeiro/RJ"
+                   width="600" height="23" border="0"
+                   style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;"></a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </td>
     </tr>
 

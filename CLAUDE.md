@@ -21,10 +21,11 @@ A assinatura é uma pilha de 4 blocos, cada um uma imagem, montados por uma
 1. **card** (`v1/pessoas/<slug>.png`, 600×145) — foto do CEO num painel
    laranja inclinado a 14,7° (o ângulo do itálico do logotipo), nome e
    cargo à direita. Link: site.
-2. **contatos** (`v1/pessoas/<slug>-contatos.png`, 600×48) — telefone,
-   e-mail e endereço. É **imagem** (não texto) de propósito: texto HTML
-   encolhia no celular e o dark mode clareava o fundo. Um `<map>` no HTML
-   devolve os cliques por região — ver abaixo.
+2. **contatos** (`v1/pessoas/<slug>-contatos-{tel,email,end}.png`, 600×49
+   somadas) — telefone, e-mail e endereço. É **imagem** (não texto) de
+   propósito: texto HTML encolhia no celular e o dark mode clareava o
+   fundo (a "faixa branca"). São **3 fatias**, cada uma dentro do próprio
+   `<a>` — ver abaixo. Links: WhatsApp, `mailto:`, Maps.
 3. **faixa de marcas** (`v1/comum/faixa-marcas.gif`, 600×38) — logotipo
    Time Forte fixo à esquerda + marcas licenciadas (Flamengo, Chelsea,
    Real Madrid, Inter, Sport, Escola de Esportes Flamengo) **deslizando**
@@ -34,26 +35,41 @@ A assinatura é uma pilha de 4 blocos, cada um uma imagem, montados por uma
 
 `comum/` = igual para todos. `pessoas/` = específico de cada titular.
 
-## Mapa de cliques (o `<map>` no HTML)
+## Cliques nos contatos (fatias, não `<map>`)
 
-A faixa de contatos é imagem, então o HTML usa `<map>` com áreas
-retangulares. As coordenadas **vêm do gerador** — `gerar_contatos.py`
-imprime um JSON com elas ao rodar. Destinos:
+A faixa de contatos é imagem, então os cliques vêm de **3 fatias**, cada
+uma numa célula de uma `<table>` aninhada, cada uma dentro do seu `<a>`:
 
-| Região   | Abre                          |
-|----------|-------------------------------|
-| telefone | WhatsApp (`wa.me/5521981246506`) |
-| e-mail   | `mailto:`                     |
-| endereço | Google Maps                   |
-| resto    | site (`shape="default"`)      |
+| Fatia                      | Tamanho | Abre                             |
+|----------------------------|---------|----------------------------------|
+| `<slug>-contatos-tel.png`  | 375×26  | WhatsApp (`wa.me/5521981246506`) |
+| `<slug>-contatos-email.png`| 225×26  | `mailto:`                        |
+| `<slug>-contatos-end.png`  | 600×23  | Google Maps                      |
 
-**Limite conhecido e aceito:** no desktop o `<map>` clica os 4 destinos;
-**alguns apps de celular ignoram `<map>`** — neles a imagem fica perfeita
-e legível, mas o toque nos contatos pode não abrir. É o preço de "visual
-idêntico em todo lugar", que foi a exigência do cliente. Não tente
-"consertar" isso voltando contatos para texto — foi exatamente o que
-quebrava no celular. Se o clique no celular virar requisito, é uma
-mudança de produto a discutir, não um bug.
+Os tamanhos são **por pessoa** (dependem da largura do telefone e do
+e-mail renderizados); `gerar_contatos.py` imprime um JSON com eles ao
+rodar. Os cortes caem no vazio preto entre o telefone e o bullet e entre
+as duas linhas — nenhuma letra é cortada.
+
+**Por que não `<map>` (não reintroduza).** A primeira versão era imagem
+única + `<map>`/`<area>`. Isso funciona ao abrir o `.html` no navegador,
+e por isso passou nos testes — mas **não sobrevive à instalação**. O
+fluxo real é `Ctrl+A`/`Ctrl+C` na página renderizada e colar no editor de
+assinatura do Gmail, e o `<map>` se perde nesse caminho: a `<img>` chega
+com um `usemap` apontando para um mapa que não existe mais e **nada fica
+clicável** — telefone não abre o WhatsApp, e-mail não abre o compositor,
+endereço não abre o Maps. O Gmail ainda reescala a imagem da assinatura,
+o que desalinharia as coordenadas de `<area>` mesmo que o mapa chegasse
+inteiro.
+
+Fatia + `<a>` é o mesmo mecanismo do card e da barra, que sempre
+funcionaram. Vantagem extra: **agora o toque funciona no celular também**
+— a limitação antiga ("alguns apps ignoram `<map>`") deixou de existir,
+porque não há mais `<map>`.
+
+Custo aceito: a área preta vazia à esquerda do telefone entra na fatia do
+telefone, então clicar ali abre o WhatsApp em vez do site. O site continua
+linkado no card, na faixa de marcas e na barra.
 
 ## Estrutura de pastas
 
@@ -65,7 +81,7 @@ assinaturas-html/          ← um .html por pessoa, URLs já preenchidas
 ferramentas/               ← a "fábrica"
   build.py                 ← regenera TODAS as peças de v1/
   gerar_card.py            ← card + faixa + barra
-  gerar_contatos.py        ← faixa de contatos (+ coordenadas do mapa)
+  gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
   fontes/                  ← Ubuntu (Bold/Regular) + Audiowide; o texto de
                              cada licença vive ao lado do .ttf (UFL 1.0 e
                              SIL OFL 1.1 exigem isso na redistribuição)
@@ -117,15 +133,13 @@ publicado ou as URLs diretas das imagens.
    `git push origin master`.
 4. **O gerador é a fonte da verdade**, não os PNGs. Para mudar o visual,
    edite `gerar_card.py`/`gerar_contatos.py` e rode `build.py` — não edite
-   PNG na mão. As coordenadas do `<map>` no HTML precisam bater com o que
-   `gerar_contatos.py` imprime; se mexer no layout dos contatos, atualize
-   o HTML com as novas coords.
+   PNG na mão. As larguras/alturas das fatias de contatos no HTML precisam
+   bater com o JSON que `gerar_contatos.py` imprime; se mexer no layout dos
+   contatos, atualize o HTML com as novas dimensões.
    **Cuidado:** as métricas de fonte mudam entre versões do Pillow/FreeType,
-   então o gerador não é reproduzível byte a byte. Hoje ele imprime coords
-   ~4px diferentes das que estão no HTML — e as do HTML é que estão certas
-   para o PNG publicado (conferidas por sobreposição). Só troque as coords
-   quando republicar o PNG junto, e PNG novo com conteúdo diferente é `v2/`,
-   nunca overwrite em `v1/`.
+   então o gerador não é reproduzível byte a byte — regerar hoje produz uma
+   imagem sutilmente diferente da publicada. Peça nova com conteúdo diferente
+   é `v2/`, nunca overwrite em `v1/` (o build já recusa sobrescrever).
 
 ## Adicionar uma nova pessoa (rumo às ~30)
 
@@ -139,16 +153,19 @@ Manualmente:
    e-mail (são strings no topo/corpo dos arquivos). Ajuste o `SLUG` em
    `build.py` — ele nomeia **as duas** peças (o card e, via argumento, a
    faixa de contatos).
-3. `python3 build.py` → gera `<slug>.png` e `<slug>-contatos.png`.
-   O build **recusa sobrescrever** qualquer peça que já exista em `v1/`
-   (inclusive as compartilhadas de `v1/comum/`). Se abortar, é a regra 1
-   funcionando — não use `--forcar` numa peça já publicada.
+3. `python3 build.py` → gera `<slug>.png` e as 3 fatias de contatos
+   (`<slug>-contatos-tel/-email/-end.png`, mais a faixa inteira para
+   compatibilidade). O build **recusa sobrescrever** qualquer peça que já
+   exista em `v1/` (inclusive as compartilhadas de `v1/comum/`). Se
+   abortar, é a regra 1 funcionando — não use `--forcar` numa peça já
+   publicada.
 4. Duplique `assinaturas-html/rafael-serra.html` para `<slug>.html`,
-   trocando: nome do card, nome do contatos, telefone (link + texto no
-   alt), e-mail, o **`name`/`id` do `<map>` e o `usemap`** (padrão
-   `contatos-<slug>` — nome repetido faz a assinatura de uma pessoa usar
-   as áreas clicáveis de outra quando as duas aparecem na mesma thread),
-   e as **coords do `<map>`** que o build imprimiu.
+   trocando: nome do card, os 3 `src` das fatias, telefone (link `wa.me`
+   + texto no alt), e-mail (link `mailto:` + alt), endereço (link do Maps
+   + alt), e as **larguras/alturas das fatias** que o build imprimiu no
+   JSON — elas mudam por pessoa, porque dependem da largura do telefone e
+   do e-mail renderizados. A soma das duas larguras da linha 1 tem que dar
+   exatamente 600.
 5. Commit + push.
 
 **Evolução recomendada (bom candidato a tarefa para o Claude Code):**
@@ -174,11 +191,20 @@ mexa na "assinatura mobile" do app, que é texto puro).
 - Começou como assinatura HTML tradicional; virou card escuro estilo
   "card de atleta" seguindo uma referência que o cliente trouxe (Destra).
 - Contatos eram texto HTML clicável até quebrarem no celular (encolhiam) e
-  no dark mode (fundo clareava). Viraram imagem + `<map>`. Trade-off aceito
-  pelo cliente: visual idêntico > clique garantido no celular.
+  no dark mode (fundo clareava — a "faixa branca"). Viraram imagem.
+- A imagem primeiro veio com `<map>`/`<area>`. Testava bem (abrindo o
+  `.html` no navegador) e falhava em produção: o `<map>` não sobrevive ao
+  `Ctrl+C`/`Ctrl+V` no editor de assinatura do Gmail, então nenhum contato
+  ficava clicável. **Lição:** testar o HTML no navegador não é teste — o
+  teste é instalar no Gmail e clicar.
+- Hoje: **3 fatias, cada uma com seu `<a>`** — o mesmo mecanismo do card e
+  da barra. Sobrevive ao copiar-colar e funciona no celular também, o que
+  o `<map>` nunca fez. "Montagem chata" (o motivo de fatias terem sido
+  descartadas antes) deixou de ser problema: o gerador corta sozinho e
+  imprime as dimensões.
 - Testadas e descartadas: GIF único (cliques não funcionam — 1 link por
-  imagem), fatias clicáveis (cada peça 1 link, mas montagem chata),
-  marca-d'água de "T" no fundo (poluía). Não reintroduza sem motivo.
+  imagem), marca-d'água de "T" no fundo (poluía). Não reintroduza sem
+  motivo.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.
