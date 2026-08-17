@@ -1,0 +1,4 @@
+# Dependências dos geradores em ferramentas/
+# Instale com: pip install -r requirements.txt
+pillow>=10
+numpy>=1.24

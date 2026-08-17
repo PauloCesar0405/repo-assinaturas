@@ -1,0 +1,14 @@
+# saídas intermediárias que o build.py move para v1/ (não versionar soltas)
+# padrões SEM barra: pegam o arquivo em qualquer pasta, inclusive na raiz —
+# rodar gerar_card.py fora de ferramentas/ deixa as 3 peças no cwd.
+card-topo.png
+faixa-marcas.gif
+barra-chamada.png
+# ...menos as publicadas, que precisam ser versionadas
+!v1/comum/faixa-marcas.gif
+!v1/comum/barra-chamada.png
+# lixo de sistema / python
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db

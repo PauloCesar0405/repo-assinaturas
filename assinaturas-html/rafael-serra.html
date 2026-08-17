@@ -1,0 +1,88 @@
+<!--
+  ASSINATURA DE E-MAIL - TIME FORTE MARKETING ESPORTIVO
+  Rafael Serra, CEO  |  contatos como imagem + mapa de cliques
+
+  Por que os contatos viraram imagem: era o unico texto HTML da assinatura,
+  e texto reflui/encolhe em tela estreita - no celular ficava minusculo e o
+  dark mode clareava o fundo. Como imagem, fica identico em todo lugar e
+  imune ao dark mode. O <map> devolve os cliques:
+    telefone -> WhatsApp | e-mail -> mailto | endereco -> Maps | resto -> site
+  (No computador o mapa clica tudo; alguns apps de celular ignoram <map> -
+   nesses, os contatos ficam legiveis para copiar. Card, faixa e barra
+   permanecem imagens/GIF exatamente como antes.)
+
+  Pecas no GitHub Pages (paulocesar0405/repo-assinaturas):
+    card, contatos, faixa (GIF animado) e barra.
+
+  ATENCAO ao duplicar este arquivo para outra pessoa - troque TAMBEM:
+    - o name/id do <map> e o usemap (usam o slug: contatos-<slug>).
+      Se duas assinaturas diferentes aparecerem no mesmo e-mail (thread
+      com resposta citada), um <map> de nome repetido faz a imagem da 2a
+      pessoa usar as areas da 1a - clica no e-mail de um, abre o de outro.
+    - as coords do <map>, que sao proprias de cada pessoa (dependem da
+      largura do telefone/e-mail renderizados).
+
+  COORDS: as coords abaixo correspondem ao PNG que esta publicado em v1/.
+  Conferidas por sobreposicao sobre a imagem real. NAO as substitua pelo
+  que gerar_contatos.py imprime hoje sem antes regerar o PNG: as metricas
+  de fonte mudam entre versoes do Pillow/FreeType, e o gerador atual imprime
+  valores ~4px diferentes dos que valem para a imagem publicada.
+-->
+<table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
+       style="max-width: 600px; font-family: Arial, sans-serif;">
+  <tbody>
+
+    <!-- CARD -->
+    <tr>
+      <td style="font-size: 0; line-height: 0;">
+        <a href="https://www.timeforte.com" style="text-decoration: none; border: 0;"><img
+           src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra.png"
+           alt="Rafael Serra, CEO - Time Forte Marketing Esportivo"
+           width="600" height="145" border="0"
+           style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 19px; color: #201E1E;"></a>
+      </td>
+    </tr>
+
+    <!-- CONTATOS (imagem + mapa de cliques) -->
+    <tr>
+      <td style="font-size: 0; line-height: 0;">
+        <img src="https://paulocesar0405.github.io/repo-assinaturas/v1/pessoas/rafael-serra-contatos.png"
+             alt="Telefone +55 21 98124-6506, e-mail rafael@timeforte.com, R. Barao de Ipanema 56/301 Copacabana Rio de Janeiro"
+             width="600" height="48" border="0" usemap="#contatos-rafael-serra"
+             style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;">
+        <map name="contatos-rafael-serra" id="contatos-rafael-serra">
+          <area shape="rect" coords="248,6,373,26" href="https://wa.me/5521981246506" alt="WhatsApp" title="Falar no WhatsApp">
+          <area shape="rect" coords="386,6,532,26" href="mailto:rafael@timeforte.com" alt="E-mail" title="Enviar e-mail">
+          <area shape="rect" coords="248,26,564,42" href="https://maps.google.com/?q=R.+Bar%C3%A3o+de+Ipanema,+56,+Copacabana,+Rio+de+Janeiro" alt="Mapa" title="Ver no mapa">
+          <area shape="default" href="https://www.timeforte.com" alt="Site" title="timeforte.com">
+        </map>
+      </td>
+    </tr>
+
+    <!-- FAIXA DE MARCAS (GIF animado) -->
+    <tr>
+      <td style="font-size: 0; line-height: 0;">
+        <a href="https://www.timeforte.com" style="text-decoration: none; border: 0;"><img
+           src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif"
+           alt="Escolas licenciadas: Flamengo, Chelsea, Real Madrid, Inter, Sport e Escola de Esportes Flamengo"
+           width="600" height="38" border="0"
+           style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 12px; line-height: 15px; color: #201E1E;"></a>
+      </td>
+    </tr>
+
+    <!-- RESPIRO -->
+    <tr><td height="8" style="height: 8px; font-size: 0; line-height: 0;">&nbsp;</td></tr>
+
+    <!-- BARRA DO SITE -->
+    <tr>
+      <td style="font-size: 0; line-height: 0;">
+        <a href="https://www.timeforte.com" style="text-decoration: none; border: 0;"><img
+           src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/barra-chamada.png"
+           alt="www.timeforte.com"
+           width="600" height="36" border="0"
+           style="display: block; border: 0; outline: none; max-width: 600px; font-family: Arial, Helvetica, sans-serif; font-size: 13px; line-height: 18px; color: #201E1E;"></a>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
