@@ -52,9 +52,11 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "camila-limpo.png",
-        # foto de evento, de perfil: recorte alinhado à direita do original,
-        # cortando acima do cartaz branco que aparece na frente dela (y>=520)
-        "crop": (200, 0, 640, 343),
+        # recorte fornecido já sem fundo (327x359). É estreita para a proporção
+        # do painel: em altura cheia precisaria de 461px de largura. O crop
+        # abaixo estoura as bordas de propósito — o gerador preenche com
+        # transparência, que vira o laranja do painel.
+        "crop": (-18, 0, 382, 312),
         "espelhar": False,
     },
 }
