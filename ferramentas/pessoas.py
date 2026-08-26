@@ -104,6 +104,22 @@ PESSOAS = {
         "crop": (41, 0, 509, 365),
         "espelhar": False,
     },
+    "thamerson-fortuna": {
+        "nome": "Thamerson Fortuna",
+        "cargo": "ANALISTA FINANCEIRO",
+        "tel": "+55 21 96718-9010",
+        "whatsapp": "5521967189010",
+        "email": "thamerson@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "thamerson-fortuna-limpo.png",
+        # recorte fornecido já sem fundo (500x500), de PERFIL olhando à
+        # esquerda: espelhar=True vira o olhar para o nome. O crop vale para
+        # a imagem JÁ espelhada; estoura os 4 lados (vira laranja) e deixa
+        # look room à direita, para onde ele olha.
+        "crop": (-88, -30, 592, 500),
+        "espelhar": True,
+    },
 }
 
 
