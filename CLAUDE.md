@@ -186,11 +186,15 @@ cortada, porque em `v1/` isso só se conserta criando `v2/`):
 |----------|-----------------|---------------------------------------|
 | nome     | ~23 caracteres  | `Maria Fernanda dos Santos Oliveira`  |
 | cargo    | ~24 caracteres  | `COORDENADORA DE MARKETING ESPORTIVO` |
-| e-mail   | ~191px (~23 ch) | `maria.fernanda@timeforte.com`        |
+| e-mail   | ~23 ch em 14px; maiores encolhem a linha 1 até 12px | e-mails de ~30+ ch (aborta mesmo no piso) |
 | endereço | 22px de folga   | qualquer coisa maior que o da sede    |
 
-O e-mail é o mais apertado porque divide a linha 1 com o telefone — o
-padrão `nome.sobrenome@timeforte.com` **não cabe** no layout atual.
+O e-mail é o mais apertado porque divide a linha 1 com o telefone. Desde
+o caso Calabria (29 caracteres, "tem que ser completo"),
+`gerar_contatos.py` **encolhe a fonte da linha 1** (14 → até 12px
+exibidos) até o e-mail caber — telefone e e-mail encolhem juntos, para a
+linha manter um corpo só — e continua abortando se nem no piso couber.
+Prefira e-mails curtos quando der: eles saem no corpo padrão de 14px.
 
 **O que ainda falta para escalar aos ~30:** ler `pessoas.py` de um CSV/
 planilha (hoje é um dicionário editado à mão) e um laço que rode os dois

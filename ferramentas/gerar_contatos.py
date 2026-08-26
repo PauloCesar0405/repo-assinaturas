@@ -89,8 +89,37 @@ def main():
     p = pessoas.pega(slug)
     TEL, EMAIL, END = p["tel"], p["email"], p["endereco"]
 
-    f1 = fonte("Ubuntu-Regular.ttf", 14 * ESC)
     f2 = fonte("Ubuntu-Regular.ttf", 11 * ESC)
+    limite = W - PADR
+    medidor = ImageDraw.Draw(Image.new("RGB", (1, 1)))
+
+    # ---- linha 1: telefone  •  e-mail. Corpo padrao de 14px exibidos,
+    # ENCOLHENDO ate o e-mail caber (1o caso: claudiocalabria@, 29 chars,
+    # que "tem que ser completo"). Telefone e e-mail encolhem juntos para a
+    # linha ficar num corpo so. Piso: 12px exibidos - abaixo disso aborta em
+    # vez de publicar peca cortada (em v1/ isso so se conserta criando v2/).
+    for tam in range(14 * ESC, 12 * ESC - 1, -1):
+        f1 = fonte("Ubuntu-Regular.ttf", tam)
+        x_tel_fim = PADL + medidor.textlength(TEL, font=f1)
+        x_bullet = x_tel_fim + 6 * ESC
+        x_email = x_bullet + medidor.textlength("•", font=f1) + 6 * ESC
+        x_email_fim = x_email + medidor.textlength(EMAIL, font=f1)
+        if x_email_fim <= limite:
+            break
+    else:
+        sys.exit(
+            f"ABORTADO: o e-mail nao cabe na faixa nem com a fonte no piso "
+            f"de 12px ({round(x_email_fim / ESC)}px de {round(limite / ESC)}px "
+            "uteis).\n  Encurte o e-mail antes de gerar."
+        )
+
+    x_end_fim = PADL + medidor.textlength(END, font=f2)
+    if x_end_fim > limite:
+        sys.exit(
+            f"ABORTADO: o endereco nao cabe na faixa "
+            f"({round(x_end_fim / ESC)}px de {round(limite / ESC)}px uteis).\n"
+            "  Encurte o texto ou reduza o corpo da fonte antes de gerar."
+        )
 
     pad_top, gap12, pad_bot = 8 * ESC, 4 * ESC, 8 * ESC
     h1 = f1.getbbox("Xg")[3]
@@ -103,33 +132,14 @@ def main():
     d.rectangle((0, 0, 2 * ESC - 1, H), fill=LARANJA)
     d.rectangle((W - 2 * ESC, 0, W - 1, H), fill=LARANJA)
 
-    # ---- linha 1: telefone  •  e-mail
     y1 = pad_top
-    x = PADL
-    d.text((x, y1), TEL, font=f1, fill=BRANCO)
-    x_tel_fim = x + d.textlength(TEL, font=f1)
-    x_bullet = x_tel_fim + 6 * ESC
+    d.text((PADL, y1), TEL, font=f1, fill=BRANCO)
     d.text((x_bullet, y1), "•", font=f1, fill=LARANJA)
-    x_email = x_bullet + d.textlength("•", font=f1) + 6 * ESC
     d.text((x_email, y1), EMAIL, font=f1, fill=BRANCO)
-    x_email_fim = x_email + d.textlength(EMAIL, font=f1)
 
     # ---- linha 2: endereco
     y2 = y1 + h1 + gap12
     d.text((PADL, y2), END, font=f2, fill=CINZA)
-    x_end_fim = PADL + d.textlength(END, font=f2)
-
-    # ---- estouro de largura: e-mail/endereco longos sairiam por cima do
-    # filete laranja. Aborta em vez de publicar uma peca cortada (em v1/ isso
-    # so se conserta criando v2/).
-    limite = W - PADR
-    for rotulo, fim in (("e-mail", x_email_fim), ("endereco", x_end_fim)):
-        if fim > limite:
-            sys.exit(
-                f"ABORTADO: o {rotulo} nao cabe na faixa "
-                f"({round(fim / ESC)}px de {round(limite / ESC)}px uteis).\n"
-                "  Encurte o texto ou reduza o corpo da fonte antes de gerar."
-            )
 
     # ---- cortes, ambos em area preta vazia (nenhuma letra e cortada)
     corte_x = par((x_tel_fim + x_bullet) / 2)   # entre o telefone e o bullet
@@ -163,6 +173,7 @@ def main():
         "salvos": salvos,
         "pulados": pulados,
         "faixa": [WD, H // ESC],
+        "fonte_linha1": tam / ESC,
     }))
 
 
