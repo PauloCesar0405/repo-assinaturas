@@ -113,12 +113,12 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "thamerson-fortuna-limpo.png",
-        # recorte fornecido já sem fundo (500x500), de PERFIL olhando à
-        # esquerda: espelhar=True vira o olhar para o nome. O crop vale para
-        # a imagem JÁ espelhada; estoura os 4 lados (vira laranja) e deixa
-        # look room à direita, para onde ele olha.
-        "crop": (-88, -30, 592, 500),
-        "espelhar": True,
+        # foto TROCADA em 26/08/2026 (mesmo dia da publicação, ninguém tinha
+        # instalado): a 1ª era um perfil de frame de vídeo, espelhado. A nova
+        # é frontal, 430x581, já sem fundo; crop de cabeça e ombros com corte
+        # seco no peito, estourando as laterais (viram laranja).
+        "crop": (-27, -6, 461, 374),
+        "espelhar": False,
     },
 }
 
