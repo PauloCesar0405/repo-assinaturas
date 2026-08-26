@@ -59,6 +59,21 @@ PESSOAS = {
         "crop": (-18, 0, 382, 312),
         "espelhar": False,
     },
+    "jose-martins": {
+        "nome": "José Martins",
+        "cargo": "PRESIDENTE E CVO",
+        "tel": "+55 21 99955-6207",
+        "whatsapp": "5521999556207",
+        "email": "zemartins@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "jose-martins-limpo.png",
+        # recorte fornecido já sem fundo (401x232). Pessoa centrada em x~189;
+        # o crop desce até a borda inferior da foto (corte seco no ombro) e
+        # deixa ~22px de respiro acima do cabelo.
+        "crop": (55, 22, 324, 232),
+        "espelhar": False,
+    },
 }
 
 
