@@ -74,6 +74,21 @@ PESSOAS = {
         "crop": (55, 22, 324, 232),
         "espelhar": False,
     },
+    "cassio-lopes": {
+        "nome": "Cássio Lopes",
+        "cargo": "DIRETOR DE EXPANSÃO",
+        "tel": "+55 21 99181-3831",
+        "whatsapp": "5521991813831",
+        "email": "cassio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "cassio-lopes-limpo.png",
+        # recorte fornecido já sem fundo (447x558). Foto tem corpo de sobra:
+        # o crop enquadra cabeça e ombros da metade de cima, com corte seco
+        # no peito, e estoura ~20px nas laterais (viram laranja do painel).
+        "crop": (-20, 12, 452, 380),
+        "espelhar": False,
+    },
 }
 
 
