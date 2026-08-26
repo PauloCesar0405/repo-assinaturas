@@ -89,6 +89,21 @@ PESSOAS = {
         "crop": (-20, 12, 452, 380),
         "espelhar": False,
     },
+    "claudio-calabria": {
+        "nome": "Claudio Calabria",
+        "cargo": "GERENTE DE PLANEJAMENTO",
+        "tel": "+55 21 99150-1531",
+        "whatsapp": "5521991501531",
+        "email": "claudiocalabria@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "claudio-calabria-limpo.png",
+        # recorte fornecido já sem fundo (545x458). Cabeça e ombros com corte
+        # seco no peito, rosto centrado em x~275. O e-mail de 29 caracteres é
+        # o 1º caso do encolhe-até-caber da linha 1 (ver gerar_contatos.py).
+        "crop": (41, 0, 509, 365),
+        "espelhar": False,
+    },
 }
 
 
