@@ -211,6 +211,23 @@ PESSOAS = {
         "crop": (-332, 80, 1413, 1440),
         "espelhar": False,
     },
+    "beatriz-leal": {
+        "nome": "Beatriz Leal da Silva",
+        "cargo": "SOCIAL MEDIA",
+        "tel": "+55 21 99948-1634",
+        "whatsapp": "5521999481634",
+        "email": "beatrizleal@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "beatriz-leal-limpo.png",
+        # foto de 18/11/2026: só veio o "-removebg-preview" (460x543), sem a
+        # original. Exceção à regra do preview porque o crop (488px de largura)
+        # não precisa de ampliação para o painel em 2x - conferido no zoom, sem
+        # borrar. Borda limpa (luminância 87), uma ilha só, usado sem retoque.
+        # A foto corta os ombros: o crop estoura as laterais.
+        "crop": (-9, 125, 479, 505),
+        "espelhar": False,
+    },
 }
 
 
