@@ -11,6 +11,9 @@ Uso:
 
 Estrutura gerada: uma <table> de 4 blocos. Os contatos são 3 fatias, cada
 uma no seu <a> - ver o porquê em gerar_contatos.py e no CLAUDE.md.
+
+Toda rodada também reescreve o index.html da raiz: a página de instalação,
+com todo mundo que tem .html, na ordem de pessoas.py.
 """
 import html
 import os
@@ -163,6 +166,121 @@ def montar(slug):
     print(f"{slug}.html  card {cw}x{ch}  fatias {tw}+{ew}={tw+ew} x{th}  end {dw}x{dh}")
 
 
+def indice():
+    """Reescreve o index.html da raiz: a pagina que o time abre para instalar
+    a propria assinatura, e que tambem serve de verificacao do deploy. Sai do
+    cadastro, na ordem de pessoas.py, e a previa de cada pessoa e a <table>
+    do proprio .html dela - o que aparece aqui e exatamente o que vai ser
+    copiado. Quem ainda nao tem .html gerado fica de fora."""
+    hexa = lambda c: "#%02X%02X%02X" % c
+    nomes, blocos = [], []
+    for slug, p in pessoas.PESSOAS.items():
+        arq = os.path.join(SAIDA, f"{slug}.html")
+        if not os.path.exists(arq):
+            continue
+        with open(arq, encoding="utf-8") as fh:
+            tabela = fh.read().split("-->", 1)[1].strip()
+        nome, cargo = html.escape(p["nome"]), html.escape(p["cargo"])
+        nomes.append(f'<li><a href="#{slug}">{nome}</a></li>')
+        blocos.append(f"""
+<article class="pessoa" id="{slug}">
+  <div class="cabeca">
+    <div><h3>{nome}</h3><span class="cargo">{cargo}</span></div>
+    <a class="botao" href="assinaturas-html/{slug}.html" target="_blank" rel="noopener">Abrir minha assinatura &rarr;</a>
+  </div>
+  <div class="previa">
+{tabela}
+  </div>
+</article>""")
+
+    pagina = f"""<!doctype html>
+<!-- GERADO por ferramentas/gerar_html.py a partir de pessoas.py - nao edite na mao. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Assinaturas Time Forte</title>
+<style>
+  :root {{ --preto: {hexa(marca.PRETO)}; --laranja: {hexa(marca.LARANJA)};
+           --laranja-escuro: {hexa(marca.LARANJA_ESCURO)}; --cinza: #6E6A69;
+           --fundo: #F4F4F5; --linha: #E4E4E7; }}
+  * {{ box-sizing: border-box; }}
+  body {{ margin: 0; background: var(--fundo); color: var(--preto);
+          font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Ubuntu, Roboto, sans-serif; }}
+  main {{ max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }}
+  header {{ border-left: 6px solid var(--laranja); padding-left: 16px; margin-bottom: 28px; }}
+  h1 {{ font-size: 28px; line-height: 1.2; margin: 0 0 4px; }}
+  header p {{ margin: 0; color: var(--cinza); }}
+  h2 {{ font-size: 18px; margin: 0 0 12px; }}
+  .caixa {{ background: #fff; border: 1px solid var(--linha); border-radius: 12px;
+            padding: 20px 24px; margin-bottom: 20px; }}
+  .caixa ol {{ margin: 0; padding-left: 22px; }}
+  .caixa li {{ margin: 6px 0; }}
+  .caixa p {{ margin: 12px 0 0; color: var(--cinza); font-size: 14px; }}
+  kbd {{ font: 13px/1 ui-monospace, Consolas, monospace; background: var(--fundo);
+         border: 1px solid #D4D4D8; border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; }}
+  .nomes {{ display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 20px; padding: 0; }}
+  .nomes a {{ display: block; padding: 6px 14px; border-radius: 999px; background: #fff;
+              border: 1px solid var(--linha); color: var(--preto); text-decoration: none; font-size: 14px; }}
+  .nomes a:hover {{ border-color: var(--laranja); }}
+  .pessoa {{ background: #fff; border: 1px solid var(--linha); border-radius: 12px;
+             padding: 20px 24px; margin-bottom: 16px; scroll-margin-top: 16px; }}
+  .pessoa:target {{ border-color: var(--laranja); box-shadow: 0 0 0 3px rgba(243, 109, 33, .25); }}
+  .cabeca {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+             gap: 12px; margin-bottom: 16px; }}
+  .cabeca h3 {{ font-size: 18px; margin: 0; }}
+  .cargo {{ color: var(--cinza); font-size: 12px; font-weight: 700; letter-spacing: .12em; }}
+  .botao {{ display: inline-block; background: var(--laranja); color: var(--preto); font-weight: 700;
+            text-decoration: none; padding: 10px 16px; border-radius: 8px; }}
+  .botao:hover {{ background: var(--laranja-escuro); color: #fff; }}
+  .previa {{ overflow-x: auto; }}
+  footer {{ color: var(--cinza); font-size: 13px; margin-top: 32px; }}
+  @media (max-width: 480px) {{ .caixa, .pessoa {{ padding: 16px; }} h1 {{ font-size: 24px; }} }}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <h1>Assinaturas de e-mail</h1>
+  <p>Time Forte Marketing Esportivo &middot; encontre seu nome e instale em 2 minutos.</p>
+</header>
+
+<section class="caixa">
+  <h2>Como instalar no Gmail</h2>
+  <ol>
+    <li>No computador, abra esta página no <b>Chrome</b> e clique em <b>Abrir minha assinatura</b>, no seu nome.</li>
+    <li>Na página que abrir, aperte <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>Ctrl</kbd>+<kbd>C</kbd> (no Mac, <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>).</li>
+    <li>No Gmail: engrenagem &rarr; <b>Ver todas as configurações</b> &rarr; aba <b>Geral</b> &rarr; <b>Assinatura</b>.</li>
+    <li>Já tinha uma assinatura da Time Forte? Apague a antiga (lixeira). Clique em <b>Criar nova</b>, dê um nome e cole com <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
+    <li>Em <b>Padrões de assinatura</b>, escolha a nova nas duas opções (novos e-mails e respostas). Role até o fim e clique em <b>Salvar alterações</b>.</li>
+    <li>Teste: mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e no endereço (abre o Maps).</li>
+  </ol>
+  <p>No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador (deixe a
+  "assinatura para celular" do app desligada). Usa Outlook? Fale com o TI: o passo a passo é outro.</p>
+</section>
+
+<ul class="nomes">
+  {chr(10).join("  " + n for n in nomes).strip()}
+</ul>
+{"".join(blocos)}
+
+<footer>
+  Versão atual das assinaturas: <b>{marca.VERSAO}</b>. Se você instalou antes de mudar a versão, apague a
+  antiga e instale de novo; os e-mails já enviados continuam certos. Esta página também é a
+  verificação do deploy: todas as assinaturas acima têm que aparecer inteiras, sem imagem
+  quebrada, com a faixa de marcas animando. Gerada por <code>ferramentas/gerar_html.py</code>.
+</footer>
+</main>
+</body>
+</html>
+"""
+    alvo = os.path.join(RAIZ, "index.html")
+    with open(alvo, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(pagina)
+    print(f"index.html  {len(blocos)} assinaturas")
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     alvos = sorted(pessoas.PESSOAS) if "--todos" in args else args
@@ -170,3 +288,5 @@ if __name__ == "__main__":
         raise SystemExit("uso: gerar_html.py <slug> | --todos")
     for s in alvos:
         montar(s)
+    # a pagina de instalacao lista todo mundo: refaz a cada rodada
+    indice()

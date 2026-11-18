@@ -12,14 +12,15 @@ resumo operacional.
 
 - Ao vivo: https://paulocesar0405.github.io/repo-assinaturas/
 - Branch de publicação: **`master`**
-- Verificação: abra `index.html` publicado; as 6 imagens devem aparecer,
-  a faixa de marcas animando.
+- A raiz publicada é a **página de instalação** (`index.html`, gerada por
+  `gerar_html.py`): todo mundo com prévia, botão e passo a passo. Também é
+  a verificação do deploy — todas as prévias inteiras, a faixa animando.
 
 ## Uso rápido
 
-Instalar a assinatura de alguém → abra `assinaturas-html/<pessoa>.html` no
-Chrome, `Ctrl+A`/`Ctrl+C`, cole no editor de assinatura do Gmail.
-Detalhes por cliente em `docs/como-instalar.md`.
+Instalar a assinatura de alguém → mande o link da página de instalação; a
+pessoa clica em "Abrir minha assinatura", `Ctrl+A`/`Ctrl+C`, e cola no
+editor de assinatura do Gmail. Detalhes por cliente em `docs/como-instalar.md`.
 
 Regenerar as imagens (após editar os geradores):
 

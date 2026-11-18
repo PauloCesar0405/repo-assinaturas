@@ -32,6 +32,11 @@ em `assinaturas-html/`).
 
 ## Passo único — instalar
 
+**Página de instalação:** https://paulocesar0405.github.io/repo-assinaturas/
+— lista todo mundo, com prévia e o passo a passo do Gmail. Mande esse link
+para o time: cada um acha o próprio nome e clica em "Abrir minha
+assinatura" (é o `assinaturas-html/<pessoa>.html` publicado).
+
 **Gmail (web):** abra `assinaturas-html/<pessoa>.html` no Chrome →
 `Ctrl+A`, `Ctrl+C` na página renderizada → Gmail → Configurações →
 Geral → Assinatura → Criar nova → `Ctrl+V` → definir como padrão para
@@ -72,8 +77,9 @@ Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
 GitHub Pages, servido de `master`:
 `https://paulocesar0405.github.io/repo-assinaturas/v2/...` (e a faixa em `.../v1/comum/`)
 
-Para conferir se o deploy está no ar, abra o `index.html` publicado — ele
-mostra as 6 peças na ordem da assinatura.
+Para conferir se o deploy está no ar, abra a página de instalação (o
+`index.html` publicado): a prévia de cada pessoa tem que aparecer inteira,
+sem imagem quebrada, com a faixa animando.
 
 > Pendência registrada no `CLAUDE.md`: apontar `assinaturas.timeforte.com`
 > por CNAME antes do rollout do time, para as URLs saírem de uma conta

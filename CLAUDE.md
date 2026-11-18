@@ -99,7 +99,8 @@ fotos/                     ← originais das fotos. FORA do git (.gitignore):
                              candid de evento costuma ter terceiros ao fundo,
                              e o repo é público. Só o recorte entra em insumos/
 docs/como-instalar.md      ← guia de instalação no Gmail/Outlook
-index.html                 ← página de verificação do deploy
+index.html                 ← página de INSTALAÇÃO do time (+ verificação do
+                             deploy). GERADA por gerar_html.py a cada rodada
 CLAUDE.md                  ← este arquivo
 ```
 
@@ -247,8 +248,11 @@ cada foto, que precisa de olho humano.
 
 ## Instalar a assinatura (resumo; detalhes em docs/como-instalar.md)
 
-O Gmail não aceita colar HTML cru. Fluxo:
-1. Abra o `.html` da pessoa **no Chrome** (as imagens carregam do Pages).
+O Gmail não aceita colar HTML cru. O time instala sozinho pela **página de
+instalação** (https://paulocesar0405.github.io/repo-assinaturas/ — o
+`index.html`, gerado do cadastro, com prévia e passo a passo). Fluxo:
+1. Abra o `.html` da pessoa **no Chrome** (botão "Abrir minha assinatura"
+   na página; as imagens carregam do Pages).
 2. `Ctrl+A`, `Ctrl+C` na página renderizada.
 3. Gmail → Configurações → Geral → Assinatura → Criar nova → `Ctrl+V` →
    definir como padrão → Salvar.
