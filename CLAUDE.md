@@ -181,6 +181,10 @@ geradores**, tudo está em `ferramentas/pessoas.py`.
    O `alpha_matting` é o que preserva os fios de cabelo — sem ele a borda
    fica serrilhada sobre o laranja. Confira se sobrou halo claro: a
    luminância média dos pixels de borda deve ficar bem abaixo de 200.
+   **Não use o PNG "-removebg-preview"** do remove.bg gratuito como
+   insumo: vem reduzido (~450px de largura) e o card sai borrado. Recorte
+   a original. Se o rembg deixar pedaços do fundo (luminária, cadeira), a
+   silhueta do preview do remove.bg serve de limite — caso Paulo Cesar.
 2. **Cadastre em `pessoas.py`.** Copie uma entrada existente e troque os
    campos. O `crop` é o que dá trabalho: proporção ~1.283 (largura/altura),
    enquadrando cabeça e ombros e cortando acima de qualquer objeto na
