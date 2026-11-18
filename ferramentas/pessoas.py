@@ -131,11 +131,11 @@ PESSOAS = {
         "foto": "paulo-cesar-limpo.png",
         # selfie (recorte fornecido já sem fundo, 433x577) com retoque leve:
         # íris azulada pelo reflexo da lente voltou ao castanho, contraste e
-        # nitidez suaves. Por ser de perto, a cabeça saía maior que a dos
-        # outros cards; o casaco foi estendido 150px para cada lado seguindo a
-        # inclinação dos ombros (733x577), o que permite este crop mais aberto
-        # com a cabeça em ~76% da altura, como nos demais.
-        "crop": (67, 51, 683, 531),
+        # nitidez suaves. Por ser de perto, a cabeça sai um pouco maior que a
+        # dos outros cards. NÃO estenda o casaco para abrir o crop: foi
+        # testado e reprovado ("horrível"). O crop estoura ~54px nas laterais
+        # (viram laranja do painel), como nos outros.
+        "crop": (-54, 55, 504, 490),
         "espelhar": False,
     },
 }
