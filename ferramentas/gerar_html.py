@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Monta assinaturas-html/<slug>.html a partir de pessoas.py e das peças que já
-estão em v1/pessoas/. Mede as fatias no disco - nada de largura digitada na
+estão em <marca.VERSAO>/pessoas/. Mede as fatias no disco - nada de largura digitada na
 mão, que era a fonte dos erros (mapa com nome repetido, coords defasadas,
 link de outra pessoa).
 
@@ -18,13 +18,16 @@ import sys
 
 from PIL import Image
 
+import marca
 import pessoas
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(BASE)
-V1 = os.path.join(RAIZ, "v1", "pessoas")
+PECAS = os.path.join(RAIZ, marca.VERSAO, "pessoas")
 SAIDA = os.path.join(RAIZ, "assinaturas-html")
-URL = "https://paulocesar0405.github.io/repo-assinaturas/v1"
+PAGES = "https://paulocesar0405.github.io/repo-assinaturas"
+URL = f"{PAGES}/{marca.VERSAO}"
+URL_FAIXA = f"{PAGES}/{'/'.join(marca.FAIXA)}"   # viva, fica em v1/ (ver marca.py)
 SITE = "https://www.timeforte.com"
 
 for _f in (sys.stdout, sys.stderr):
@@ -61,11 +64,11 @@ def imagem(src, w, h, alt, href, bloco=True):
 
 def montar(slug):
     p = pessoas.pega(slug)
-    caminho = lambda n: os.path.join(V1, n)
+    caminho = lambda n: os.path.join(PECAS, n)
     for n in (f"{slug}.png", f"{slug}-contatos-tel.png",
               f"{slug}-contatos-email.png", f"{slug}-contatos-end.png"):
         if not os.path.exists(caminho(n)):
-            raise SystemExit(f"ABORTADO: falta {n} em v1/pessoas/. "
+            raise SystemExit(f"ABORTADO: falta {n} em {marca.VERSAO}/pessoas/. "
                              f"Rode antes: python3 build.py {slug}")
 
     cw, ch = medir(caminho(f"{slug}.png"))
@@ -135,7 +138,7 @@ def montar(slug):
     <!-- FAIXA DE MARCAS (GIF animado; peca viva, troca no mesmo endereco) -->
     <tr>
       <td style="font-size: 0; line-height: 0;">
-        {imagem(f"{URL}/comum/faixa-marcas.gif", 600, 38,
+        {imagem(URL_FAIXA, 600, 38,
                 "Escolas licenciadas Time Forte", SITE)}
       </td>
     </tr>

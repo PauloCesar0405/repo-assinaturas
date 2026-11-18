@@ -31,8 +31,10 @@ git add -A && git commit -m "rebuild" && git push origin master
 
 ## Regras de ouro
 
-- **`v1/` é imutável** depois de publicado (e-mails enviados apontam para
-  essas URLs para sempre). Arte nova entra como `v2/`.
+- **Versão publicada é imutável** (e-mails enviados apontam para essas URLs
+  para sempre). A atual é `v2/` (marca nova, nov/2026; ver
+  `ferramentas/marca.py`); arte nova entra como `v3/`. A faixa de marcas é a
+  exceção: é viva e fica em `v1/comum/`.
 - Repositório **público** — só material de assinatura.
 - Push sempre para **`master`**.
 

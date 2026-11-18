@@ -16,12 +16,13 @@ Rafael Serra; a estrutura foi pensada para escalar até ~30 pessoas do time.
 ## Anatomia da assinatura (de cima para baixo)
 
 A assinatura é uma pilha de 4 blocos, cada um uma imagem, montados por uma
-`<table>` no HTML:
+`<table>` no HTML. A versão atual é a **`v2/`** (marca nova, nov/2026); a
+`v1/` continua no ar para os e-mails já enviados (ver Regras).
 
-1. **card** (`v1/pessoas/<slug>.png`, 600×145) — foto do CEO num painel
-   laranja inclinado a 14,7° (o ângulo do itálico do logotipo), nome e
-   cargo à direita. Link: site.
-2. **contatos** (`v1/pessoas/<slug>-contatos-{tel,email,end}.png`, 600×49
+1. **card** (`v2/pessoas/<slug>.png`, 600×145) — foto num painel laranja
+   inclinado a 10° (o ângulo do itálico do logotipo; era 14,7° na v1),
+   nome e cargo à direita. Link: site.
+2. **contatos** (`v2/pessoas/<slug>-contatos-{tel,email,end}.png`, 600×49
    somadas) — telefone, e-mail e endereço. É **imagem** (não texto) de
    propósito: texto HTML encolhia no celular e o dark mode clareava o
    fundo (a "faixa branca"). São **3 fatias**, cada uma dentro do próprio
@@ -30,9 +31,10 @@ A assinatura é uma pilha de 4 blocos, cada um uma imagem, montados por uma
    Time Forte fixo à esquerda + marcas licenciadas (Flamengo, Chelsea,
    Real Madrid, Inter, Sport, Escola de Esportes Flamengo, AS Roma Academy,
    Lazio Academy) **deslizando** em loop. É o único elemento animado e a
-   única peça **viva** de `v1/` — troca no mesmo endereço (ver Regras).
-   Link: site.
-4. **barra** (`v1/comum/barra-chamada.png`, 600×36) — WWW.TIMEFORTE.COM em
+   única peça **viva** — troca no mesmo endereço (ver Regras). Fica em
+   `v1/comum/` para sempre e as assinaturas de todas as versões apontam
+   para ela. Link: site.
+4. **barra** (`v2/comum/barra-chamada.png`, 600×36) — WWW.TIMEFORTE.COM em
    Audiowide. Link: site.
 
 `comum/` = igual para todos. `pessoas/` = específico de cada titular.
@@ -76,13 +78,16 @@ linkado no card, na faixa de marcas e na barra.
 ## Estrutura de pastas
 
 ```
-v1/                        ← ativos servidos pelo Pages. IMUTÁVEL (ver Regras)
-  comum/                   ← faixa-marcas.gif, barra-chamada.png
+v2/                        ← ativos ATUAIS servidos pelo Pages. IMUTÁVEL (ver Regras)
+  comum/                   ← barra-chamada.png
   pessoas/                 ← <slug>.png + <slug>-contatos{,-tel,-email,-end}.png
+v1/                        ← marca antiga; congelada, só para e-mails já enviados
+  comum/faixa-marcas.gif   ← EXCEÇÃO: a faixa viva, usada por todas as versões
 assinaturas-html/          ← um .html por pessoa, GERADO (não editar na mão)
 ferramentas/               ← a "fábrica"
   pessoas.py               ← CADASTRO: única fonte dos dados pessoais
-  build.py                 ← gera as peças de v1/ para um slug
+  marca.py                 ← cores, ângulo do itálico e VERSAO (pasta de saída)
+  build.py                 ← gera as peças da versão atual para um slug
   gerar_card.py            ← card + faixa + barra
   gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
   gerar_html.py            ← monta o .html medindo as fatias no disco
@@ -108,7 +113,8 @@ cd ferramentas
 python3 build.py
 ```
 
-Isso reescreve os 4 arquivos em `v1/`. Publicar = commit + push:
+Isso gera as peças que faltam em `v2/` (a pasta de `marca.VERSAO`) e pula
+as que já existem. Publicar = commit + push:
 
 ```bash
 git add -A
@@ -121,23 +127,29 @@ publicado ou as URLs diretas das imagens.
 
 ## Marca (Manual Time Forte)
 
-- **Cores:** PRETO `#201E1E`, LARANJA `#F58634`. Nada de `#F58733` (era um
-  tom errado herdado do template antigo).
+Os valores vivem em **`ferramentas/marca.py`** — os geradores importam de
+lá; não redeclare cor nem ângulo dentro deles.
+
+- **Cores (v2):** PRETO `#201E1E`, LARANJA `#F36D21` (fim do gradiente do
+  painel: `#D14E0F`). A v1 usava LARANJA `#F58634`. Nada de `#F58733` (era
+  um tom errado herdado do template antigo).
 - **Tipografia:** Audiowide (display, vive nos títulos/URL), Ubuntu (texto).
   Ambas embutidas nas imagens — por isso funcionam em qualquer cliente.
-- **Ângulo do itálico:** 14,7°, medido no glifo "I" do logotipo. Usado no
-  painel do card e em qualquer diagonal.
-- **Logotipo novo (nov/2026)** — `insumos/timeforte_aplicacao_preto.png`,
-  hoje só na faixa de marcas. Não bate com os dois itens acima: laranja
-  ~`#F36D21` e itálico ~10° (medidos no "F" e no "I"). Card, contatos e
-  barra seguem no `#F58634`/14,7°; adotar os valores novos neles é `v2/`.
+- **Ângulo do itálico (v2):** 10°, medido no logotipo novo
+  (`insumos/timeforte_aplicacao_preto.png`): as duas bordas do "I" dão
+  10,0°, e T, M, F, T e E batem. Usado no painel do card e em qualquer
+  diagonal. A v1 usava 14,7°, medido no logotipo antigo.
+- **Logotipo:** o novo, versão "aplicação preto" (TIME branco, FORTE
+  laranja, para fundo escuro), vive na faixa de marcas a 14px de altura.
 
 ## Regras invioláveis
 
-1. **`v1/` é imutável depois de publicado.** E-mails já enviados apontam
-   para essas URLs *para sempre*. Nunca renomeie nem apague nada dentro de
-   `v1/`. Arte nova entra como `v2/` (nova pasta), e os HTMLs passam a
-   apontar para `v2/`. Os e-mails antigos continuam válidos.
+1. **Versão publicada é imutável (`v1/`, `v2/`, ...).** E-mails já enviados
+   apontam para essas URLs *para sempre*. Nunca renomeie nem apague nada
+   dentro delas. Arte nova entra numa pasta nova (`v3/`): troque `VERSAO` em
+   `marca.py`, rode o build para todos e `gerar_html.py --todos`; os HTMLs
+   passam a apontar para a pasta nova, todo mundo reinstala, e os e-mails
+   antigos continuam válidos. Foi assim na v2 (nov/2026, marca nova).
    **Exceção: `v1/comum/faixa-marcas.gif` é viva.** A assinatura colada no
    Gmail aponta direto para essa URL do Pages (conferido em 18/11/2026 no
    "Mostrar original" de um e-mail do Rafael — o Gmail *não* trocou por
@@ -149,7 +161,10 @@ publicado ou as URLs diretas das imagens.
    imutáveis. Demora: Pages ~10 min; o proxy de imagens do Gmail e outros
    clientes podem mostrar a versão antiga por um tempo. Se algum dia uma
    instalação vier com `mail-sig` no lugar da URL do Pages, a faixa dessa
-   pessoa congela — confira no "Mostrar original".
+   pessoa congela — confira no "Mostrar original". A faixa **não** muda de
+   pasta numa versão nova: fica em `v1/comum/`, que é o endereço que as
+   instalações antigas usam, e segue sempre a marca atual (desde a v2, a
+   borda dela é `#F36D21` também nos e-mails v1 — diferença sutil, aceita).
 2. **Repositório é público** (exigência do Pages gratuito). Só material de
    assinatura aqui — nada sensível.
 3. **Branch de deploy é `master`**, não `main`. Todo push é
@@ -162,8 +177,8 @@ publicado ou as URLs diretas das imagens.
    **Cuidado:** as métricas de fonte mudam entre versões do Pillow/FreeType,
    então o gerador não é reproduzível byte a byte — regerar hoje produz uma
    imagem sutilmente diferente da publicada. Peça nova com conteúdo diferente
-   é `v2/`, nunca overwrite em `v1/` (o build já recusa sobrescrever) —
-   a faixa de marcas é a exceção da regra 1.
+   é versão nova, nunca overwrite numa publicada (o build já recusa
+   sobrescrever) — a faixa de marcas é a exceção da regra 1.
 
 ## Adicionar uma nova pessoa (rumo às ~30)
 
@@ -189,21 +204,26 @@ geradores**, tudo está em `ferramentas/pessoas.py`.
    insumo: vem reduzido (~450px de largura) e o card sai borrado. Recorte
    a original. Se o rembg deixar pedaços do fundo (luminária, cadeira), a
    silhueta do preview do remove.bg serve de limite — caso Paulo Cesar.
+   Se o `u2net` nem reconhecer o cabelo como pessoa (cabelo volumoso
+   enchendo o quadro — caso Fernanda), troque a sessão por
+   `new_session("birefnet-portrait")` (~1 GB, baixa sozinho na 1ª vez).
+   Nos dois casos, `pymatting.estimate_foreground_ml` sobre o alpha final
+   tira a cor do fundo (parede, teto) dos fios semitransparentes.
 2. **Cadastre em `pessoas.py`.** Copie uma entrada existente e troque os
    campos. O `crop` é o que dá trabalho: proporção ~1.283 (largura/altura),
    enquadrando cabeça e ombros e cortando acima de qualquer objeto na
    frente da pessoa. Ele pode ultrapassar a borda da foto — o gerador
    preenche com transparência, que vira laranja do painel.
 3. **`python3 build.py <slug>`** → gera `<slug>.png` e as fatias de
-   contatos. Peça que já existe em `v1/` é **pulada com aviso**, nunca
-   sobrescrita (é por isso que gerar a 2ª pessoa não toca em `v1/comum/`).
+   contatos. Peça que já existe em `v2/` é **pulada com aviso**, nunca
+   sobrescrita (é por isso que gerar a 2ª pessoa não toca em `v2/comum/`).
 4. **`python3 gerar_html.py <slug>`** → monta o `.html` medindo as fatias
    no disco. Não escreva esse HTML na mão: larguras, links e alt saem todos
    do cadastro, e o script aborta se as fatias da linha 1 não somarem 600.
 5. Confira o card gerado com o olho antes de publicar, depois commit + push.
 
 **Limites que o gerador impõe** (ele aborta em vez de publicar peça
-cortada, porque em `v1/` isso só se conserta criando `v2/`):
+cortada, porque publicada ela só se conserta criando uma versão nova):
 
 | Campo    | Cabe até        | Exemplo que estoura                   |
 |----------|-----------------|---------------------------------------|
@@ -267,6 +287,16 @@ mexa na "assinatura mobile" do app, que é texto puro).
   lugar do monocromático laranja com tagline. Sem a tagline é bem mais
   largo, então vai a 14px de altura (`ALT_TF` em `gerar_card.py`), o peso
   visual do antigo. O GIF caiu para ~478 KB.
+- **v2** (nov/2026, mesmo dia do logotipo): o logotipo novo trouxe laranja
+  `#F36D21` e itálico de 10°, e o Paulo decidiu adotar no resto ("reinstalar
+  é foda, mas faz"). Card, contatos e barra de todo mundo saíram em `v2/`;
+  a faixa viva ganhou a borda nova no mesmo endereço. Cor e ângulo foram
+  para `marca.py` (antes o laranja estava duplicado em dois geradores). A
+  diagonal do painel gira em torno do meio da altura (x=389), então o
+  painel mantém a área e a base encosta na borda direita da foto. Fernanda
+  Oliveira, que ainda não tinha instalado, entrou direto na v2.
+  Tipografia (Audiowide/Ubuntu) ficou como estava: o logotipo novo não usa
+  Audiowide, mas sem o manual novo não há fonte certa para pôr no lugar.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.

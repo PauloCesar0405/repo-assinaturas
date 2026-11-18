@@ -12,7 +12,7 @@ Os tamanhos acima sao os EXIBIDOS; os PNGs sao renderizados em 2x. Os
 contatos NAO sao texto HTML - texto encolhia no celular e o dark mode
 clareava o fundo. Nao reintroduza (ver CLAUDE.md, "Historico de decisoes").
 
-Manual: 1.9 PRETO #201E1E | LARANJA #F58634  -  1.10 Audiowide + Ubuntu
+Cores, angulo do italico e versao: marca.py  -  Manual 1.10: Audiowide + Ubuntu
 """
 import math
 import os
@@ -31,10 +31,10 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 import numpy as np
 from PIL import Image, ImageChops, ImageDraw, ImageFont
 
+import marca
 import pessoas
 
-LARANJA = (245, 134, 52)
-PRETO = (32, 30, 30)
+LARANJA, PRETO = marca.LARANJA, marca.PRETO
 BRANCO = (255, 255, 255)
 
 W, HG = 1200, 290          # card 2x (exibido 600x145)
@@ -101,9 +101,9 @@ def encaixar(im, mw, mh):
 # ------------------------------------------------------------------ card 2x
 def card_topo(p):
     """Nova abordagem para a foto: painel laranja em gradiente ocupando a
-    esquerda do card, com a borda direita inclinada nos 14.7 graus do
-    logotipo (medidos no glifo I). A foto vive DENTRO do painel, cortada
-    seca nas bordas - sem fades - como um card de atleta."""
+    esquerda do card, com a borda direita inclinada no angulo do italico
+    do logotipo (marca.ANG). A foto vive DENTRO do painel, cortada seca nas
+    bordas - sem fades - como um card de atleta."""
     tela = Image.new("RGBA", (W, HG), (255, 255, 255, 255))
     d = ImageDraw.Draw(tela)
 
@@ -111,17 +111,19 @@ def card_topo(p):
                         fill=PRETO + (255,), outline=LARANJA + (255,), width=BORDA)
 
     # ---- painel laranja inclinado
-    ANG = 14.7
     P_TOP, P_BASE = CARD_TOP + 4, HG - 14
-    X_TOPO = 424
-    desl = math.tan(math.radians(ANG)) * (P_BASE - P_TOP)
+    desl = math.tan(math.radians(marca.ANG)) * (P_BASE - P_TOP)
+    # a diagonal gira em torno do meio da altura (x=389, onde a de 14,7 graus
+    # do v1 passava): o painel mantem a area, e com os 10 graus do v2 a base
+    # cai em x=366, encostada na borda direita da foto (26 + 341)
+    X_TOPO = round(389 + desl / 2)
     mask = Image.new("L", (W, HG), 0)
     dm = ImageDraw.Draw(mask)
     dm.rounded_rectangle((4, P_TOP, 300, P_BASE), radius=14, fill=255)
     dm.polygon([(150, P_TOP), (X_TOPO, P_TOP),
                 (round(X_TOPO - desl), P_BASE), (150, P_BASE)], fill=255)
 
-    g0, g1 = np.array(LARANJA, np.float32), np.array((211, 102, 32), np.float32)
+    g0, g1 = np.array(LARANJA, np.float32), np.array(marca.LARANJA_ESCURO, np.float32)
     t = np.linspace(0, 1, HG)[:, None, None]
     grad = np.tile((g0 * (1 - t) + g1 * t), (1, W, 1))
     painel = Image.fromarray(grad.astype(np.uint8)).convert("RGBA")
@@ -147,7 +149,7 @@ def card_topo(p):
 
     # estouro de largura: nome composto ou cargo longo sairiam por cima da
     # borda laranja. Aborta em vez de publicar um card cortado - depois de
-    # publicado, em v1/, so se conserta criando v2/.
+    # publicado, so se conserta criando a proxima versao (marca.VERSAO).
     limite = W - BORDA - 8
     for rotulo, fim in (
         ("nome", X + d.textlength(NOME, font=f_nome)),

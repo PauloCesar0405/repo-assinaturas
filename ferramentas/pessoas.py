@@ -158,6 +158,27 @@ PESSOAS = {
         "crop": (-90, 120, 808, 820),
         "espelhar": False,
     },
+    "fernanda-oliveira": {
+        "nome": "Fernanda Oliveira",
+        "cargo": "COORDENADORA DE RH",
+        "tel": "+55 21 98498-2373",
+        "whatsapp": "5521984982373",
+        "email": "fernanda@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "fernanda-oliveira-limpo.png",
+        # selfie de 18/11/2026 (original 899x1599, com fundo). O u2net não
+        # reconhece o cabelo cacheado como pessoa; recorte com o modelo
+        # birefnet-portrait do rembg, armação transparente dos óculos tornada
+        # opaca e cor dos cachos re-estimada sem o bege do teto (pymatting).
+        # Reduzido a 674x1199. A selfie é fechada e o cabelo sai do quadro dos
+        # dois lados: qualquer crop que mostre o queixo deixa cortes retos no
+        # cabelo. A pedido do Paulo, o crop pega a foto INTEIRA (altura cheia),
+        # reduzida para caber no painel e centrada, com laranja dos lados.
+        # Primeira assinatura direto em v2/ (nunca teve v1/).
+        "crop": (-432, 0, 1106, 1199),
+        "espelhar": False,
+    },
 }
 
 
