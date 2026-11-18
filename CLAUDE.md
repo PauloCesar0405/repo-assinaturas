@@ -28,8 +28,10 @@ A assinatura é uma pilha de 4 blocos, cada um uma imagem, montados por uma
    `<a>` — ver abaixo. Links: WhatsApp, `mailto:`, Maps.
 3. **faixa de marcas** (`v1/comum/faixa-marcas.gif`, 600×38) — logotipo
    Time Forte fixo à esquerda + marcas licenciadas (Flamengo, Chelsea,
-   Real Madrid, Inter, Sport, Escola de Esportes Flamengo) **deslizando**
-   em loop. É o único elemento animado. Link: site.
+   Real Madrid, Inter, Sport, Escola de Esportes Flamengo, AS Roma Academy,
+   Lazio Academy) **deslizando** em loop. É o único elemento animado e a
+   única peça **viva** de `v1/` — troca no mesmo endereço (ver Regras).
+   Link: site.
 4. **barra** (`v1/comum/barra-chamada.png`, 600×36) — WWW.TIMEFORTE.COM em
    Audiowide. Link: site.
 
@@ -132,6 +134,18 @@ publicado ou as URLs diretas das imagens.
    para essas URLs *para sempre*. Nunca renomeie nem apague nada dentro de
    `v1/`. Arte nova entra como `v2/` (nova pasta), e os HTMLs passam a
    apontar para `v2/`. Os e-mails antigos continuam válidos.
+   **Exceção: `v1/comum/faixa-marcas.gif` é viva.** A assinatura colada no
+   Gmail aponta direto para essa URL do Pages (conferido em 18/11/2026 no
+   "Mostrar original" de um e-mail do Rafael — o Gmail *não* trocou por
+   cópia `googleusercontent.com/mail-sig/`). Então trocar o arquivo no
+   mesmo endereço atualiza a faixa de todo mundo sem reinstalar — inclusive
+   em e-mails já enviados, o que para a vitrine de marcas é o desejado.
+   Para incluir/tirar marca: edite `MARCAS` em `gerar_card.py` e rode
+   `python3 build.py --atualizar-faixa`. Card, contatos e barra continuam
+   imutáveis. Demora: Pages ~10 min; o proxy de imagens do Gmail e outros
+   clientes podem mostrar a versão antiga por um tempo. Se algum dia uma
+   instalação vier com `mail-sig` no lugar da URL do Pages, a faixa dessa
+   pessoa congela — confira no "Mostrar original".
 2. **Repositório é público** (exigência do Pages gratuito). Só material de
    assinatura aqui — nada sensível.
 3. **Branch de deploy é `master`**, não `main`. Todo push é
@@ -144,7 +158,8 @@ publicado ou as URLs diretas das imagens.
    **Cuidado:** as métricas de fonte mudam entre versões do Pillow/FreeType,
    então o gerador não é reproduzível byte a byte — regerar hoje produz uma
    imagem sutilmente diferente da publicada. Peça nova com conteúdo diferente
-   é `v2/`, nunca overwrite em `v1/` (o build já recusa sobrescrever).
+   é `v2/`, nunca overwrite em `v1/` (o build já recusa sobrescrever) —
+   a faixa de marcas é a exceção da regra 1.
 
 ## Adicionar uma nova pessoa (rumo às ~30)
 
@@ -232,6 +247,13 @@ mexa na "assinatura mobile" do app, que é texto puro).
 - Testadas e descartadas: GIF único (cliques não funcionam — 1 link por
   imagem), marca-d'água de "T" no fundo (poluía). Não reintroduza sem
   motivo.
+- Faixa de marcas virou peça viva (nov/2026, entrada de AS Roma e Lazio
+  Academy). Publicar em `v2/` obrigaria todo mundo a reinstalar a cada
+  marca nova; como a assinatura colada aponta direto para o Pages, trocar o
+  arquivo no mesmo endereço basta. O alt da faixa ficou genérico
+  ("Escolas licenciadas Time Forte") para não envelhecer. A paleta do GIF
+  subiu de 32 para 64 cores: com 32, o azul do Chelsea e o dourado da
+  Lazio saíam laranja. O GIF foi de ~340 para ~495 KB.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.
