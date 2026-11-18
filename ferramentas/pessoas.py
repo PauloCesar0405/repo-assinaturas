@@ -140,6 +140,24 @@ PESSOAS = {
         "crop": (5, 167, 702, 710),
         "espelhar": False,
     },
+    "wagner-queiroz": {
+        "nome": "Wagner de Queiroz Junior",
+        "cargo": "HEAD DESIGNER",
+        "tel": "+55 21 98457-4494",
+        "whatsapp": "5521984574494",
+        "email": "wagner@tstorm.com.br",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "wagner-queiroz-limpo.png",
+        # selfie de 18/11/2026 (original 959x1280). Recorte rembg na original
+        # com o alpha limitado pelo do remove.bg (o rembg deixava blocos de
+        # parede cinza no cabelo; o remove.bg acerta o cabelo) e a cor dos
+        # fios re-estimada sem o cinza (pymatting). Um objeto preto com LED
+        # colado no ombro direito foi cortado na linha do ombro. Reduzido a
+        # 719x960. A selfie corta os ombros: o crop estoura as laterais.
+        "crop": (-90, 120, 808, 820),
+        "espelhar": False,
+    },
 }
 
 
