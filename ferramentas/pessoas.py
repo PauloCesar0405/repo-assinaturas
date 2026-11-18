@@ -173,8 +173,9 @@ PESSOAS = {
         # opaca e cor dos cachos re-estimada sem o bege do teto (pymatting).
         # Reduzido a 674x1199. A selfie é fechada e o cabelo sai do quadro dos
         # dois lados: qualquer crop que mostre o queixo deixa cortes retos no
-        # cabelo. Este alinha o corte direito com a diagonal do painel.
-        "crop": (-115, 50, 706, 690),
+        # cabelo. A pedido do Paulo, o crop pega a foto INTEIRA (altura cheia),
+        # reduzida para caber no painel e centrada, com laranja dos lados.
+        "crop": (-432, 0, 1106, 1199),
         "espelhar": False,
     },
 }
