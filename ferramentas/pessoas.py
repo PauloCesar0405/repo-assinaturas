@@ -120,6 +120,24 @@ PESSOAS = {
         "crop": (-27, -6, 461, 374),
         "espelhar": False,
     },
+    "paulo-cesar": {
+        "nome": "Paulo Cesar",
+        "cargo": "ANALISTA DE TI",
+        "tel": "+55 21 96748-2875",
+        "whatsapp": "5521967482875",
+        "email": "paulocesar@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "paulo-cesar-limpo.png",
+        # selfie (recorte fornecido já sem fundo, 433x577) com retoque leve:
+        # íris azulada pelo reflexo da lente voltou ao castanho, contraste e
+        # nitidez suaves. Por ser de perto, a cabeça saía maior que a dos
+        # outros cards; o casaco foi estendido 150px para cada lado seguindo a
+        # inclinação dos ombros (733x577), o que permite este crop mais aberto
+        # com a cabeça em ~76% da altura, como nos demais.
+        "crop": (67, 51, 683, 531),
+        "espelhar": False,
+    },
 }
 
 
