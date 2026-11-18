@@ -120,6 +120,26 @@ PESSOAS = {
         "crop": (-27, -6, 461, 374),
         "espelhar": False,
     },
+    "paulo-cesar": {
+        "nome": "Paulo Cesar",
+        "cargo": "ANALISTA DE TI",
+        "tel": "+55 21 96748-2875",
+        "whatsapp": "5521967482875",
+        "email": "paulocesar@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "paulo-cesar-limpo.png",
+        # 2ª foto (18/11/2026 12:11, mais aberta). O PNG do remove.bg vem em
+        # resolução de "preview" (461x541) e deixou o card borrado; por isso o
+        # recorte é rembg (receita acima) na original 1366x1600, limitado pela
+        # silhueta do remove.bg (o rembg deixava luminária e cadeira), sem
+        # brilho de luminária no cabelo, com as íris (azuladas pelo filtro de
+        # luz azul da lente) de volta ao castanho, reduzido a 683x800. Nada
+        # de contraste/nitidez artificiais, e NÃO estenda o casaco para abrir
+        # o crop - os dois foram testados na 1ª foto e reprovados.
+        "crop": (5, 167, 702, 710),
+        "espelhar": False,
+    },
 }
 
 
