@@ -194,6 +194,23 @@ PESSOAS = {
         "crop": (-122, 255, 1033, 1155),
         "espelhar": False,
     },
+    "henrique-gomes": {
+        "nome": "Henrique Gomes",
+        "cargo": "GESTOR DE PROJETO",
+        "tel": "+55 21 98071-2522",
+        "whatsapp": "5521980712522",
+        "email": "henriquegones@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "henrique-gomes-limpo.png",
+        # foto de 18/11/2026: PRINT de celular (1170x2532) de uma foto com
+        # zoom, em evento - suave, camiseta preta em fundo escuro. Recorte só
+        # da faixa y 250-1750 (tira a barra de status), com birefnet-portrait,
+        # que separou a camiseta do fundo. Borda clara = o cabelo grisalho,
+        # não halo. A foto corta os ombros: o crop estoura as laterais.
+        "crop": (-332, 80, 1413, 1440),
+        "espelhar": False,
+    },
 }
 
 
