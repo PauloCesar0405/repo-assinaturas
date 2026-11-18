@@ -127,6 +127,10 @@ publicado ou as URLs diretas das imagens.
   Ambas embutidas nas imagens — por isso funcionam em qualquer cliente.
 - **Ângulo do itálico:** 14,7°, medido no glifo "I" do logotipo. Usado no
   painel do card e em qualquer diagonal.
+- **Logotipo novo (nov/2026)** — `insumos/timeforte_aplicacao_preto.png`,
+  hoje só na faixa de marcas. Não bate com os dois itens acima: laranja
+  ~`#F36D21` e itálico ~10° (medidos no "F" e no "I"). Card, contatos e
+  barra seguem no `#F58634`/14,7°; adotar os valores novos neles é `v2/`.
 
 ## Regras invioláveis
 
@@ -258,6 +262,11 @@ mexa na "assinatura mobile" do app, que é texto puro).
   ("Escolas licenciadas Time Forte") para não envelhecer. A paleta do GIF
   subiu de 32 para 64 cores: com 32, o azul do Chelsea e o dourado da
   Lazio saíam laranja. O GIF foi de ~340 para ~495 KB.
+- Logotipo novo da Time Forte (nov/2026) entrou pela faixa viva, sem
+  reinstalação: versão "aplicação preto" (TIME branco, FORTE laranja) no
+  lugar do monocromático laranja com tagline. Sem a tagline é bem mais
+  largo, então vai a 14px de altura (`ALT_TF` em `gerar_card.py`), o peso
+  visual do antigo. O GIF caiu para ~478 KB.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.

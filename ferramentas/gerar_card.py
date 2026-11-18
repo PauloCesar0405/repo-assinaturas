@@ -49,6 +49,11 @@ UP = os.path.join(BASE, "insumos") + os.sep
 UBUNTU_B, UBUNTU_R = "Ubuntu-Bold.ttf", "Ubuntu-Regular.ttf"
 AUDIOWIDE = "Audiowide-Regular.ttf"
 
+# logo novo (nov/2026), versão "aplicação preto": TIME branco, FORTE laranja,
+# feita para fundo escuro. Sem a tagline do antigo é bem mais largo; a 14px de
+# altura tem o peso visual que o antigo tinha a 20px (91x20 com tagline).
+LOGO_TF, ALT_TF = "timeforte_aplicacao_preto.png", 14
+
 MARCAS = [
     ("flamengo__1_.webp", False),
     ("chelseathebluesacademybrasil.webp", True),
@@ -184,7 +189,7 @@ def faixa_marcas(alt_logo=20, gap=32, passo=5, dur_ms=90, cores=64):
     d = ImageDraw.Draw(base)
     d.rounded_rectangle((0, -30, WB - 1, HB - 1), radius=R2,
                         fill=PRETO, outline=LARANJA, width=2)
-    tf = encaixar(abrir_marca("timeforte_monocromatico_laranja.png"), 200, 20)
+    tf = encaixar(abrir_marca(LOGO_TF), 200, ALT_TF)
     base.paste(tf, (18, (HB - tf.height) // 2 - 1), tf)
     div_x = 18 + tf.width + 16
     d.line((div_x, 9, div_x, HB - 10), fill=LARANJA, width=1)
