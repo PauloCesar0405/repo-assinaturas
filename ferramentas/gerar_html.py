@@ -173,15 +173,16 @@ def indice():
     do proprio .html dela - o que aparece aqui e exatamente o que vai ser
     copiado. Quem ainda nao tem .html gerado fica de fora."""
     hexa = lambda c: "#%02X%02X%02X" % c
-    nomes, blocos = [], []
+    nomes, blocos, exemplo = [], [], None
     for slug, p in pessoas.PESSOAS.items():
         arq = os.path.join(SAIDA, f"{slug}.html")
         if not os.path.exists(arq):
             continue
         with open(arq, encoding="utf-8") as fh:
             tabela = fh.read().split("-->", 1)[1].strip()
+        exemplo = exemplo or slug
         nome, cargo = html.escape(p["nome"]), html.escape(p["cargo"])
-        nomes.append(f'<li><a href="#{slug}">{nome}</a></li>')
+        nomes.append(f'          <li><a href="#{slug}">{nome}</a></li>')
         blocos.append(f"""
 <article class="pessoa" id="{slug}">
   <div class="cabeca">
@@ -191,7 +192,20 @@ def indice():
   <div class="previa">
 {tabela}
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>""")
+
+    # tutorial: CSS + HTML num arquivo a parte (ferramentas/tutorial.html); a
+    # assinatura de exemplo das ilustracoes e a da 1a pessoa do cadastro
+    with open(os.path.join(BASE, "tutorial.html"), encoding="utf-8") as fh:
+        css_tut, tutorial = fh.read().split("<!-- ===CORPO=== -->")
+    css_tut = css_tut.split("*/", 1)[1]   # o comentario do topo e para quem edita
+    for marca_, valor in (("__NOMES__", "\n".join(nomes)),
+                          ("__EX_CARD__", f"{URL}/pessoas/{exemplo}.png"),
+                          ("__EX_CONT__", f"{URL}/pessoas/{exemplo}-contatos.png"),
+                          ("__FAIXA__", URL_FAIXA),
+                          ("__BARRA__", f"{URL}/comum/barra-chamada.png")):
+        tutorial = tutorial.replace(marca_, valor)
 
     pagina = f"""<!doctype html>
 <!-- GERADO por ferramentas/gerar_html.py a partir de pessoas.py - nao edite na mao. -->
@@ -213,11 +227,6 @@ def indice():
   h1 {{ font-size: 28px; line-height: 1.2; margin: 0 0 4px; }}
   header p {{ margin: 0; color: var(--cinza); }}
   h2 {{ font-size: 18px; margin: 0 0 12px; }}
-  .caixa {{ background: #fff; border: 1px solid var(--linha); border-radius: 12px;
-            padding: 20px 24px; margin-bottom: 20px; }}
-  .caixa ol {{ margin: 0; padding-left: 22px; }}
-  .caixa li {{ margin: 6px 0; }}
-  .caixa p {{ margin: 12px 0 0; color: var(--cinza); font-size: 14px; }}
   kbd {{ font: 13px/1 ui-monospace, Consolas, monospace; background: var(--fundo);
          border: 1px solid #D4D4D8; border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; }}
   .nomes {{ display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 20px; padding: 0; }}
@@ -235,8 +244,10 @@ def indice():
             text-decoration: none; padding: 10px 16px; border-radius: 8px; }}
   .botao:hover {{ background: var(--laranja-escuro); color: #fff; }}
   .previa {{ overflow-x: auto; }}
+  .voltar {{ display: inline-block; margin-top: 12px; color: var(--cinza); font-size: 13px; }}
   footer {{ color: var(--cinza); font-size: 13px; margin-top: 32px; }}
-  @media (max-width: 480px) {{ .caixa, .pessoa {{ padding: 16px; }} h1 {{ font-size: 24px; }} }}
+  @media (max-width: 480px) {{ .pessoa {{ padding: 16px; }} h1 {{ font-size: 24px; }} }}
+{css_tut.strip()}
 </style>
 </head>
 <body>
@@ -246,23 +257,7 @@ def indice():
   <p>Time Forte Marketing Esportivo &middot; encontre seu nome e instale em 2 minutos.</p>
 </header>
 
-<section class="caixa">
-  <h2>Como instalar no Gmail</h2>
-  <ol>
-    <li>No computador, abra esta página no <b>Chrome</b> e clique em <b>Abrir minha assinatura</b>, no seu nome.</li>
-    <li>Na página que abrir, aperte <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>Ctrl</kbd>+<kbd>C</kbd> (no Mac, <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>).</li>
-    <li>No Gmail: engrenagem &rarr; <b>Ver todas as configurações</b> &rarr; aba <b>Geral</b> &rarr; <b>Assinatura</b>.</li>
-    <li>Já tinha uma assinatura da Time Forte? Apague a antiga (lixeira). Clique em <b>Criar nova</b>, dê um nome e cole com <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
-    <li>Em <b>Padrões de assinatura</b>, escolha a nova nas duas opções (novos e-mails e respostas). Role até o fim e clique em <b>Salvar alterações</b>.</li>
-    <li>Teste: mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e no endereço (abre o Maps).</li>
-  </ol>
-  <p>No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador (deixe a
-  "assinatura para celular" do app desligada). Usa Outlook? Fale com o TI: o passo a passo é outro.</p>
-</section>
-
-<ul class="nomes">
-  {chr(10).join("  " + n for n in nomes).strip()}
-</ul>
+{tutorial.strip()}
 {"".join(blocos)}
 
 <footer>
