@@ -90,7 +90,11 @@ ferramentas/               ← a "fábrica"
   build.py                 ← gera as peças da versão atual para um slug
   gerar_card.py            ← card + faixa + barra
   gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
-  gerar_html.py            ← monta o .html medindo as fatias no disco
+  gerar_html.py            ← monta o .html medindo as fatias no disco (+ index.html)
+  tutorial.html            ← passo a passo da página de instalação (Chrome +
+                             Gmail). As "telas" do Gmail são ilustrações em
+                             HTML, não prints: print mostraria uma caixa de
+                             entrada numa página pública
   fontes/                  ← Ubuntu (Bold/Regular) + Audiowide; o texto de
                              cada licença vive ao lado do .ttf (UFL 1.0 e
                              SIL OFL 1.1 exigem isso na redistribuição)

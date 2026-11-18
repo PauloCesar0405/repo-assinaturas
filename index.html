@@ -18,11 +18,6 @@
   h1 { font-size: 28px; line-height: 1.2; margin: 0 0 4px; }
   header p { margin: 0; color: var(--cinza); }
   h2 { font-size: 18px; margin: 0 0 12px; }
-  .caixa { background: #fff; border: 1px solid var(--linha); border-radius: 12px;
-            padding: 20px 24px; margin-bottom: 20px; }
-  .caixa ol { margin: 0; padding-left: 22px; }
-  .caixa li { margin: 6px 0; }
-  .caixa p { margin: 12px 0 0; color: var(--cinza); font-size: 14px; }
   kbd { font: 13px/1 ui-monospace, Consolas, monospace; background: var(--fundo);
          border: 1px solid #D4D4D8; border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; }
   .nomes { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 20px; padding: 0; }
@@ -40,8 +35,100 @@
             text-decoration: none; padding: 10px 16px; border-radius: 8px; }
   .botao:hover { background: var(--laranja-escuro); color: #fff; }
   .previa { overflow-x: auto; }
+  .voltar { display: inline-block; margin-top: 12px; color: var(--cinza); font-size: 13px; }
   footer { color: var(--cinza); font-size: 13px; margin-top: 32px; }
-  @media (max-width: 480px) { .caixa, .pessoa { padding: 16px; } h1 { font-size: 24px; } }
+  @media (max-width: 480px) { .pessoa { padding: 16px; } h1 { font-size: 24px; } }
+.tut { background: #fff; border: 1px solid var(--linha); border-radius: 12px;
+       padding: 20px 24px; margin-bottom: 20px; scroll-margin-top: 16px; }
+.tut > h2 { font-size: 20px; margin: 0 0 4px; }
+.tut-intro { margin: 0; color: var(--cinza); }
+.tut-parte { border-top: 1px solid var(--linha); margin-top: 18px; padding-top: 18px; }
+.tut-parte h3 { display: flex; align-items: center; gap: 10px; font-size: 17px; margin: 0 0 4px; }
+.tut-parte h3 span { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--preto);
+                     color: #fff; font-size: 14px; line-height: 28px; text-align: center; }
+.tut-passos { margin: 0; padding-left: 22px; }
+.tut-passos > li { margin: 16px 0 0; }
+.tut-passos > li > p { margin: 0; }
+.tut-passos .nomes { margin: 10px 0 0; }
+.tut-obs { margin: 18px 0 0; color: var(--cinza); font-size: 14px; }
+
+/* janelinhas ilustrativas */
+.tut-mock { max-width: 520px; margin-top: 10px; border: 1px solid #DADCE0; border-radius: 10px;
+            overflow: hidden; background: #fff; color: #202124; font: 13px/1.4 Roboto, Arial, sans-serif; }
+.tut-mock svg { display: block; width: 20px; height: 20px; fill: #444746; }
+.tut-alvo { position: relative; outline: 3px solid var(--laranja); outline-offset: 2px; border-radius: 6px; }
+.tut-alvo[data-n]::after { content: attr(data-n); position: absolute; top: -14px; right: -14px; z-index: 1;
+                           width: 22px; height: 22px; border-radius: 50%; background: var(--laranja); color: var(--preto);
+                           font: 700 12px/22px system-ui, sans-serif; text-align: center; }
+
+/* Chrome */
+.c-nav { display: flex; align-items: center; gap: 10px; padding: 8px 10px; background: #F1F3F4;
+         border-bottom: 1px solid #DADCE0; }
+.c-pontos { display: flex; gap: 5px; }
+.c-pontos i { display: block; width: 9px; height: 9px; border-radius: 50%; background: #C4C7C5; }
+.c-url { flex: 1; min-width: 0; padding: 4px 12px; border-radius: 999px; background: #fff; color: #5F6368;
+         font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.c-pagina { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding: 16px; }
+.c-assin { position: relative; width: 100%; max-width: 300px; }
+.c-assin img, .g-editor img { display: block; width: 100%; height: auto; }
+.c-assin .c-respiro, .g-editor .c-respiro { height: 4px; }
+.c-selecao { position: absolute; inset: -2px; background: rgba(51, 144, 255, .38); }
+.tut-teclas { font-weight: 700; white-space: nowrap; }
+.tut-teclas kbd { font-size: 15px; padding: 4px 8px; }
+.c-cartao { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+            gap: 12px; padding: 14px 16px; font: 15px/1.4 system-ui, sans-serif; }
+.tut-mock .botao, .tut-mock .botao:hover { cursor: default; background: var(--laranja); color: var(--preto); }
+
+/* Gmail */
+.g-top { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #F6F8FC; }
+.g-busca { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 7px 14px;
+           border-radius: 999px; background: #E9EEF6; color: #5F6368; white-space: nowrap; overflow: hidden; }
+.g-icones { display: flex; align-items: center; gap: 10px; }
+.g-ic { display: flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; }
+.g-avatar { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px;
+            border-radius: 50%; background: #5F6368; color: #fff; font-weight: 700; }
+.g-corpo { display: flex; justify-content: flex-end; padding: 0 12px 14px; background: #F6F8FC; }
+.g-painel { width: 230px; padding: 12px; border-radius: 12px; background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); }
+.g-painel-tit { font-size: 15px; margin-bottom: 10px; }
+.g-pilula { padding: 6px 12px; border: 1px solid #747775; border-radius: 999px; color: #0B57D0;
+            font-weight: 500; text-align: center; }
+.g-fantasma { height: 8px; margin-top: 10px; border-radius: 4px; background: #EEF0F3; }
+.g-fantasma.curto { width: 60%; }
+.g-titulo { padding: 12px 14px 6px; font-size: 18px; }
+.g-abas { display: flex; gap: 18px; padding: 0 14px; border-bottom: 1px solid #DADCE0;
+          white-space: nowrap; overflow: hidden; }
+.g-aba { padding: 8px 2px; color: #0B57D0; }
+.g-aba.ativa { color: #202124; font-weight: 700; }
+.g-cfg { display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 16px 14px; }
+.g-rotulo small { color: #5F6368; }
+.g-lista { border: 1px solid #DADCE0; border-radius: 4px; }
+.g-item { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 8px; }
+.g-item.sel { background: #D3E3FD; }
+.g-item .tut-alvo { border-radius: 50%; }
+.g-criar { display: inline-block; margin-top: 10px; }
+.g-dialogo { max-width: 250px; margin: 0 14px 16px auto; padding: 14px; border-radius: 12px;
+             box-shadow: 0 2px 8px rgba(0, 0, 0, .25); }
+.g-dialogo-tit { font-size: 15px; margin-bottom: 10px; }
+.g-input { margin-bottom: 12px; padding: 4px 2px; border-bottom: 2px solid #0B57D0; }
+.g-acoes { display: flex; justify-content: flex-end; gap: 14px; color: #0B57D0; font-weight: 500; }
+.g-acoes span { padding: 3px 8px; }
+.g-editor { border: 1px solid #DADCE0; border-radius: 4px; }
+.g-ferr { display: flex; gap: 12px; padding: 5px 8px; border-bottom: 1px solid #DADCE0; color: #5F6368;
+          font-size: 12px; white-space: nowrap; overflow: hidden; }
+.g-editor-cont { max-width: 260px; padding: 10px; }
+.g-padroes { padding: 16px 14px; }
+.g-padroes-tit { font-weight: 700; margin-bottom: 12px; }
+.g-sels { display: flex; flex-wrap: wrap; gap: 18px 28px; }
+.g-sel-rot { margin-bottom: 14px; color: #5F6368; font-size: 11px; letter-spacing: .04em; }
+.g-sel { display: inline-flex; justify-content: space-between; gap: 24px; min-width: 150px; padding: 5px 10px;
+         border: 1px solid #747775; border-radius: 4px; }
+.g-rodape { display: flex; justify-content: center; gap: 12px; padding: 18px 14px; }
+.g-btn { padding: 6px 14px; border: 1px solid #747775; border-radius: 4px; }
+
+@media (max-width: 480px) {
+  .tut { padding: 16px; }
+  .g-cfg { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -51,31 +138,149 @@
   <p>Time Forte Marketing Esportivo &middot; encontre seu nome e instale em 2 minutos.</p>
 </header>
 
-<section class="caixa">
-  <h2>Como instalar no Gmail</h2>
-  <ol>
-    <li>No computador, abra esta página no <b>Chrome</b> e clique em <b>Abrir minha assinatura</b>, no seu nome.</li>
-    <li>Na página que abrir, aperte <kbd>Ctrl</kbd>+<kbd>A</kbd> e depois <kbd>Ctrl</kbd>+<kbd>C</kbd> (no Mac, <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>).</li>
-    <li>No Gmail: engrenagem &rarr; <b>Ver todas as configurações</b> &rarr; aba <b>Geral</b> &rarr; <b>Assinatura</b>.</li>
-    <li>Já tinha uma assinatura da Time Forte? Apague a antiga (lixeira). Clique em <b>Criar nova</b>, dê um nome e cole com <kbd>Ctrl</kbd>+<kbd>V</kbd>.</li>
-    <li>Em <b>Padrões de assinatura</b>, escolha a nova nas duas opções (novos e-mails e respostas). Role até o fim e clique em <b>Salvar alterações</b>.</li>
-    <li>Teste: mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e no endereço (abre o Maps).</li>
-  </ol>
-  <p>No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador (deixe a
-  "assinatura para celular" do app desligada). Usa Outlook? Fale com o TI: o passo a passo é outro.</p>
-</section>
+<section class="tut" id="como-instalar">
+  <h2>Como instalar sua assinatura</h2>
+  <p class="tut-intro">São duas partes, no computador: primeiro você <b>copia</b> a sua assinatura
+  no Chrome, depois <b>cola</b> no Gmail. Leva uns 2 minutos.</p>
 
-<ul class="nomes">
-  <li><a href="#rafael-serra">Rafael Serra</a></li>
-  <li><a href="#camila-melo">Camila Melo</a></li>
-  <li><a href="#jose-martins">José Martins</a></li>
-  <li><a href="#cassio-lopes">Cássio Lopes</a></li>
-  <li><a href="#claudio-calabria">Claudio Calabria</a></li>
-  <li><a href="#thamerson-fortuna">Thamerson Fortuna</a></li>
-  <li><a href="#paulo-cesar">Paulo Cesar</a></li>
-  <li><a href="#wagner-queiroz">Wagner de Queiroz Junior</a></li>
-  <li><a href="#fernanda-oliveira">Fernanda Oliveira</a></li>
-</ul>
+  <div class="tut-parte">
+    <h3><span>1</span> No Chrome: copiar a sua assinatura</h3>
+    <ol class="tut-passos">
+      <li>
+        <p><b>Clique no seu nome.</b> A página desce até o seu cartão: lá, clique no botão laranja
+        <b>Abrir minha assinatura</b>. Se o seu nome não está aqui, a sua ainda não ficou pronta.</p>
+        <ul class="nomes">
+          <li><a href="#rafael-serra">Rafael Serra</a></li>
+          <li><a href="#camila-melo">Camila Melo</a></li>
+          <li><a href="#jose-martins">José Martins</a></li>
+          <li><a href="#cassio-lopes">Cássio Lopes</a></li>
+          <li><a href="#claudio-calabria">Claudio Calabria</a></li>
+          <li><a href="#thamerson-fortuna">Thamerson Fortuna</a></li>
+          <li><a href="#paulo-cesar">Paulo Cesar</a></li>
+          <li><a href="#wagner-queiroz">Wagner de Queiroz Junior</a></li>
+          <li><a href="#fernanda-oliveira">Fernanda Oliveira</a></li>
+        </ul>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="c-cartao"><div><b>Seu Nome</b><br><span class="cargo">SEU CARGO</span></div>
+            <span class="botao tut-alvo" data-n="1">Abrir minha assinatura &rarr;</span></div>
+        </div>
+      </li>
+      <li>
+        <p>Abre uma página só com a sua assinatura. Aperte <kbd>Ctrl</kbd> + <kbd>A</kbd>:
+        a assinatura inteira fica <b>azul</b> (selecionada).</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="c-nav"><span class="c-pontos"><i></i><i></i><i></i></span>
+            <span class="c-url">paulocesar0405.github.io/repo-assinaturas/assinaturas-html/seu-nome.html</span></div>
+          <div class="c-pagina">
+            <div class="c-assin">
+              <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
+              <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
+              <span class="c-selecao"></span>
+            </div>
+            <span class="tut-teclas"><kbd>Ctrl</kbd> + <kbd>A</kbd></span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Aperte <kbd>Ctrl</kbd> + <kbd>C</kbd> para copiar. Pronto: agora vá para o Gmail.
+        (No Mac, use <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>.)</p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="tut-parte">
+    <h3><span>2</span> No Gmail: colar e salvar</h3>
+    <ol class="tut-passos">
+      <li>
+        <p>Clique na <b>engrenagem</b>, no canto de cima à direita, e depois em
+        <b>Ver todas as configurações</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-top">
+            <div class="g-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar e-mail</div>
+            <div class="g-icones">
+              <span class="g-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+              <span class="g-avatar">V</span>
+            </div>
+          </div>
+          <div class="g-corpo">
+            <div class="g-painel">
+              <div class="g-painel-tit">Configurações rápidas</div>
+              <div class="g-pilula tut-alvo" data-n="2">Ver todas as configurações</div>
+              <div class="g-fantasma"></div><div class="g-fantasma curto"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Fique na aba <b>Geral</b> e desça a página até <b>Assinatura</b>. Se tiver uma assinatura
+        antiga da Time Forte, apague (<b>lixeira</b>). Clique em <b>+ Criar nova</b>, escreva um nome
+        (ex.: <i>Time Forte</i>) e clique em <b>Criar</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-titulo">Configurações</div>
+          <div class="g-abas"><span class="g-aba ativa">Geral</span><span class="g-aba">Marcadores</span>
+            <span class="g-aba">Caixa de entrada</span><span class="g-aba">Contas e importação</span>
+            <span class="g-aba">Filtros</span></div>
+          <div class="g-cfg">
+            <div class="g-rotulo"><b>Assinatura:</b><br><small>(anexada ao final de todas as mensagens enviadas)</small></div>
+            <div>
+              <div class="g-lista"><div class="g-item"><span>Assinatura antiga</span>
+                <span class="tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></span></div></div>
+              <span class="g-pilula g-criar tut-alvo" data-n="2">+ Criar nova</span>
+            </div>
+          </div>
+          <div class="g-dialogo">
+            <div class="g-dialogo-tit">Nomear nova assinatura</div>
+            <div class="g-input">Time Forte</div>
+            <div class="g-acoes"><span>Cancelar</span><span class="tut-alvo" data-n="3">Criar</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Clique dentro da caixa grande ao lado do nome e cole com <kbd>Ctrl</kbd> + <kbd>V</kbd>.
+        A assinatura aparece com as imagens.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-cfg">
+            <div class="g-lista"><div class="g-item sel">Time Forte</div></div>
+            <div class="g-editor tut-alvo" data-n="1">
+              <div class="g-ferr"><span>Sans Serif &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
+              <div class="g-editor-cont">
+                <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
+                <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Logo abaixo, em <b>Padrões de assinatura</b>, escolha a nova nas <b>duas</b> caixas.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-padroes">
+            <div class="g-padroes-tit">Padrões de assinatura</div>
+            <div class="g-sels">
+              <div><div class="g-sel-rot">PARA USO EM NOVOS E-MAILS</div>
+                <span class="g-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
+              <div><div class="g-sel-rot">PARA USO EM RESPOSTAS/ENCAMINHAMENTOS</div>
+                <span class="g-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Desça até o <b>fim da página</b> e clique em <b>Salvar alterações</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-rodape"><span class="g-btn tut-alvo" data-n="1">Salvar alterações</span><span class="g-btn">Cancelar</span></div>
+        </div>
+      </li>
+      <li>
+        <p><b>Teste:</b> mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp),
+        no e-mail e no endereço (abre o Maps).</p>
+      </li>
+    </ol>
+    <p class="tut-obs">As telas acima são ilustrações; o seu Gmail pode estar com outras cores.
+    No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador (deixe a
+    "assinatura para celular" do app desligada). Usa Outlook? Fale com o TI: o passo a passo é outro.</p>
+  </div>
+</section>
 
 <article class="pessoa" id="rafael-serra">
   <div class="cabeca">
@@ -162,6 +367,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="camila-melo">
   <div class="cabeca">
@@ -248,6 +454,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="jose-martins">
   <div class="cabeca">
@@ -334,6 +541,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="cassio-lopes">
   <div class="cabeca">
@@ -420,6 +628,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="claudio-calabria">
   <div class="cabeca">
@@ -506,6 +715,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="thamerson-fortuna">
   <div class="cabeca">
@@ -592,6 +802,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="paulo-cesar">
   <div class="cabeca">
@@ -678,6 +889,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="wagner-queiroz">
   <div class="cabeca">
@@ -764,6 +976,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 <article class="pessoa" id="fernanda-oliveira">
   <div class="cabeca">
@@ -850,6 +1063,7 @@
   </tbody>
 </table>
   </div>
+  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
 </article>
 
 <footer>
