@@ -56,6 +56,8 @@ MARCAS = [
     ("inter.webp", False),
     ("sport.webp", False),
     ("eeflamengo.webp", False),
+    ("asroma.png", False),
+    ("lazio.png", False),
 ]
 
 
@@ -164,7 +166,9 @@ def card_topo(p):
 
 
 # ------------------------------------------------------- faixa deslizante 1x
-def faixa_marcas(alt_logo=20, gap=32, passo=5, dur_ms=90, cores=32):
+def faixa_marcas(alt_logo=20, gap=32, passo=5, dur_ms=90, cores=64):
+    # 64 cores: com 32 a paleta, dominada por preto/laranja/branco, puxava o
+    # azul do Chelsea e o dourado da Lazio para laranja.
     WB, HB = 600, 38
     R2 = 9
 
