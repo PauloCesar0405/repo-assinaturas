@@ -96,6 +96,12 @@ def mover(origem, destino, compartilhada=False, flag="--forcar-comum"):
     aviso = "  SOBRESCREVENDO" if os.path.exists(destino) else ""
     shutil.move(org, destino)
     print(f"    -> {os.path.relpath(destino, RAIZ)}{aviso}")
+    # o .gitignore ignora as saidas soltas do gerador; peca publicada que cair
+    # nele fica fora do commit SEM aviso do git - foi o que pos a barra da v2
+    # no ar quebrada (404). Retorno 0 do check-ignore = ignorado.
+    if subprocess.run(["git", "check-ignore", "-q", destino], cwd=RAIZ).returncode == 0:
+        print(f"    ATENCAO: {os.path.relpath(destino, RAIZ)} esta no .gitignore e "
+              "NAO vai para o commit - acrescente uma excecao (!) la")
 
 
 def main():

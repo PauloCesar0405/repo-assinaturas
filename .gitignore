@@ -4,9 +4,11 @@
 card-topo.png
 faixa-marcas.gif
 barra-chamada.png
-# ...menos as publicadas, que precisam ser versionadas
+# ...menos as publicadas, que precisam ser versionadas. A barra vale para
+# TODA versao (v1/, v2/, ...): sem o curinga, a da v2 ficou fora do commit
+# e foi ao ar quebrada (404) em 18/11/2026.
 !v1/comum/faixa-marcas.gif
-!v1/comum/barra-chamada.png
+!/v[0-9]*/comum/barra-chamada.png
 # lixo de sistema / python
 __pycache__/
 *.pyc
