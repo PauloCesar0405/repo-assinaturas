@@ -167,16 +167,14 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "fernanda-oliveira-limpo.png",
-        # selfie de 18/11/2026 (original 899x1599, com fundo). O u2net não
-        # reconhece o cabelo cacheado como pessoa; recorte com o modelo
-        # birefnet-portrait do rembg, armação transparente dos óculos tornada
-        # opaca e cor dos cachos re-estimada sem o bege do teto (pymatting).
-        # Reduzido a 674x1199. A selfie é fechada e o cabelo sai do quadro dos
-        # dois lados: qualquer crop que mostre o queixo deixa cortes retos no
-        # cabelo. A pedido do Paulo, o crop pega a foto INTEIRA (altura cheia),
-        # reduzida para caber no painel e centrada, com laranja dos lados.
+        # 2ª foto (18/11/2026 16:31, 760x666): a mesma selfie com o quadro
+        # ampliado - as laterais (fim do cabelo, mão, ombro) parecem geradas
+        # por IA. A 1ª, fechada, deixava cortes retos no cabelo em qualquer
+        # crop. Recorte com o birefnet-portrait do rembg (o u2net não vê o
+        # cabelo cacheado como pessoa), armação dos óculos tornada opaca e
+        # cor dos cachos re-estimada sem o fundo (pymatting), sem redução.
         # Primeira assinatura direto em v2/ (nunca teve v1/).
-        "crop": (-432, 0, 1106, 1199),
+        "crop": (-10, 15, 670, 545),
         "espelhar": False,
     },
 }
