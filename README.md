@@ -12,14 +12,15 @@ resumo operacional.
 
 - Ao vivo: https://paulocesar0405.github.io/repo-assinaturas/
 - Branch de publicação: **`master`**
-- Verificação: abra `index.html` publicado; as 6 imagens devem aparecer,
-  a faixa de marcas animando.
+- A raiz publicada é a **página de instalação** (`index.html`, gerada por
+  `gerar_html.py`): todo mundo com prévia, botão e passo a passo. Também é
+  a verificação do deploy — todas as prévias inteiras, a faixa animando.
 
 ## Uso rápido
 
-Instalar a assinatura de alguém → abra `assinaturas-html/<pessoa>.html` no
-Chrome, `Ctrl+A`/`Ctrl+C`, cole no editor de assinatura do Gmail.
-Detalhes por cliente em `docs/como-instalar.md`.
+Instalar a assinatura de alguém → mande o link da página de instalação; a
+pessoa clica em "Abrir minha assinatura", `Ctrl+A`/`Ctrl+C`, e cola no
+editor de assinatura do Gmail. Detalhes por cliente em `docs/como-instalar.md`.
 
 Regenerar as imagens (após editar os geradores):
 
@@ -31,8 +32,10 @@ git add -A && git commit -m "rebuild" && git push origin master
 
 ## Regras de ouro
 
-- **`v1/` é imutável** depois de publicado (e-mails enviados apontam para
-  essas URLs para sempre). Arte nova entra como `v2/`.
+- **Versão publicada é imutável** (e-mails enviados apontam para essas URLs
+  para sempre). A atual é `v2/` (marca nova, nov/2026; ver
+  `ferramentas/marca.py`); arte nova entra como `v3/`. A faixa de marcas é a
+  exceção: é viva e fica em `v1/comum/`.
 - Repositório **público** — só material de assinatura.
 - Push sempre para **`master`**.
 

@@ -16,16 +16,26 @@ para texto nem para `<map>` — ver `CLAUDE.md`, "Histórico de decisões".
 | Arquivo                                  | O que é                              |
 |------------------------------------------|--------------------------------------|
 | `assinaturas-html/<pessoa>.html`         | A assinatura, URLs já preenchidas    |
-| `v1/pessoas/<pessoa>.png`                | Card: foto, nome, cargo (600×145)    |
-| `v1/pessoas/<pessoa>-contatos-tel.png`   | Fatia telefone → WhatsApp (375×26)   |
-| `v1/pessoas/<pessoa>-contatos-email.png` | Fatia e-mail → mailto (225×26)       |
-| `v1/pessoas/<pessoa>-contatos-end.png`   | Fatia endereço → Maps (600×23)       |
-| `v1/comum/faixa-marcas.gif`              | Marcas licenciadas deslizando (600×38) |
-| `v1/comum/barra-chamada.png`             | Barra WWW.TIMEFORTE.COM (600×36)     |
+| `v2/pessoas/<pessoa>.png`                | Card: foto, nome, cargo (600×145)    |
+| `v2/pessoas/<pessoa>-contatos-tel.png`   | Fatia telefone → WhatsApp (375×26)   |
+| `v2/pessoas/<pessoa>-contatos-email.png` | Fatia e-mail → mailto (225×26)       |
+| `v2/pessoas/<pessoa>-contatos-end.png`   | Fatia endereço → Maps (600×23)       |
+| `v1/comum/faixa-marcas.gif`              | Marcas licenciadas deslizando (600×38) — viva, vale para todas as versões |
+| `v2/comum/barra-chamada.png`             | Barra WWW.TIMEFORTE.COM (600×36)     |
 
-Hoje existe uma pessoa: `rafael-serra`.
+A versão atual é a **v2** (marca nova de nov/2026). Quem instalou uma
+assinatura v1 precisa **reinstalar** pelo HTML atual: card, contatos e barra
+mudaram de endereço. Os e-mails já enviados com a v1 continuam funcionando.
+
+Quem já tem assinatura: ver `ferramentas/pessoas.py` (um `.html` por pessoa
+em `assinaturas-html/`).
 
 ## Passo único — instalar
+
+**Página de instalação:** https://paulocesar0405.github.io/repo-assinaturas/
+— lista todo mundo, com prévia e o passo a passo do Gmail. Mande esse link
+para o time: cada um acha o próprio nome e clica em "Abrir minha
+assinatura" (é o `assinaturas-html/<pessoa>.html` publicado).
 
 **Gmail (web):** abra `assinaturas-html/<pessoa>.html` no Chrome →
 `Ctrl+A`, `Ctrl+C` na página renderizada → Gmail → Configurações →
@@ -65,15 +75,17 @@ Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
 ## Onde as imagens moram
 
 GitHub Pages, servido de `master`:
-`https://paulocesar0405.github.io/repo-assinaturas/v1/...`
+`https://paulocesar0405.github.io/repo-assinaturas/v2/...` (e a faixa em `.../v1/comum/`)
 
-Para conferir se o deploy está no ar, abra o `index.html` publicado — ele
-mostra as 6 peças na ordem da assinatura.
+Para conferir se o deploy está no ar, abra a página de instalação (o
+`index.html` publicado): a prévia de cada pessoa tem que aparecer inteira,
+sem imagem quebrada, com a faixa animando.
 
 > Pendência registrada no `CLAUDE.md`: apontar `assinaturas.timeforte.com`
 > por CNAME antes do rollout do time, para as URLs saírem de uma conta
-> pessoal. As URLs de `v1/` são imutáveis, então essa migração precisa
-> acontecer **antes** de a assinatura ser distribuída em escala.
+> pessoal. As URLs publicadas são imutáveis, então essa migração precisa
+> acontecer **antes** de a assinatura ser distribuída em escala — ou junto
+> de uma reinstalação geral, como a da v2.
 
 ## Nota histórica
 

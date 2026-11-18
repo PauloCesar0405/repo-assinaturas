@@ -17,7 +17,7 @@ POR QUE FATIAS, e nao um <map>:
   copiar-colar, ao Gmail, ao Outlook e ao celular - inclusive onde <map> e
   ignorado.
 
-Saidas em v1/pessoas/ (todas 2x):
+Saidas em <marca.VERSAO>/pessoas/ (todas 2x):
   <slug>-contatos.png        faixa inteira (compatibilidade; nao usada no HTML novo)
   <slug>-contatos-tel.png    linha 1, esquerda  -> WhatsApp
   <slug>-contatos-email.png  linha 1, direita   -> mailto
@@ -32,7 +32,7 @@ entre os contatos e a faixa de marcas.
 Uso:
     python3 gerar_contatos.py [slug] [--forcar]
 
-Sem --forcar, arquivo que ja existe em v1/ e PULADO, nunca sobrescrito
+Sem --forcar, arquivo que ja existe em <marca.VERSAO>/ e PULADO, nunca sobrescrito
 (regra 1 do CLAUDE.md: e-mails ja enviados apontam para essas URLs).
 """
 import json
@@ -41,6 +41,7 @@ import sys
 
 from PIL import Image, ImageDraw, ImageFont
 
+import marca
 import pessoas
 
 # o console do Windows abre em cp1252 e engasga com acento; os dados das
@@ -52,9 +53,8 @@ for _f in (sys.stdout, sys.stderr):
         pass
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-PESSOAS = os.path.join(BASE, "..", "v1", "pessoas")
-LARANJA = (245, 134, 52)
-PRETO = (32, 30, 30)
+PESSOAS = os.path.join(BASE, "..", marca.VERSAO, "pessoas")
+LARANJA, PRETO = marca.LARANJA, marca.PRETO
 BRANCO = (255, 255, 255)
 CINZA = (176, 171, 169)
 
@@ -97,7 +97,7 @@ def main():
     # ENCOLHENDO ate o e-mail caber (1o caso: claudiocalabria@, 29 chars,
     # que "tem que ser completo"). Telefone e e-mail encolhem juntos para a
     # linha ficar num corpo so. Piso: 12px exibidos - abaixo disso aborta em
-    # vez de publicar peca cortada (em v1/ isso so se conserta criando v2/).
+    # vez de publicar peca cortada (publicada, so se conserta numa versao nova).
     for tam in range(14 * ESC, 12 * ESC - 1, -1):
         f1 = fonte("Ubuntu-Regular.ttf", tam)
         x_tel_fim = PADL + medidor.textlength(TEL, font=f1)
@@ -163,7 +163,7 @@ def main():
 
     if pulados:
         print(
-            "AVISO: peca(s) ja existente(s) em v1/ NAO foram sobrescritas "
+            f"AVISO: peca(s) ja existente(s) em {marca.VERSAO}/ NAO foram sobrescritas "
             f"(regra 1): {', '.join(pulados)}",
             file=sys.stderr,
         )
