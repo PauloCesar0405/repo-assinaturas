@@ -8,7 +8,7 @@ Roda os dois geradores e copia a saida para os lugares certos de v1/:
 
 Uso:
     cd ferramentas
-    python3 build.py <slug> [--forcar] [--forcar-comum]
+    python3 build.py <slug> [--forcar] [--forcar-comum] [--atualizar-faixa]
 
 O slug tem que existir em pessoas.py, que e onde moram TODOS os dados
 pessoais (nome, cargo, telefone, e-mail, foto, recorte). Sem slug, gera
@@ -21,6 +21,12 @@ nao mexe nas pecas compartilhadas de v1/comum/.
 --forcar libera sobrescrever as pecas DA PESSOA (use so enquanto ninguem
 instalou a assinatura dela). As de v1/comum/ exigem --forcar-comum a parte,
 porque troca-las mexe na assinatura de todo mundo que ja instalou.
+
+--atualizar-faixa troca SO a faixa de marcas, no mesmo endereco. Ela e a
+unica peca viva de v1/ (excecao da regra 1): e assim que uma marca nova
+chega a todas as assinaturas ja instaladas, sem ninguem reinstalar. Para
+incluir ou tirar marca, edite MARCAS em gerar_card.py e rode:
+    python3 build.py --atualizar-faixa
 
 Depois: git add -A && git commit -m "rebuild" && git push origin master
 """
@@ -57,7 +63,7 @@ def rodar(script, *args):
     print("   ", r.stdout.strip().replace("\n", "\n    "))
 
 
-def mover(origem, destino, compartilhada=False):
+def mover(origem, destino, compartilhada=False, flag="--forcar-comum"):
     """Move para v1/ NUNCA sobrescrevendo por acidente: peca publicada e
     imutavel (regra 1 do CLAUDE.md - e-mails ja enviados apontam para essa
     URL). Peca que ja existe e PULADA com aviso, nao sobrescrita nem tratada
@@ -69,11 +75,15 @@ def mover(origem, destino, compartilhada=False):
     nao e reproduzivel byte a byte (metricas de fonte mudam entre versoes do
     Pillow), regerar a faixa ou a barra troca a arte dentro da assinatura de
     TODO MUNDO que ja instalou. Se a arte mudou de proposito, o certo e
-    publicar em v2/, nao forcar."""
+    publicar em v2/, nao forcar.
+
+    A excecao e a faixa de marcas, liberada pela propria flag
+    (--atualizar-faixa): trocar a arte de todo mundo e justamente o objetivo
+    dela."""
     org = os.path.join(FER, origem)
-    liberado = ("--forcar-comum" in sys.argv) if compartilhada else ("--forcar" in sys.argv)
+    liberado = (flag in sys.argv) if compartilhada else ("--forcar" in sys.argv)
     if os.path.exists(destino) and not liberado:
-        motivo = "compartilhada, precisa de --forcar-comum" if compartilhada else "ja existe em v1/"
+        motivo = f"compartilhada, precisa de {flag}" if compartilhada else "ja existe em v1/"
         print(f"    PULADA ({motivo}): {os.path.relpath(destino, RAIZ)}")
         os.remove(org)
         return
@@ -90,7 +100,8 @@ def main():
     print("1/2  card + faixa + barra")
     rodar("gerar_card.py", SLUG)
     mover("card-topo.png", os.path.join(PESSOAS, f"{SLUG}.png"))
-    mover("faixa-marcas.gif", os.path.join(COMUM, "faixa-marcas.gif"), compartilhada=True)
+    mover("faixa-marcas.gif", os.path.join(COMUM, "faixa-marcas.gif"), compartilhada=True,
+          flag="--atualizar-faixa")
     mover("barra-chamada.png", os.path.join(COMUM, "barra-chamada.png"), compartilhada=True)
 
     print("2/2  faixa de contatos")

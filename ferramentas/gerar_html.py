@@ -132,12 +132,11 @@ def montar(slug):
       </td>
     </tr>
 
-    <!-- FAIXA DE MARCAS (GIF animado) -->
+    <!-- FAIXA DE MARCAS (GIF animado; peca viva, troca no mesmo endereco) -->
     <tr>
       <td style="font-size: 0; line-height: 0;">
         {imagem(f"{URL}/comum/faixa-marcas.gif", 600, 38,
-                "Escolas licenciadas: Flamengo, Chelsea, Real Madrid, Inter, "
-                "Sport e Escola de Esportes Flamengo", SITE)}
+                "Escolas licenciadas Time Forte", SITE)}
       </td>
     </tr>
 

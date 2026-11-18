@@ -56,8 +56,11 @@ Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
 - Destinatários novos podem ver "Exibir imagens" — padrão de qualquer
   assinatura com imagem hospedada. Com as imagens bloqueadas, o texto
   alternativo carrega nome, cargo, telefone, e-mail e endereço.
-- Peso total das peças ~450 KB; o HTML tem ~5 KB, longe do limite de
-  clipping do Gmail.
+- Peso total das peças ~600 KB (quase tudo é o GIF da faixa); o HTML tem
+  ~5 KB, longe do limite de clipping do Gmail.
+- Marca nova na faixa **não exige reinstalar**: a faixa é trocada no mesmo
+  endereço e aparece sozinha em todas as assinaturas (pode levar um tempo
+  por causa do cache do Gmail). Ver `CLAUDE.md`, regra 1.
 
 ## Onde as imagens moram
 
