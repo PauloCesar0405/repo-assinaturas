@@ -177,6 +177,23 @@ PESSOAS = {
         "crop": (-10, 15, 670, 545),
         "espelhar": False,
     },
+    "natalia-herdy": {
+        "nome": "Natália Herdy",
+        "cargo": "COORDENADORA DE MARKETING",
+        "tel": "+55 21 99375-5404",
+        "whatsapp": "5521993755404",
+        "email": "natalia@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "natalia-herdy-limpo.png",
+        # foto de 18/11/2026 (original 4075x5434, parede branca), reduzida a
+        # 1/4 (1018x1358) antes do recorte. birefnet-portrait: segurou a
+        # camiseta creme contra a parede branca. Cor dos fios re-estimada
+        # sem o branco da parede (pymatting). O cargo, com 25 caracteres,
+        # cabe (507 de 594px) - o "~24" da tabela de limites é conservador.
+        "crop": (-122, 255, 1033, 1155),
+        "espelhar": False,
+    },
 }
 
 
