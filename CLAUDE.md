@@ -218,7 +218,11 @@ geradores**, tudo está em `ferramentas/pessoas.py`.
    campos. O `crop` é o que dá trabalho: proporção ~1.283 (largura/altura),
    enquadrando cabeça e ombros e cortando acima de qualquer objeto na
    frente da pessoa. Ele pode ultrapassar a borda da foto — o gerador
-   preenche com transparência, que vira laranja do painel.
+   preenche com transparência, que vira laranja do painel. Mas se o cabelo
+   ou o ombro **encostar na borda direita da foto**, isso vira um corte reto
+   com laranja do lado (a diagonal fica até 45px à direita da foto). Aí use
+   um crop mais largo que 1.283: o painel recorta a foto, e a borda cai sob
+   a diagonal (caso Alessandra).
 3. **`python3 build.py <slug>`** → gera `<slug>.png` e as fatias de
    contatos. Peça que já existe em `v2/` é **pulada com aviso**, nunca
    sobrescrita (é por isso que gerar a 2ª pessoa não toca em `v2/comum/`).
@@ -232,7 +236,7 @@ cortada, porque publicada ela só se conserta criando uma versão nova):
 
 | Campo    | Cabe até        | Exemplo que estoura                   |
 |----------|-----------------|---------------------------------------|
-| nome     | ~23 caracteres  | `Maria Fernanda dos Santos Oliveira`  |
+| nome     | ~23 ch em 50; maiores encolhem até 44 | `Maria Fernanda dos Santos Oliveira` |
 | cargo    | ~24 caracteres  | `COORDENADORA DE MARKETING ESPORTIVO` |
 | e-mail   | ~23 ch em 14px; maiores encolhem a linha 1 até 12px | e-mails de ~30+ ch (aborta mesmo no piso) |
 | endereço | 22px de folga   | qualquer coisa maior que o da sede    |

@@ -141,7 +141,14 @@ def card_topo(p):
     foto.alpha_composite(src, (-x0, -y0))
     ESC = (P_BASE - P_TOP) / foto.height
     foto = foto.resize((round(foto.width * ESC), round(foto.height * ESC)), Image.LANCZOS)
-    tela.alpha_composite(foto, (26, P_TOP))
+    # o painel recorta a foto: um crop mais largo que ~1.283 passa POR BAIXO
+    # da diagonal em vez de vazar no preto. Serve para quem encosta na borda
+    # direita da foto (cabelo da Alessandra): a borda some sob a diagonal em
+    # vez de virar um corte reto com laranja do lado.
+    camada = Image.new("RGBA", (W, HG), (0, 0, 0, 0))
+    camada.alpha_composite(foto, (26, P_TOP))
+    camada.putalpha(ImageChops.multiply(camada.getchannel("A"), mask))
+    tela.alpha_composite(camada)
 
     NOME, CARGO = p["nome"], p["cargo"]
     d = ImageDraw.Draw(tela)
@@ -151,6 +158,14 @@ def card_topo(p):
     # borda laranja. Aborta em vez de publicar um card cortado - depois de
     # publicado, so se conserta criando a proxima versao (marca.VERSAO).
     limite = W - BORDA - 8
+    # nome completo longo (caso Alessandra, 27 caracteres) encolhe o corpo
+    # ate caber, como o e-mail na linha 1 dos contatos; piso de 44 (12% menor).
+    # Quem cabe em 50 sai igual a antes. A base da linha fica onde estava.
+    corpo = 50
+    while corpo > 44 and X + d.textlength(NOME, font=f_nome) > limite:
+        corpo -= 1
+        f_nome = fonte(UBUNTU_B, corpo)
+    y_nome = 92 + fonte(UBUNTU_B, 50).getmetrics()[0] - f_nome.getmetrics()[0]
     for rotulo, fim in (
         ("nome", X + d.textlength(NOME, font=f_nome)),
         ("cargo", X + largura_espacada(d, CARGO, f_cargo, 7)),
@@ -162,7 +177,7 @@ def card_topo(p):
                 "  Encurte o texto ou reduza o corpo da fonte antes de gerar."
             )
 
-    d.text((X, 92), NOME, font=f_nome, fill=BRANCO + (255,))
+    d.text((X, y_nome), NOME, font=f_nome, fill=BRANCO + (255,))
     texto_espacado(d, (X, 162), CARGO, f_cargo, LARANJA + (255,), 7)
     d.rectangle((X, 212, X + 56, 217), fill=LARANJA + (255,))
 
