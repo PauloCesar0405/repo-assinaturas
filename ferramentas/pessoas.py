@@ -279,12 +279,13 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "joao-mauricio-limpo.png",
-        # 2ª foto (19/11/2026, original 1320x1770, painel vermelho e branco
-        # de evento) - a 1ª era de corpo inteiro num palco, inutilizável.
-        # Reduzida a 2/3 (880x1180), birefnet-portrait. A jaqueta de outra
-        # pessoa, colada no ombro esquerdo dele (direita da foto), foi
-        # apagada da máscara à mão, seguindo a borda visível na foto.
-        "crop": (-95, 25, 996, 875),
+        # 3ª foto (19/11/2026, 1024x1536): a 2ª (painel de evento, com a
+        # jaqueta de outra pessoa colada no ombro) ampliada até o corpo
+        # inteiro - pelo tamanho e pelo nome do arquivo, por IA; o rosto é o
+        # mesmo. A 1ª era de corpo inteiro num palco, inutilizável.
+        # birefnet-portrait sem redução. Paulo pediu "do peito pra cima": o
+        # crop pega os dois ombros inteiros e corta acima do bordado do peito.
+        "crop": (93, 20, 940, 680),
         "espelhar": False,
     },
 }
