@@ -7,7 +7,8 @@ Para adicionar alguém, acrescente uma entrada e rode:
     python3 build.py <slug>
 
 Campos:
-  nome      como sai no card (Ubuntu Bold 50) - cabe até ~23 caracteres
+  nome      como sai no card (Ubuntu Bold 50) - cabe até ~23 caracteres;
+            mais longo encolhe o corpo até 44 antes de abortar
   cargo     como sai no card, em CAIXA ALTA   - cabe até ~24 caracteres
   tel       telefone como TEXTO na faixa de contatos
   whatsapp  só dígitos, com DDI, para montar o link wa.me
@@ -19,7 +20,10 @@ Campos:
   foto      arquivo em insumos/, PNG RGBA com fundo já removido
   crop      (x0, y0, x1, y1) na foto. Proporção ~1.283 (largura/altura) para
             encher o painel laranja sem sobrar nem vazar. Pode ultrapassar as
-            bordas da imagem: o gerador preenche com transparência.
+            bordas da imagem: o gerador preenche com transparência. Mais
+            largo que 1.283, a sobra passa por baixo da diagonal (o painel
+            recorta a foto) - para esconder cabelo ou ombro que encoste na
+            borda direita da foto.
   espelhar  True inverte a foto na horizontal (para o olhar apontar ao nome)
 
 Os geradores abortam se nome, cargo, e-mail ou endereço não couberem - nunca
@@ -243,6 +247,25 @@ PESSOAS = {
         # da borda re-estimada sem o branco (pymatting). Borda clara (lum 144)
         # = cabelo grisalho e pele, não halo.
         "crop": (18, 286, 865, 946),
+        "espelhar": False,
+    },
+    "alessandra-moreira": {
+        "nome": "Alessandra Carvalho Moreira",
+        "cargo": "COORDENADORA DE LOGÍSTICA",
+        "tel": "+55 21 96468-6330",
+        "whatsapp": "5521964686330",
+        "email": "alessandra@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "alessandra-moreira-limpo.png",
+        # foto de 18/11/2026: só veio o "-removebg-preview" (433x577), sem a
+        # original; serve pelo mesmo motivo da Beatriz (sem ampliação em 2x).
+        # Só tirei 3 pixels soltos. Os cachos encostam na borda direita da
+        # foto: o crop é mais largo que 1.283 de propósito, para essa borda
+        # cair sob a diagonal (o painel recorta a foto) em vez de virar um
+        # corte reto no cabelo. O nome, com 27 caracteres, é o 1º que encolhe
+        # (1px a mais em 50 - ver gerar_card.py).
+        "crop": (-120, 62, 433, 452),
         "espelhar": False,
     },
 }
