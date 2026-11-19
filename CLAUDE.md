@@ -158,6 +158,8 @@ lá; não redeclare cor nem ângulo dentro deles.
    **Foto nova de uma pessoa só** (ela já instalou): campo `rev` em
    `pessoas.py` — o card sai em `<slug>-r2.png`, endereço novo, o HTML dela
    passa a apontar para ele e só ela reinstala (caso Thamerson, nov/2026).
+   **Telefone ou e-mail novo** é o mesmo com `rev_contatos`: as fatias saem
+   em `<slug>-r2-contatos-*.png` (caso Alessandra, nov/2026).
    Se a peça foi publicada no mesmo dia e ninguém instalou, sobrescrever com
    `--forcar` é aceito (Thamerson ago/2026, João Mauricio, Antonio).
    **Exceção: `v1/comum/faixa-marcas.gif` é viva.** A assinatura colada no
