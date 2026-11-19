@@ -356,6 +356,26 @@ PESSOAS = {
         "crop": (50, 45, 351, 280),
         "espelhar": False,
     },
+    "clara-bardaro": {
+        "nome": "Clara Bardaro",
+        "cargo": "ATENDIMENTO",
+        "tel": "+55 21 96714-1157",
+        "whatsapp": "5521967141157",
+        "email": "clara@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "clara-bardaro-limpo.png",
+        # foto de 19/11/2026: só o "-removebg-preview" (432x577), selfie em
+        # close. O cabelo encosta no topo (o crop começa em y=0, então esse
+        # corte cai na borda de cima do painel) e camisa/cabelo encostam nas
+        # duas laterais da metade de baixo - no enquadramento dos outros
+        # cards isso virava um corte reto com laranja do lado. As laterais
+        # foram estendidas 120px de cada lado, espelhando a faixa junto à
+        # borda e recortando o espelho num ombro que desce para fora; a
+        # imagem original começa em x=120 deste insumo.
+        "crop": (60, 0, 612, 430),
+        "espelhar": False,
+    },
 }
 
 
