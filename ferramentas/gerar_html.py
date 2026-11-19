@@ -69,16 +69,16 @@ def montar(slug):
     p = pessoas.pega(slug)
     caminho = lambda n: os.path.join(PECAS, n)
     card = pessoas.card(slug)
-    for n in (card, f"{slug}-contatos-tel.png",
-              f"{slug}-contatos-email.png", f"{slug}-contatos-end.png"):
+    cont = pessoas.contatos(slug)
+    for n in (card, f"{cont}-tel.png", f"{cont}-email.png", f"{cont}-end.png"):
         if not os.path.exists(caminho(n)):
             raise SystemExit(f"ABORTADO: falta {n} em {marca.VERSAO}/pessoas/. "
                              f"Rode antes: python3 build.py {slug}")
 
     cw, ch = medir(caminho(card))
-    tw, th = medir(caminho(f"{slug}-contatos-tel.png"))
-    ew, eh = medir(caminho(f"{slug}-contatos-email.png"))
-    dw, dh = medir(caminho(f"{slug}-contatos-end.png"))
+    tw, th = medir(caminho(f"{cont}-tel.png"))
+    ew, eh = medir(caminho(f"{cont}-email.png"))
+    dw, dh = medir(caminho(f"{cont}-end.png"))
 
     if tw + ew != 600:
         raise SystemExit(f"ABORTADO: as fatias da linha 1 somam {tw + ew}, não 600. "
@@ -120,17 +120,17 @@ def montar(slug):
           <tbody>
             <tr>
               <td width="{tw}" style="font-size: 0; line-height: 0;">
-                {imagem(f"{URL}/pessoas/{slug}-contatos-tel.png", tw, th,
+                {imagem(f"{URL}/pessoas/{cont}-tel.png", tw, th,
                         f"Telefone e WhatsApp: {p['tel']}", wa)}
               </td>
               <td width="{ew}" style="font-size: 0; line-height: 0;">
-                {imagem(f"{URL}/pessoas/{slug}-contatos-email.png", ew, eh,
+                {imagem(f"{URL}/pessoas/{cont}-email.png", ew, eh,
                         f"E-mail: {p['email']}", f"mailto:{p['email']}")}
               </td>
             </tr>
             <tr>
               <td colspan="2" style="font-size: 0; line-height: 0;">
-                {imagem(f"{URL}/pessoas/{slug}-contatos-end.png", dw, dh,
+                {imagem(f"{URL}/pessoas/{cont}-end.png", dw, dh,
                         f"Endereco: {p['endereco']}", p['maps'])}
               </td>
             </tr>
@@ -203,7 +203,7 @@ def indice():
     css_tut = css_tut.split("*/", 1)[1]   # o comentario do topo e para quem edita
     for marca_, valor in (("__NOMES__", "\n".join(nomes)),
                           ("__EX_CARD__", f"{URL}/pessoas/{pessoas.card(exemplo)}"),
-                          ("__EX_CONT__", f"{URL}/pessoas/{exemplo}-contatos.png"),
+                          ("__EX_CONT__", f"{URL}/pessoas/{pessoas.contatos(exemplo)}.png"),
                           ("__FAIXA__", URL_FAIXA),
                           ("__BARRA__", f"{URL}/comum/barra-chamada.png")):
         tutorial = tutorial.replace(marca_, valor)

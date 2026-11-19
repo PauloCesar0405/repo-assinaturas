@@ -29,6 +29,9 @@ Campos:
             sai em <slug>-r<rev>.png, endereço novo, e o antigo fica intacto
             para os e-mails já enviados (regra 1). A pessoa reinstala. Sem
             rev, o card é <slug>.png
+  rev_contatos  opcional. O mesmo para a faixa de contatos (telefone ou
+            e-mail novo): as fatias saem em <slug>-r<n>-contatos-*.png.
+            Independe do rev do card
 
 Os geradores abortam se nome, cargo, e-mail ou endereço não couberem - nunca
 publicam peça cortada.
@@ -259,8 +262,10 @@ PESSOAS = {
     "alessandra-moreira": {
         "nome": "Alessandra Carvalho Moreira",
         "cargo": "COORDENADORA DE LOGÍSTICA",
-        "tel": "+55 21 96468-6330",
-        "whatsapp": "5521964686330",
+        # telefone TROCADO em 19/11/2026 (era +55 21 96468-6330): os contatos
+        # antigos estavam no ar, então os novos são rev_contatos 2
+        "tel": "+55 21 98498-2375",
+        "whatsapp": "5521984982375",
         "email": "alessandra@timeforte.com",
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
@@ -277,6 +282,7 @@ PESSOAS = {
         "crop": (-60, -14, 420, 358),
         "espelhar": False,
         "rev": 2,
+        "rev_contatos": 2,
     },
     "joao-mauricio": {
         # nome completo (João Mauricio Antunes Monteiro de Souza, 39 ch) não
@@ -357,6 +363,13 @@ def card(slug):
     """Nome do arquivo do card em <versao>/pessoas/ (ver o campo rev)."""
     rev = pega(slug).get("rev")
     return f"{slug}-r{rev}.png" if rev else f"{slug}.png"
+
+
+def contatos(slug):
+    """Prefixo das fatias de contatos em <versao>/pessoas/ (ver rev_contatos):
+    <prefixo>.png, <prefixo>-tel.png, <prefixo>-email.png, <prefixo>-end.png."""
+    rev = pega(slug).get("rev_contatos")
+    return f"{slug}-r{rev}-contatos" if rev else f"{slug}-contatos"
 
 
 def pega(slug):

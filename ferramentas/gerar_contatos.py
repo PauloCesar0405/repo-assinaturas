@@ -22,6 +22,8 @@ Saidas em <marca.VERSAO>/pessoas/ (todas 2x):
   <slug>-contatos-tel.png    linha 1, esquerda  -> WhatsApp
   <slug>-contatos-email.png  linha 1, direita   -> mailto
   <slug>-contatos-end.png    linha 2, inteira   -> Google Maps
+Com rev_contatos em pessoas.py (telefone/e-mail trocado depois de publicado),
+o prefixo vira <slug>-r<n>-contatos.
 
 O corte vertical cai no vazio preto entre o telefone e o bullet, e o corte
 horizontal no vazio entre as duas linhas - nenhuma letra e cortada. A altura
@@ -145,11 +147,12 @@ def main():
     corte_x = par((x_tel_fim + x_bullet) / 2)   # entre o telefone e o bullet
     corte_y = par(y1 + h1 + gap12 / 2)          # entre as duas linhas
 
+    base = pessoas.contatos(slug)   # <slug>-contatos, ou -r<n>-contatos
     pecas = {
-        f"{slug}-contatos.png":       im,
-        f"{slug}-contatos-tel.png":   im.crop((0, 0, corte_x, corte_y)),
-        f"{slug}-contatos-email.png": im.crop((corte_x, 0, W, corte_y)),
-        f"{slug}-contatos-end.png":   im.crop((0, corte_y, W, H)),
+        f"{base}.png":       im,
+        f"{base}-tel.png":   im.crop((0, 0, corte_x, corte_y)),
+        f"{base}-email.png": im.crop((corte_x, 0, W, corte_y)),
+        f"{base}-end.png":   im.crop((0, corte_y, W, H)),
     }
 
     salvos, pulados = {}, []
