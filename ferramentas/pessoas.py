@@ -376,6 +376,22 @@ PESSOAS = {
         "crop": (60, 0, 612, 430),
         "espelhar": False,
     },
+    "miriam-fernandes": {
+        "nome": "Miriam Fernandes",
+        "cargo": "ASSISTENTE FINANCEIRO",
+        # mesmo número do Thamerson (linha do financeiro), como veio no pedido
+        "tel": "+55 21 96718-9010",
+        "whatsapp": "5521967189010",
+        "email": "miriam@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "miriam-fernandes-limpo.png",
+        # foto de 19/11/2026: só o "-removebg-preview" (490x509), sem a
+        # original. Tirei 1 pixel solto. Os ombros encostam nas laterais só
+        # abaixo de y=396, fora do crop.
+        "crop": (0, -10, 520, 395),
+        "espelhar": False,
+    },
 }
 
 
