@@ -39,6 +39,7 @@ import subprocess
 import sys
 
 import marca
+import pessoas
 
 # o console do Windows abre em cp1252 e engasga com acento e com setas;
 # os nomes/cargos das pessoas tem acento, entao forca UTF-8 na saida.
@@ -111,7 +112,7 @@ def main():
     print(f"gerando '{SLUG}'")
     print("1/2  card + faixa + barra")
     rodar("gerar_card.py", SLUG)
-    mover("card-topo.png", os.path.join(PESSOAS, f"{SLUG}.png"))
+    mover("card-topo.png", os.path.join(PESSOAS, pessoas.card(SLUG)))
     mover("faixa-marcas.gif", FAIXA, compartilhada=True, flag="--atualizar-faixa")
     mover("barra-chamada.png", os.path.join(COMUM, "barra-chamada.png"), compartilhada=True)
 

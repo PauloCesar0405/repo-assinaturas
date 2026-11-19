@@ -68,13 +68,14 @@ def imagem(src, w, h, alt, href, bloco=True):
 def montar(slug):
     p = pessoas.pega(slug)
     caminho = lambda n: os.path.join(PECAS, n)
-    for n in (f"{slug}.png", f"{slug}-contatos-tel.png",
+    card = pessoas.card(slug)
+    for n in (card, f"{slug}-contatos-tel.png",
               f"{slug}-contatos-email.png", f"{slug}-contatos-end.png"):
         if not os.path.exists(caminho(n)):
             raise SystemExit(f"ABORTADO: falta {n} em {marca.VERSAO}/pessoas/. "
                              f"Rode antes: python3 build.py {slug}")
 
-    cw, ch = medir(caminho(f"{slug}.png"))
+    cw, ch = medir(caminho(card))
     tw, th = medir(caminho(f"{slug}-contatos-tel.png"))
     ew, eh = medir(caminho(f"{slug}-contatos-email.png"))
     dw, dh = medir(caminho(f"{slug}-contatos-end.png"))
@@ -106,7 +107,7 @@ def montar(slug):
     <!-- CARD -->
     <tr>
       <td style="font-size: 0; line-height: 0;">
-        {imagem(f"{URL}/pessoas/{slug}.png", cw, ch,
+        {imagem(f"{URL}/pessoas/{card}", cw, ch,
                 f"{p['nome']}, {p['cargo']} - Time Forte Marketing Esportivo", SITE)}
       </td>
     </tr>
@@ -201,7 +202,7 @@ def indice():
         css_tut, tutorial = fh.read().split("<!-- ===CORPO=== -->")
     css_tut = css_tut.split("*/", 1)[1]   # o comentario do topo e para quem edita
     for marca_, valor in (("__NOMES__", "\n".join(nomes)),
-                          ("__EX_CARD__", f"{URL}/pessoas/{exemplo}.png"),
+                          ("__EX_CARD__", f"{URL}/pessoas/{pessoas.card(exemplo)}"),
                           ("__EX_CONT__", f"{URL}/pessoas/{exemplo}-contatos.png"),
                           ("__FAIXA__", URL_FAIXA),
                           ("__BARRA__", f"{URL}/comum/barra-chamada.png")):

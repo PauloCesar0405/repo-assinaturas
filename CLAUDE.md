@@ -155,6 +155,11 @@ lá; não redeclare cor nem ângulo dentro deles.
    `marca.py`, rode o build para todos e `gerar_html.py --todos`; os HTMLs
    passam a apontar para a pasta nova, todo mundo reinstala, e os e-mails
    antigos continuam válidos. Foi assim na v2 (nov/2026, marca nova).
+   **Foto nova de uma pessoa só** (ela já instalou): campo `rev` em
+   `pessoas.py` — o card sai em `<slug>-r2.png`, endereço novo, o HTML dela
+   passa a apontar para ele e só ela reinstala (caso Thamerson, nov/2026).
+   Se a peça foi publicada no mesmo dia e ninguém instalou, sobrescrever com
+   `--forcar` é aceito (Thamerson ago/2026, João Mauricio, Antonio).
    **Exceção: `v1/comum/faixa-marcas.gif` é viva.** A assinatura colada no
    Gmail aponta direto para essa URL do Pages (conferido em 18/11/2026 no
    "Mostrar original" de um e-mail do Rafael — o Gmail *não* trocou por
