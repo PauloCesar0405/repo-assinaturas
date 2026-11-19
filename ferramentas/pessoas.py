@@ -268,6 +268,26 @@ PESSOAS = {
         "crop": (-120, 62, 433, 452),
         "espelhar": False,
     },
+    "joao-mauricio": {
+        # nome completo (João Mauricio Antunes Monteiro de Souza, 39 ch) não
+        # cabe nem no piso de 44; a opção 1 da prévia mandada a ele
+        "nome": "João Mauricio Monteiro",
+        "cargo": "COORDENADOR DE EVENTOS",
+        "tel": "+55 21 99826-2643",
+        "whatsapp": "5521998262643",
+        "email": "joaomauricio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "joao-mauricio-limpo.png",
+        # 3ª foto (19/11/2026, 1024x1536): a 2ª (painel de evento, com a
+        # jaqueta de outra pessoa colada no ombro) ampliada até o corpo
+        # inteiro - pelo tamanho e pelo nome do arquivo, por IA; o rosto é o
+        # mesmo. A 1ª era de corpo inteiro num palco, inutilizável.
+        # birefnet-portrait sem redução. Paulo pediu "do peito pra cima": o
+        # crop pega os dois ombros inteiros e corta acima do bordado do peito.
+        "crop": (93, 20, 940, 680),
+        "espelhar": False,
+    },
 }
 
 
