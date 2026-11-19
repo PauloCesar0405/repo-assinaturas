@@ -228,6 +228,23 @@ PESSOAS = {
         "crop": (-9, 125, 479, 505),
         "espelhar": False,
     },
+    "ronaldo-spinelli": {
+        "nome": "Ronaldo Leal Spinelli",
+        "cargo": "COORDENADOR TÉCNICO",
+        "tel": "+55 21 96409-0243",
+        "whatsapp": "5521964090243",
+        "email": "naldo@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "ronaldo-spinelli-limpo.png",
+        # selfie de 18/11/2026 (original 2556x3408, parede branca), reduzida a
+        # 1/3 (852x1136) antes do recorte. birefnet-portrait: segurou o cabelo
+        # grisalho curto contra a parede branca; armação dos óculos opaca e cor
+        # da borda re-estimada sem o branco (pymatting). Borda clara (lum 144)
+        # = cabelo grisalho e pele, não halo.
+        "crop": (18, 286, 865, 946),
+        "espelhar": False,
+    },
 }
 
 
