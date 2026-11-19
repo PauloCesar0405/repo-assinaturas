@@ -324,6 +324,22 @@ PESSOAS = {
         "crop": (0, 0, 440, 343),
         "espelhar": False,
     },
+    "flavia-elisque": {
+        "nome": "Flávia Elisque",
+        "cargo": "DIRETORA ADMINISTRATIVA",
+        "tel": "+55 21 98915-5925",
+        "whatsapp": "5521989155925",
+        "email": "flavia@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "flavia-elisque-limpo.png",
+        # foto de 19/11/2026: veio só um recorte já sem fundo, 440x440, sem a
+        # original. Usado como veio (uma ilha só). Borda clara (lum 186) = o
+        # cabelo grisalho e a blusa creme, não halo. O crop amplia 1,13x no
+        # card 2x - fica um pouco suave, no nível dos outros recortes prontos.
+        "crop": (50, 45, 351, 280),
+        "espelhar": False,
+    },
 }
 
 
