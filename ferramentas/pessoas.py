@@ -288,6 +288,22 @@ PESSOAS = {
         "crop": (93, 20, 940, 680),
         "espelhar": False,
     },
+    "antonio-barreto": {
+        "nome": "Antonio Barreto",
+        "cargo": "EVENTOS",
+        "tel": "+55 21 97137-3228",
+        "whatsapp": "5521971373228",
+        "email": "antonio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "antonio-barreto-limpo.png",
+        # selfie de 19/11/2026 (original 3088x2316 com EXIF girado -> 2316x3088,
+        # parede branca), reduzida a 1/3 (772x1029). birefnet-portrait: segurou
+        # a camiseta branca contra a parede branca. Borda clara (lum 137) = a
+        # camiseta, não halo. A selfie corta os ombros: o crop estoura as laterais.
+        "crop": (-137, 150, 889, 950),
+        "espelhar": False,
+    },
 }
 
 
