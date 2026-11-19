@@ -268,6 +268,25 @@ PESSOAS = {
         "crop": (-120, 62, 433, 452),
         "espelhar": False,
     },
+    "joao-mauricio": {
+        # nome completo (João Mauricio Antunes Monteiro de Souza, 39 ch) não
+        # cabe nem no piso de 44; a opção 1 da prévia mandada a ele
+        "nome": "João Mauricio Monteiro",
+        "cargo": "COORDENADOR DE EVENTOS",
+        "tel": "+55 21 99826-2643",
+        "whatsapp": "5521998262643",
+        "email": "joaomauricio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "joao-mauricio-limpo.png",
+        # 2ª foto (19/11/2026, original 1320x1770, painel vermelho e branco
+        # de evento) - a 1ª era de corpo inteiro num palco, inutilizável.
+        # Reduzida a 2/3 (880x1180), birefnet-portrait. A jaqueta de outra
+        # pessoa, colada no ombro esquerdo dele (direita da foto), foi
+        # apagada da máscara à mão, seguindo a borda visível na foto.
+        "crop": (-95, 25, 996, 875),
+        "espelhar": False,
+    },
 }
 
 
