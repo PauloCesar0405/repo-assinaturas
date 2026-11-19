@@ -288,6 +288,24 @@ PESSOAS = {
         "crop": (93, 20, 940, 680),
         "espelhar": False,
     },
+    "antonio-barreto": {
+        "nome": "Antonio Barreto",
+        "cargo": "EVENTOS",
+        "tel": "+55 21 97137-3228",
+        "whatsapp": "5521971373228",
+        "email": "antonio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "antonio-barreto-limpo.png",
+        # 2ª foto (19/11/2026, 1774x887, já sem fundo): a selfie de parede
+        # branca da 1ª, ampliada até os ombros inteiros - pelo nome do arquivo,
+        # por IA; o rosto é o mesmo. Usada como veio, só sem 4 pixels soltos:
+        # as pontas do cabelo têm o branco da parede embutido na cor (o
+        # pymatting clareou em vez de limpar), mas no card não aparece. O crop
+        # pega os dois ombros inteiros, sem corte reto nas laterais.
+        "crop": (315, -5, 1445, 876),
+        "espelhar": False,
+    },
 }
 
 
