@@ -297,11 +297,13 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "antonio-barreto-limpo.png",
-        # selfie de 19/11/2026 (original 3088x2316 com EXIF girado -> 2316x3088,
-        # parede branca), reduzida a 1/3 (772x1029). birefnet-portrait: segurou
-        # a camiseta branca contra a parede branca. Borda clara (lum 137) = a
-        # camiseta, não halo. A selfie corta os ombros: o crop estoura as laterais.
-        "crop": (-137, 150, 889, 950),
+        # 2ª foto (19/11/2026, 1774x887, já sem fundo): a selfie de parede
+        # branca da 1ª, ampliada até os ombros inteiros - pelo nome do arquivo,
+        # por IA; o rosto é o mesmo. Usada como veio, só sem 4 pixels soltos:
+        # as pontas do cabelo têm o branco da parede embutido na cor (o
+        # pymatting clareou em vez de limpar), mas no card não aparece. O crop
+        # pega os dois ombros inteiros, sem corte reto nas laterais.
+        "crop": (315, -5, 1445, 876),
         "espelhar": False,
     },
 }
