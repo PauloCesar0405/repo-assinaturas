@@ -25,6 +25,10 @@ Campos:
             recorta a foto) - para esconder cabelo ou ombro que encoste na
             borda direita da foto.
   espelhar  True inverte a foto na horizontal (para o olhar apontar ao nome)
+  rev       opcional. Troca de foto DEPOIS que a pessoa instalou: o card novo
+            sai em <slug>-r<rev>.png, endereço novo, e o antigo fica intacto
+            para os e-mails já enviados (regra 1). A pessoa reinstala. Sem
+            rev, o card é <slug>.png
 
 Os geradores abortam se nome, cargo, e-mail ou endereço não couberem - nunca
 publicam peça cortada.
@@ -118,11 +122,14 @@ PESSOAS = {
         "maps": MAPS_SEDE,
         "foto": "thamerson-fortuna-limpo.png",
         # foto TROCADA em 26/08/2026 (mesmo dia da publicação, ninguém tinha
-        # instalado): a 1ª era um perfil de frame de vídeo, espelhado. A nova
-        # é frontal, 430x581, já sem fundo; crop de cabeça e ombros com corte
-        # seco no peito, estourando as laterais (viram laranja).
-        "crop": (-27, -6, 461, 374),
+        # instalado): a 1ª era um perfil de frame de vídeo, espelhado.
+        # Trocada de novo em 19/11/2026, de terno (1312x1199, estante com
+        # planta e cadeira atrás - o birefnet-portrait deixou as duas de
+        # fora). O card v2 dele estava no ar desde 18/11, então a foto nova é
+        # rev 2: card em thamerson-fortuna-r2.png, o antigo fica intacto.
+        "crop": (65, 50, 1267, 987),
         "espelhar": False,
+        "rev": 2,
     },
     "paulo-cesar": {
         "nome": "Paulo Cesar",
@@ -341,6 +348,12 @@ PESSOAS = {
         "espelhar": False,
     },
 }
+
+
+def card(slug):
+    """Nome do arquivo do card em <versao>/pessoas/ (ver o campo rev)."""
+    rev = pega(slug).get("rev")
+    return f"{slug}-r{rev}.png" if rev else f"{slug}.png"
 
 
 def pega(slug):
