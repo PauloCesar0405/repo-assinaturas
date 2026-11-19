@@ -270,8 +270,8 @@ PESSOAS = {
     },
     "joao-mauricio": {
         # nome completo (João Mauricio Antunes Monteiro de Souza, 39 ch) não
-        # cabe nem no piso de 44; a opção 1 da prévia mandada a ele
-        "nome": "João Mauricio Monteiro",
+        # cabe nem no piso de 44; opção 3 da prévia mandada a ele
+        "nome": "João Mauricio",
         "cargo": "COORDENADOR DE EVENTOS",
         "tel": "+55 21 99826-2643",
         "whatsapp": "5521998262643",
