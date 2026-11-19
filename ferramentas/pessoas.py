@@ -265,15 +265,18 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "alessandra-moreira-limpo.png",
-        # foto de 18/11/2026: só veio o "-removebg-preview" (433x577), sem a
-        # original; serve pelo mesmo motivo da Beatriz (sem ampliação em 2x).
-        # Só tirei 3 pixels soltos. Os cachos encostam na borda direita da
-        # foto: o crop é mais largo que 1.283 de propósito, para essa borda
-        # cair sob a diagonal (o painel recorta a foto) em vez de virar um
-        # corte reto no cabelo. O nome, com 27 caracteres, é o 1º que encolhe
-        # (1px a mais em 50 - ver gerar_card.py).
-        "crop": (-120, 62, 433, 452),
+        # foto TROCADA em 19/11/2026, de blazer branco: de novo só o
+        # "-removebg-preview" (433x577), sem a original; serve pelo mesmo
+        # motivo da Beatriz (sem ampliação em 2x). Recorte limpo, sem pixel
+        # solto. A 1ª (18/11, crop (-120, 62, 433, 452) mais largo que 1.283
+        # porque os cachos encostavam na borda direita) estava no ar desde
+        # 19/11 00h, então a nova é rev 2: card em alessandra-moreira-r2.png,
+        # o antigo fica intacto. A mão do lado direito some sob a diagonal.
+        # O nome, com 27 caracteres, é o 1º que encolhe (1px a mais em 50 -
+        # ver gerar_card.py).
+        "crop": (-60, -14, 420, 358),
         "espelhar": False,
+        "rev": 2,
     },
     "joao-mauricio": {
         # nome completo (João Mauricio Antunes Monteiro de Souza, 39 ch) não
