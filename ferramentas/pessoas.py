@@ -306,6 +306,24 @@ PESSOAS = {
         "crop": (315, -5, 1445, 876),
         "espelhar": False,
     },
+    "jessica-carneiro": {
+        "nome": "Jéssica Carneiro",
+        "cargo": "COORDENADORA DE SISTEMA",
+        "tel": "+55 21 98498-2372",
+        "whatsapp": "5521984982372",
+        "email": "jessica@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "jessica-carneiro-limpo.png",
+        # foto de 19/11/2026: só veio o "-removebg-preview" (440x566), sem a
+        # original; serve como a da Beatriz (sem ampliação em 2x). Só tirei 2
+        # ilhas soltas. O alto da cabeça encosta na borda de cima e o cabelo
+        # longo nas laterais a partir de y=343: o crop é a foto inteira até
+        # y=343 (largura cheia, proporção exata), então não aparece corte reto
+        # - o cabelo sai pela borda de cima do painel, como retrato fechado.
+        "crop": (0, 0, 440, 343),
+        "espelhar": False,
+    },
 }
 
 
