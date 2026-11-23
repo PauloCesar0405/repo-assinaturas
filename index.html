@@ -9,117 +9,218 @@
 <script>document.documentElement.className += " js";</script>
 <style>
 :root { --preto: #201E1E; --laranja: #F36D21; --laranja-escuro: #D14E0F; }
-:root { --cinza: #6E6A69; --fundo: #F4F4F5; --linha: #E4E4E7; --suave: #FEF1E9; color-scheme: light; }
+@font-face { font-family: "Ubuntu"; font-weight: 400; font-display: swap;
+             src: url("ferramentas/fontes/Ubuntu-Regular.ttf") format("truetype"); }
+@font-face { font-family: "Ubuntu"; font-weight: 700; font-display: swap;
+             src: url("ferramentas/fontes/Ubuntu-Bold.ttf") format("truetype"); }
+@font-face { font-family: "Audiowide"; font-weight: 400; font-display: swap;
+             src: url("ferramentas/fontes/Audiowide-Regular.ttf") format("truetype"); }
+
+:root { --papel: #F5F3F1; --tinta: var(--preto); --cinza: #6E6A69; --linha: #E6E2DF;
+        --carvao: #2A2626; --linha-escura: #3D3636; --nevoa: #BDB6B4; color-scheme: light; }
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--fundo); color: var(--preto);
-       font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Ubuntu, Roboto, sans-serif; }
+html { scroll-padding-top: 20px; }
+body { margin: 0; background: var(--papel); color: var(--tinta);
+       font: 16px/1.6 "Ubuntu", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+       -webkit-font-smoothing: antialiased; }
 [hidden] { display: none !important; }
-:focus-visible { outline: 3px solid var(--laranja); outline-offset: 2px; }
-kbd { font: 13px/1 ui-monospace, Consolas, monospace; background: var(--fundo);
-      border: 1px solid #D4D4D8; border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; }
-code { font: 14px ui-monospace, Consolas, monospace; background: var(--fundo); border-radius: 4px; padding: 1px 5px; }
+:focus-visible { outline: 3px solid var(--laranja); outline-offset: 3px; }
+h1, h2, h3 { font-weight: 700; letter-spacing: -.01em; }
+kbd { font: 13px/1 ui-monospace, Consolas, monospace; background: #fff; color: var(--tinta);
+      border: 1px solid #D4D0CE; border-bottom-width: 2px; border-radius: 5px; padding: 2px 6px; }
+code { font: 14px ui-monospace, Consolas, monospace; background: #EDE9E6; border-radius: 5px; padding: 2px 6px; }
 
 /* ---- topo */
 .topo { background: var(--preto); color: #fff; border-bottom: 4px solid var(--laranja); }
-.topo-in { max-width: 760px; margin: 0 auto; padding: 28px 16px 26px; }
-.logo { display: block; width: auto; height: 24px; margin-bottom: 18px; }
-.topo h1 { margin: 0 0 6px; font-size: 30px; line-height: 1.15; }
-.topo p { margin: 0; color: #CFCBCA; }
+.topo-in { max-width: 1040px; margin: 0 auto; padding: 32px 24px 30px; }
+.logo { display: block; width: auto; height: 24px; margin-bottom: 20px; }
+.topo h1 { margin: 0 0 6px; font-size: 34px; line-height: 1.15; }
+.topo p { margin: 0; color: #CFCBCA; font-size: 17px; }
 
-main { max-width: 760px; margin: 0 auto; padding: 24px 16px 48px; }
-.aviso-celular { display: none; margin: 0 0 16px; padding: 12px 14px; border: 1px solid #F9C9AC;
-                 border-radius: 10px; background: var(--suave); font-size: 15px; }
+/* ---- seções: a escura (achar e copiar) e a clara (instalar) */
+.secao-in { max-width: 1040px; margin: 0 auto; padding: 56px 24px 64px; }
+.escura { background: var(--preto); color: #fff; }
+.sobretitulo { display: flex; align-items: center; gap: 12px; margin: 0 0 12px; color: var(--laranja);
+               font: 13px/1 "Audiowide", "Ubuntu", sans-serif; letter-spacing: .2em; text-transform: uppercase; }
+/* a etiqueta do número tem a diagonal do itálico, como o painel do card */
+.sobretitulo span { padding: 5px 14px 5px 10px; background: var(--laranja); color: var(--preto); letter-spacing: 0;
+                    font: 700 14px/1 "Ubuntu", sans-serif;
+                    clip-path: polygon(0 0, 100% 0, calc(100% - 4px) 100%, 0 100%); }
+.secao h2 { margin: 0; font-size: 34px; line-height: 1.15; }
+.intro { margin: 10px 0 0; color: var(--cinza); font-size: 17px; }
+.escura .intro { color: var(--nevoa); }
+.aviso-celular { display: none; margin: 0 0 28px; padding: 12px 16px; border: 1px solid rgba(243, 109, 33, .45);
+                 border-radius: 12px; background: rgba(243, 109, 33, .12); color: #FBD9C5; font-size: 15px; }
 
-/* ---- blocos numerados */
-.bloco { margin-bottom: 20px; padding: 24px; border: 1px solid var(--linha); border-radius: 14px; background: #fff; }
-.bloco > h2 { display: flex; align-items: center; gap: 12px; margin: 0; font-size: 21px; line-height: 1.25; }
-.num { flex: none; width: 32px; height: 32px; border-radius: 50%; background: var(--laranja); color: var(--preto);
-       font-size: 16px; font-weight: 800; line-height: 32px; text-align: center; }
-.intro { margin: 8px 0 0; color: var(--cinza); }
-
-/* ---- passo 1: busca e nomes */
-.busca { display: flex; align-items: center; gap: 10px; margin: 18px 0 14px; padding: 0 14px;
-         border: 2px solid var(--linha); border-radius: 12px; background: #fff; cursor: text; }
-.busca:focus-within { border-color: var(--laranja); }
+/* ---- busca e mini assinaturas */
+.busca { display: flex; align-items: center; gap: 12px; max-width: 560px; margin: 28px 0 22px; padding: 0 18px;
+         border-radius: 12px; background: #fff; color: var(--tinta); cursor: text; transition: box-shadow .15s; }
+.busca:focus-within { box-shadow: 0 0 0 3px var(--laranja); }
 .busca svg { flex: none; width: 22px; height: 22px; fill: var(--cinza); }
-.busca input { flex: 1; min-width: 0; padding: 13px 0; border: 0; outline: 0; background: none;
+.busca input { flex: 1; min-width: 0; padding: 15px 0; border: 0; outline: 0; background: none;
                color: inherit; font: inherit; font-size: 17px; }
-.nomes { display: grid; grid-template-columns: repeat(auto-fill, minmax(214px, 1fr)); gap: 8px;
+.busca input::placeholder { color: #9A9391; }
+.nomes { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 10px;
          margin: 0; padding: 0; list-style: none; }
-.nome { display: flex; align-items: center; gap: 12px; height: 100%; padding: 8px 12px 8px 8px;
-        border: 1px solid var(--linha); border-radius: 12px; background: #fff; color: inherit; text-decoration: none; }
-.nome:hover { border-color: var(--laranja); }
-.nome[aria-current] { border-color: var(--laranja); background: var(--suave); box-shadow: inset 0 0 0 1px var(--laranja); }
+.nome { display: flex; align-items: center; gap: 12px; height: 68px; overflow: hidden; padding-right: 12px;
+        border: 1px solid var(--linha-escura); border-radius: 10px; background: var(--carvao); color: #fff;
+        text-decoration: none; transition: border-color .15s, transform .15s, box-shadow .15s; }
+.nome:hover { border-color: var(--laranja); transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .35); }
+.nome[aria-current] { border-color: var(--laranja); box-shadow: 0 0 0 2px var(--laranja); }
 .nome b { display: block; font-size: 15px; line-height: 1.25; }
-.nome small { display: block; margin-top: 3px; color: var(--cinza); font-size: 10.5px; font-weight: 700;
-              letter-spacing: .08em; line-height: 1.3; }
-/* o avatar é o próprio card (1200x290), ampliado em cima da foto */
-.avatar { position: relative; flex: none; width: 46px; height: 46px; overflow: hidden; border-radius: 50%;
-          background: var(--laranja); }
-.avatar img { position: absolute; top: -4px; left: -24px; width: auto; max-width: none; height: 68px; }
-.nada { margin: 14px 0 0; color: var(--cinza); }
-.vazia { display: none; margin: 16px 0 0; padding: 18px; border: 2px dashed var(--linha); border-radius: 12px;
-         color: var(--cinza); text-align: center; }
-.js .vazia { display: block; }
+.nome small { display: block; margin-top: 4px; color: var(--laranja); font-size: 9.5px; font-weight: 700;
+              letter-spacing: .16em; line-height: 1.35; }
+/* a foto é o painel do próprio card (1200x290, painel de y=10 a 276),
+   com a borda direita na diagonal de 10° */
+.avatar { position: relative; flex: none; align-self: stretch; width: 76px; overflow: hidden; background: var(--laranja);
+          clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%); }
+.avatar img { position: absolute; top: -3px; left: -15px; width: auto; max-width: none; height: 72px; }
+.nada { margin: 18px 0 0; color: var(--nevoa); }
 
-/* ---- a assinatura escolhida (sem JS, todas aparecem em lista) */
-.pessoa { margin-top: 16px; padding: 20px; border: 1px solid var(--linha); border-radius: 12px; scroll-margin-top: 16px; }
-.js .pessoa { display: none; border-color: var(--laranja); box-shadow: 0 0 0 3px rgba(243, 109, 33, .18); }
+/* ---- a assinatura escolhida, numa janela de e-mail (sem JS, todas em lista) */
+.pessoa { margin-top: 44px; scroll-margin-top: 24px; }
+.js .pessoa { display: none; }
 .js .pessoa.ativa, .js.todas .pessoa { display: block; }
-.cabeca { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 14px; }
-.cabeca h3 { margin: 0; font-size: 19px; }
-.cargo { color: var(--cinza); font-size: 12px; font-weight: 700; letter-spacing: .12em; }
-.previa { overflow-x: auto; }
-.acoes { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
-.botao { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 18px;
+.pessoa-topo { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; margin-bottom: 18px; }
+.pessoa-topo h3 { margin: 0; font-size: 26px; }
+.pessoa-topo .cargo { color: var(--laranja); font-size: 12px; font-weight: 700; letter-spacing: .16em; }
+.email { max-width: 700px; overflow: hidden; border-radius: 14px; background: #fff; color: var(--tinta);
+         box-shadow: 0 30px 70px rgba(0, 0, 0, .55); }
+.email-barra { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px;
+               background: #F1EFEE; color: #3C3838; font-size: 14px; font-weight: 700; }
+.email-botoes { color: #9A9391; letter-spacing: .5em; }
+.email-campo { display: flex; align-items: center; gap: 14px; margin: 0 18px; padding: 11px 0;
+               border-bottom: 1px solid #EEEAE8; color: #8A8483; font-size: 14px; }
+.email-campo span { flex: none; width: 58px; }
+.ph { display: block; height: 9px; border-radius: 5px; background: #ECE8E6; }
+.w20 { width: 20%; } .w30 { width: 30%; } .w35 { width: 35%; } .w60 { width: 60%; }
+.email-corpo { padding: 20px 18px 26px; }
+.email-corpo .ph { margin-bottom: 11px; }
+.previa { margin-top: 24px; overflow-x: auto; }
+.acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 26px; }
+.botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 13px 22px;
          border: 2px solid var(--laranja); border-radius: 10px; background: var(--laranja); color: var(--preto);
-         font: inherit; font-weight: 700; text-decoration: none; cursor: pointer; }
+         font: inherit; font-size: 16px; font-weight: 700; text-decoration: none; cursor: pointer;
+         transition: background .15s, border-color .15s, color .15s; }
 .botao:hover { border-color: var(--laranja-escuro); background: var(--laranja-escuro); color: #fff; }
-.botao.sec { border-color: var(--linha); background: #fff; }
-.botao.sec:hover { border-color: var(--laranja); background: #fff; color: var(--preto); }
-.botao:disabled, .botao:disabled:hover { border-color: var(--linha); background: var(--fundo); color: var(--cinza);
-                                         cursor: not-allowed; }
+.botao.contorno { border-color: rgba(255, 255, 255, .3); background: transparent; color: #fff; }
+.botao.contorno:hover { border-color: #fff; background: rgba(255, 255, 255, .06); }
+.botao.fantasma { border-color: var(--linha); background: #fff; color: var(--tinta); }
+.botao.fantasma:hover { border-color: var(--tinta); }
+.botao:disabled, .botao:disabled:hover { border-color: var(--linha); background: #EDE9E6; color: #9A9391; cursor: not-allowed; }
+/* ícones em máscara, com a cor do texto do botão */
+.copiar::before, .abrir::after, .baixar::before { content: ""; flex: none; width: 18px; height: 18px; background: currentColor;
+  -webkit-mask: var(--icone) center / contain no-repeat; mask: var(--icone) center / contain no-repeat; }
+.copiar { --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M16 1H4a2 2 0 0 0-2 2v14h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z'/%3E%3C/svg%3E"); }
+.abrir { --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z'/%3E%3C/svg%3E"); }
+.baixar { --icone: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E"); }
 .copiar, .baixar, .baixar-dica { display: none; }
 .js .copiar, .js .baixar { display: inline-flex; }
 .js .baixar-dica { display: block; }
-.retorno { margin: 10px 0 0; font-size: 15px; }
+.retorno { display: inline-block; margin: 16px 0 0; padding: 9px 16px; border-radius: 12px; font-size: 15px; }
 .retorno:empty { display: none; }
-.retorno.ok { color: #166534; }
-.retorno.erro { color: #B91C1C; }
-.ajuda { margin-top: 18px; color: var(--cinza); font-size: 15px; }
-.ajuda summary { cursor: pointer; }
-.ajuda p { margin: 10px 0 0; color: var(--preto); }
+.retorno.ok { background: rgba(34, 197, 94, .14); color: #A7F3C0; }
+.retorno.erro { background: rgba(239, 68, 68, .16); color: #FECACA; }
+.retorno a { color: inherit; }
+.escura kbd { background: #2F2A2A; border-color: #4A4343; color: #fff; }
+.escura .tut-mock kbd { background: #fff; border-color: #D4D0CE; color: var(--tinta); }
+.ajuda { max-width: 700px; margin-top: 22px; color: var(--nevoa); font-size: 15px; }
+.js .ajuda { display: none; }
+.js .tem-escolha .ajuda { display: block; }
+.ajuda summary { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; list-style: none; }
+.ajuda summary::-webkit-details-marker { display: none; }
+.ajuda summary::before { content: "?"; display: flex; align-items: center; justify-content: center; flex: none;
+                         width: 22px; height: 22px; border: 1px solid var(--linha-escura); border-radius: 50%;
+                         background: var(--carvao); color: var(--laranja); font-size: 12px; font-weight: 700; }
+.ajuda summary b { color: #fff; }
+.ajuda p { margin: 12px 0 0; color: #E7E3E1; }
+.ajuda .tut-mock { margin-top: 14px; max-width: 520px; }
 
-/* ---- passo 2: abas por programa de e-mail (sem JS, os três um embaixo do outro) */
-.abas { display: none; gap: 4px; margin: 16px 0 4px; padding: 4px; border-radius: 12px; background: var(--fundo); }
-.js .abas { display: flex; flex-wrap: wrap; }
-.aba { flex: 1 1 0; min-width: max-content; padding: 9px 14px; border: 0; border-radius: 9px; background: none;
-       color: var(--cinza); font: inherit; font-weight: 700; cursor: pointer; }
-.aba:hover { color: var(--preto); }
-.aba[aria-selected="true"] { background: #fff; color: var(--preto); box-shadow: 0 1px 3px rgba(0, 0, 0, .14); }
-.tut-painel > h3 { margin: 24px 0 0; font-size: 18px; }
+/* ---- instalar: um cartão por programa, com o passo a passo de uma tela por vez */
+.clientes { display: none; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 28px 0 0; }
+.js .clientes { display: grid; }
+.cliente { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 2px solid var(--linha);
+           border-radius: 14px; background: #fff; color: var(--tinta); font: inherit; text-align: left; cursor: pointer;
+           transition: border-color .15s, box-shadow .15s; }
+.cliente:hover { border-color: #D2C9C4; }
+.cliente[aria-selected="true"] { border-color: var(--laranja); box-shadow: 0 12px 28px rgba(243, 109, 33, .16); }
+.cliente svg { flex: none; width: 36px; height: 36px; }
+.cliente b { display: block; font-size: 16px; line-height: 1.3; }
+.cliente small { display: block; color: var(--cinza); font-size: 13px; line-height: 1.35; }
+.qual { margin: 12px 0 0; color: var(--cinza); font-size: 14px; }
+.js .qual { margin-bottom: 26px; }
+.tut-painel { margin-top: 26px; padding: 30px; border-radius: 20px; background: #fff;
+              box-shadow: 0 1px 2px rgba(32, 30, 30, .06), 0 24px 60px rgba(32, 30, 30, .08); }
+.js .tut-painel { margin-top: 0; }
+.tut-painel > h3 { margin: 0 0 22px; font-size: 22px; }
 .js .tut-painel > h3 { display: none; }
-.tut-nota { margin: 14px 0 0; padding: 12px 14px; border-radius: 10px; background: var(--fundo); font-size: 15px; }
-.tut-passos { margin: 0; padding-left: 22px; }
-.tut-passos > li { margin: 18px 0 0; }
-.tut-passos > li > p { margin: 0; }
-.tut-obs { margin: 18px 0 0; color: var(--cinza); font-size: 14px; }
-.tut-fim { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--linha); }
-.tut-fim p { margin: 0; }
-.baixar { margin-top: 10px; }
-.baixar-dica { margin: 6px 0 0; color: var(--cinza); font-size: 14px; }
+.tut-nota { margin: 0 0 26px; padding: 13px 16px; border-left: 4px solid var(--laranja); border-radius: 0 10px 10px 0;
+            background: #FFF4EC; font-size: 15px; }
 
-footer { margin-top: 28px; color: var(--cinza); font-size: 13px; }
-footer p { margin: 0 0 8px; }
+/* barra de progresso, montada pelo pagina.js */
+.progresso { display: flex; margin: 0 0 34px; padding: 0; list-style: none; }
+.progresso li { position: relative; flex: 1 1 0; text-align: center; }
+.progresso li:not(:first-child)::before { content: ""; position: absolute; top: 16px; left: -50%; width: 100%; height: 2px;
+                                           background: var(--linha); }
+.progresso li.feito + li::before { background: var(--laranja); }
+.progresso button { position: relative; z-index: 1; display: inline-flex; flex-direction: column; align-items: center; gap: 8px;
+                    padding: 0 4px; border: 0; background: none; color: var(--cinza); font: inherit; cursor: pointer; }
+.bola { display: flex; align-items: center; justify-content: center; width: 34px; height: 34px; border: 2px solid var(--linha);
+        border-radius: 50%; background: #fff; font: 700 14px/1 "Ubuntu", sans-serif; transition: background .2s, border-color .2s; }
+.rot { max-width: 120px; font-size: 12.5px; line-height: 1.3; }
+.progresso .atual .bola { border-color: var(--laranja); background: var(--laranja); color: var(--preto); }
+.progresso .atual .rot { color: var(--tinta); font-weight: 700; }
+.progresso .feito .bola { border-color: var(--preto); background: var(--preto); color: var(--laranja); }
+
+.passos { margin: 0; padding: 0; list-style: none; }
+.passo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr); gap: 36px; align-items: start; }
+.passo + .passo { margin-top: 44px; padding-top: 36px; border-top: 1px solid var(--linha); }
+.js .passo + .passo { margin-top: 0; padding-top: 0; border-top: 0; }
+.js .passo { min-height: 290px; }
+.passo-num { margin: 4px 0 10px; color: var(--laranja); font: 700 12.5px/1 "Ubuntu", sans-serif; letter-spacing: .16em;
+             text-transform: uppercase; }
+.passo h3 { margin: 0 0 12px; font-size: 25px; line-height: 1.2; outline: 0; }
+.passo-texto p { margin: 0 0 12px; }
+.passo-texto .passo-num { margin-bottom: 10px; }
+.passo-obs { color: var(--cinza); font-size: 14px; }
+.passo .baixar { margin: 6px 0 0; }
+.baixar-dica { margin: 8px 0 0; color: var(--cinza); font-size: 14px; }
+.passos-botoes { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; padding-top: 22px;
+                 border-top: 1px solid var(--linha); }
+.passos-botoes .botao { padding: 11px 20px; }
+.feito-ilustra { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; min-height: 250px;
+                 border-radius: 16px; background: linear-gradient(135deg, #FFF4EC 0%, #FDE2D1 100%); color: var(--laranja-escuro);
+                 font: 14px/1 "Audiowide", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.feito-ilustra svg { width: 88px; height: 88px; }
+.arquivo-ilustra { display: flex; align-items: center; gap: 16px; padding: 22px; border-radius: 16px; background: var(--papel); }
+.arquivo-ilustra svg { flex: none; width: 54px; height: 64px; }
+.arquivo-ilustra b { display: block; font-size: 17px; }
+.arquivo-ilustra small { color: var(--cinza); }
+
+/* ---- rodapé */
+.rodape { background: var(--preto); color: var(--nevoa); font-size: 13px; }
+.rodape .secao-in { padding: 30px 24px 34px; }
+.rodape p { margin: 0 0 6px; }
+.rodape a { color: #fff; }
+.rodape code { background: #2F2A2A; color: #E7E3E1; }
 
 /* ---- janelinhas ilustrativas */
-.tut-mock { max-width: 520px; margin-top: 10px; overflow: hidden; border: 1px solid #DADCE0; border-radius: 10px;
-            background: #fff; color: #202124; font: 13px/1.4 Roboto, Arial, sans-serif; }
+.tut-mock { overflow: hidden; border: 1px solid #E3E0DE; border-radius: 12px; background: #fff; color: #202124;
+            font: 13px/1.4 Roboto, "Segoe UI", Arial, sans-serif; box-shadow: 0 14px 34px rgba(32, 30, 30, .12); }
 .tut-mock svg { display: block; width: 20px; height: 20px; fill: #444746; }
-.tut-alvo { position: relative; outline: 3px solid var(--laranja); outline-offset: 2px; border-radius: 6px; }
+.janela-barra { display: flex; align-items: center; gap: 7px; padding: 8px 12px; border-bottom: 1px solid #E3E0DE;
+                background: #EFEDEC; }
+.janela-barra i { width: 9px; height: 9px; border-radius: 50%; background: #CFCAC8; }
+.janela-barra span { flex: 1; min-width: 0; margin-left: 8px; padding: 3px 12px; overflow: hidden; border-radius: 999px;
+                     background: #fff; color: #6E6A69; font-size: 11.5px; white-space: nowrap; text-overflow: ellipsis; }
+.tut-alvo { position: relative; outline: 3px solid var(--laranja); outline-offset: 2px; border-radius: 6px;
+            animation: pulso 2s ease-out infinite; }
 .tut-alvo[data-n]::after { content: attr(data-n); position: absolute; top: -14px; right: -14px; z-index: 1;
                            width: 22px; height: 22px; border-radius: 50%; background: var(--laranja); color: var(--preto);
-                           font: 700 12px/22px system-ui, sans-serif; text-align: center; }
+                           font: 700 12px/22px "Ubuntu", system-ui, sans-serif; text-align: center; }
+@keyframes pulso { 0% { box-shadow: 0 0 0 0 rgba(243, 109, 33, .5); }
+                   70%, 100% { box-shadow: 0 0 0 10px rgba(243, 109, 33, 0); } }
+@media (prefers-reduced-motion: reduce) { .tut-alvo { animation: none; } * { transition: none !important; } }
 .tut-teclas { font-weight: 700; white-space: nowrap; }
 .tut-teclas kbd { font-size: 15px; padding: 4px 8px; }
 
@@ -172,14 +273,14 @@ footer p { margin: 0 0 8px; }
 .g-editor { border: 1px solid #DADCE0; border-radius: 4px; }
 .g-ferr { display: flex; gap: 12px; padding: 5px 8px; border-bottom: 1px solid #DADCE0; color: #5F6368;
           font-size: 12px; white-space: nowrap; overflow: hidden; }
-.g-editor-cont { max-width: 260px; padding: 10px; }
-.g-padroes { padding: 16px 14px; }
+.g-editor-cont { max-width: 300px; padding: 10px; }
+.g-padroes { padding: 18px 16px; }
 .g-padroes-tit { font-weight: 700; margin-bottom: 12px; }
 .g-sels { display: flex; flex-wrap: wrap; gap: 18px 28px; }
 .g-sel-rot { margin-bottom: 14px; color: #5F6368; font-size: 11px; letter-spacing: .04em; }
 .g-sel { display: inline-flex; justify-content: space-between; gap: 24px; min-width: 150px; padding: 5px 10px;
          border: 1px solid #747775; border-radius: 4px; }
-.g-rodape { display: flex; justify-content: center; gap: 12px; padding: 18px 14px; }
+.g-rodape { display: flex; justify-content: center; gap: 12px; padding: 22px 14px; }
 .g-btn { padding: 6px 14px; border: 1px solid #747775; border-radius: 4px; }
 
 /* Outlook novo e na web */
@@ -192,7 +293,7 @@ footer p { margin: 0 0 8px; }
 .tut-mock .o-ic svg { fill: #fff; }
 .o-avatar { display: flex; align-items: center; justify-content: center; width: 26px; height: 26px;
             border-radius: 50%; background: #fff; color: #0F6CBD; font-weight: 700; }
-.o-corpo { padding: 4px 12px 14px; background: #F5F5F5; }
+.o-corpo { padding: 4px 12px 16px; background: #F5F5F5; }
 .o-cfg { display: grid; grid-template-columns: 118px 136px 1fr; }
 .o-nav, .o-sub { padding: 10px 6px; border-right: 1px solid #E0E0E0; }
 .o-nav { background: #FAFAFA; }
@@ -206,7 +307,7 @@ footer p { margin: 0 0 8px; }
 .o-input { margin-top: 10px; padding: 5px 8px; border: 1px solid #D1D1D1; border-bottom: 2px solid #0F6CBD; border-radius: 4px; }
 .o-editor { margin-top: 10px; border: 1px solid #D1D1D1; border-radius: 4px; }
 .o-rodape { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
-.o-padroes { padding: 14px; }
+.o-padroes { padding: 16px; }
 .o-tit2 { margin-bottom: 6px; font-size: 14px; font-weight: 600; }
 .o-linha { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 12px; margin: 10px 0; }
 .o-sel { display: inline-flex; justify-content: space-between; gap: 24px; min-width: 150px; padding: 4px 10px;
@@ -229,7 +330,7 @@ footer p { margin: 0 0 8px; }
 .w-abas { display: flex; gap: 2px; margin-bottom: 4px; border-bottom: 1px solid #D4D4D4; }
 .w-abas span { padding: 4px 10px; }
 .w-abas .sel { margin-bottom: -1px; border: 1px solid #D4D4D4; border-bottom-color: #fff; background: #fff; }
-.w-grade { display: grid; grid-template-columns: 0.9fr 1.4fr; gap: 14px; }
+.w-grade { display: grid; grid-template-columns: .9fr 1.4fr; gap: 14px; }
 .w-rot { margin: 8px 0 4px; font-weight: 600; }
 .w-caixa { min-height: 28px; padding: 4px; border: 1px solid #ADADAD; background: #fff; }
 .w-item { padding: 1px 4px; background: #CCE8FF; }
@@ -252,11 +353,21 @@ footer p { margin: 0 0 8px; }
 .w-dialogo-tit { margin-bottom: 6px; font-size: 14px; font-weight: 600; }
 .w-opcao { margin-top: 8px; padding: 6px 8px; border-radius: 3px; }
 
+@media (max-width: 860px) {
+  .passo { grid-template-columns: 1fr; gap: 20px; }
+  .js .passo { min-height: 0; }
+  .clientes { grid-template-columns: 1fr; }
+}
 @media (max-width: 640px) {
   .aviso-celular { display: block; }
-  .topo h1 { font-size: 25px; }
-  .bloco { padding: 18px 16px; }
-  .pessoa { padding: 14px; }
+  .topo h1 { font-size: 28px; }
+  .secao-in { padding: 40px 16px 48px; }
+  .secao h2 { font-size: 27px; }
+  .tut-painel { padding: 20px 16px; border-radius: 16px; }
+  .rot { display: none; }
+  .email-campo { margin: 0 12px; }
+  .email-corpo { padding: 16px 12px 20px; }
+  .passos-botoes .botao { flex: 1; }
 }
 @media (max-width: 480px) {
   .g-cfg, .o-cfg, .w-opcoes, .w-grade { grid-template-columns: 1fr; }
@@ -274,43 +385,50 @@ footer p { margin: 0 0 8px; }
 </header>
 
 <main>
-<p class="aviso-celular">A instalação é feita no <b>computador</b>. Pelo celular dá para conferir a sua
-assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
-
-<section class="bloco" id="escolha">
-  <h2><span class="num">1</span> Encontre e copie a sua assinatura</h2>
-  <label class="busca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-    <input type="search" id="busca" placeholder="Digite seu nome" aria-label="Digite seu nome" autocomplete="off" spellcheck="false"></label>
-  <ul class="nomes" id="nomes">
-    <li><a class="nome" href="#rafael-serra"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""></span><span><b>Rafael Serra</b><small>CEO</small></span></a></li>
-    <li><a class="nome" href="#camila-melo"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/camila-melo.png" alt=""></span><span><b>Camila Melo</b><small>GERENTE DE OPERAÇÕES</small></span></a></li>
-    <li><a class="nome" href="#jose-martins"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/jose-martins.png" alt=""></span><span><b>José Martins</b><small>PRESIDENTE E CVO</small></span></a></li>
-    <li><a class="nome" href="#cassio-lopes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/cassio-lopes.png" alt=""></span><span><b>Cássio Lopes</b><small>DIRETOR DE EXPANSÃO</small></span></a></li>
-    <li><a class="nome" href="#claudio-calabria"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/claudio-calabria.png" alt=""></span><span><b>Claudio Calabria</b><small>GERENTE DE PLANEJAMENTO</small></span></a></li>
-    <li><a class="nome" href="#thamerson-fortuna"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/thamerson-fortuna-r2.png" alt=""></span><span><b>Thamerson Fortuna</b><small>ANALISTA FINANCEIRO</small></span></a></li>
-    <li><a class="nome" href="#paulo-cesar"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/paulo-cesar.png" alt=""></span><span><b>Paulo Cesar</b><small>ANALISTA DE TI</small></span></a></li>
-    <li><a class="nome" href="#wagner-queiroz"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/wagner-queiroz.png" alt=""></span><span><b>Wagner de Queiroz Junior</b><small>HEAD DESIGNER</small></span></a></li>
-    <li><a class="nome" href="#fernanda-oliveira"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/fernanda-oliveira.png" alt=""></span><span><b>Fernanda Oliveira</b><small>COORDENADORA DE RH</small></span></a></li>
-    <li><a class="nome" href="#natalia-herdy"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/natalia-herdy.png" alt=""></span><span><b>Natália Herdy</b><small>COORDENADORA DE MARKETING</small></span></a></li>
-    <li><a class="nome" href="#henrique-gomes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/henrique-gomes-r2.png" alt=""></span><span><b>Henrique Gomes</b><small>GESTOR DE PROJETO</small></span></a></li>
-    <li><a class="nome" href="#beatriz-leal"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/beatriz-leal.png" alt=""></span><span><b>Beatriz Leal da Silva</b><small>SOCIAL MEDIA</small></span></a></li>
-    <li><a class="nome" href="#ronaldo-spinelli"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/ronaldo-spinelli.png" alt=""></span><span><b>Ronaldo Leal Spinelli</b><small>COORDENADOR TÉCNICO</small></span></a></li>
-    <li><a class="nome" href="#alessandra-moreira"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/alessandra-moreira-r2.png" alt=""></span><span><b>Alessandra Carvalho Moreira</b><small>COORDENADORA DE LOGÍSTICA</small></span></a></li>
-    <li><a class="nome" href="#joao-mauricio"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/joao-mauricio.png" alt=""></span><span><b>João Mauricio</b><small>COORDENADOR DE EVENTOS</small></span></a></li>
-    <li><a class="nome" href="#antonio-barreto"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/antonio-barreto.png" alt=""></span><span><b>Antonio Barreto</b><small>EVENTOS</small></span></a></li>
-    <li><a class="nome" href="#jessica-carneiro"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/jessica-carneiro.png" alt=""></span><span><b>Jéssica Carneiro</b><small>COORDENADORA DE SISTEMA</small></span></a></li>
-    <li><a class="nome" href="#flavia-elisque"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/flavia-elisque.png" alt=""></span><span><b>Flávia Elisque</b><small>DIRETORA ADMINISTRATIVA</small></span></a></li>
-    <li><a class="nome" href="#clara-bardaro"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/clara-bardaro.png" alt=""></span><span><b>Clara Bardaro</b><small>ATENDIMENTO</small></span></a></li>
-    <li><a class="nome" href="#miriam-fernandes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/miriam-fernandes.png" alt=""></span><span><b>Miriam Fernandes</b><small>ASSISTENTE FINANCEIRO</small></span></a></li>
-    <li><a class="nome" href="#gabriel-muniz"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/gabriel-muniz.png" alt=""></span><span><b>Gabriel Monteiro Muniz</b><small>SUPERVISOR DE ESCOLAS PRÓPRIAS</small></span></a></li>
-    <li><a class="nome" href="#mauricio-helayel"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/mauricio-helayel.png" alt=""></span><span><b>Mauricio Helayel</b><small>SUPERVISOR DE MARKETING</small></span></a></li>
-  </ul>
-  <p class="nada" id="nada" hidden>Ninguém com esse nome por aqui. Se você já pediu a sua, ela ainda não
-  ficou pronta.</p>
-  <p class="vazia" id="vazia">Clique no seu nome para ver a sua assinatura aqui.</p>
-  <article class="pessoa" id="rafael-serra" data-nome="Rafael Serra">
-    <div class="cabeca"><h3>Rafael Serra</h3><span class="cargo">CEO</span></div>
-    <div class="previa"><div class="escala">
+<section class="secao escura" id="escolha">
+  <div class="secao-in">
+    <p class="aviso-celular">A instalação é feita no <b>computador</b>. Pelo celular dá para conferir a sua
+    assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
+    <p class="sobretitulo"><span>1</span> Copie</p>
+    <h2>Encontre a sua assinatura</h2>
+    <p class="intro">Clique no seu nome para ver a assinatura em tamanho real e copiar.</p>
+    <label class="busca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      <input type="search" id="busca" placeholder="Digite seu nome" aria-label="Digite seu nome" autocomplete="off" spellcheck="false"></label>
+    <ul class="nomes" id="nomes">
+      <li><a class="nome" href="#rafael-serra"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""></span><span><b>Rafael Serra</b><small>CEO</small></span></a></li>
+      <li><a class="nome" href="#camila-melo"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/camila-melo.png" alt=""></span><span><b>Camila Melo</b><small>GERENTE DE OPERAÇÕES</small></span></a></li>
+      <li><a class="nome" href="#jose-martins"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/jose-martins.png" alt=""></span><span><b>José Martins</b><small>PRESIDENTE E CVO</small></span></a></li>
+      <li><a class="nome" href="#cassio-lopes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/cassio-lopes.png" alt=""></span><span><b>Cássio Lopes</b><small>DIRETOR DE EXPANSÃO</small></span></a></li>
+      <li><a class="nome" href="#claudio-calabria"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/claudio-calabria.png" alt=""></span><span><b>Claudio Calabria</b><small>GERENTE DE PLANEJAMENTO</small></span></a></li>
+      <li><a class="nome" href="#thamerson-fortuna"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/thamerson-fortuna-r2.png" alt=""></span><span><b>Thamerson Fortuna</b><small>ANALISTA FINANCEIRO</small></span></a></li>
+      <li><a class="nome" href="#paulo-cesar"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/paulo-cesar.png" alt=""></span><span><b>Paulo Cesar</b><small>ANALISTA DE TI</small></span></a></li>
+      <li><a class="nome" href="#wagner-queiroz"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/wagner-queiroz.png" alt=""></span><span><b>Wagner de Queiroz Junior</b><small>HEAD DESIGNER</small></span></a></li>
+      <li><a class="nome" href="#fernanda-oliveira"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/fernanda-oliveira.png" alt=""></span><span><b>Fernanda Oliveira</b><small>COORDENADORA DE RH</small></span></a></li>
+      <li><a class="nome" href="#natalia-herdy"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/natalia-herdy.png" alt=""></span><span><b>Natália Herdy</b><small>COORDENADORA DE MARKETING</small></span></a></li>
+      <li><a class="nome" href="#henrique-gomes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/henrique-gomes-r2.png" alt=""></span><span><b>Henrique Gomes</b><small>GESTOR DE PROJETO</small></span></a></li>
+      <li><a class="nome" href="#beatriz-leal"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/beatriz-leal.png" alt=""></span><span><b>Beatriz Leal da Silva</b><small>SOCIAL MEDIA</small></span></a></li>
+      <li><a class="nome" href="#ronaldo-spinelli"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/ronaldo-spinelli.png" alt=""></span><span><b>Ronaldo Leal Spinelli</b><small>COORDENADOR TÉCNICO</small></span></a></li>
+      <li><a class="nome" href="#alessandra-moreira"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/alessandra-moreira-r2.png" alt=""></span><span><b>Alessandra Carvalho Moreira</b><small>COORDENADORA DE LOGÍSTICA</small></span></a></li>
+      <li><a class="nome" href="#joao-mauricio"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/joao-mauricio.png" alt=""></span><span><b>João Mauricio</b><small>COORDENADOR DE EVENTOS</small></span></a></li>
+      <li><a class="nome" href="#antonio-barreto"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/antonio-barreto.png" alt=""></span><span><b>Antonio Barreto</b><small>EVENTOS</small></span></a></li>
+      <li><a class="nome" href="#jessica-carneiro"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/jessica-carneiro.png" alt=""></span><span><b>Jéssica Carneiro</b><small>COORDENADORA DE SISTEMA</small></span></a></li>
+      <li><a class="nome" href="#flavia-elisque"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/flavia-elisque.png" alt=""></span><span><b>Flávia Elisque</b><small>DIRETORA ADMINISTRATIVA</small></span></a></li>
+      <li><a class="nome" href="#clara-bardaro"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/clara-bardaro.png" alt=""></span><span><b>Clara Bardaro</b><small>ATENDIMENTO</small></span></a></li>
+      <li><a class="nome" href="#miriam-fernandes"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/miriam-fernandes.png" alt=""></span><span><b>Miriam Fernandes</b><small>ASSISTENTE FINANCEIRO</small></span></a></li>
+      <li><a class="nome" href="#gabriel-muniz"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/gabriel-muniz.png" alt=""></span><span><b>Gabriel Monteiro Muniz</b><small>SUPERVISOR DE ESCOLAS PRÓPRIAS</small></span></a></li>
+      <li><a class="nome" href="#mauricio-helayel"><span class="avatar"><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/mauricio-helayel.png" alt=""></span><span><b>Mauricio Helayel</b><small>SUPERVISOR DE MARKETING</small></span></a></li>
+    </ul>
+    <p class="nada" id="nada" hidden>Ninguém com esse nome por aqui. Se você já pediu a sua, ela ainda não
+    ficou pronta.</p>
+    <article class="pessoa" id="rafael-serra" data-nome="Rafael Serra">
+      <div class="pessoa-topo"><h3>Rafael Serra</h3><span class="cargo">CEO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -389,16 +507,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/rafael-serra.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="camila-melo" data-nome="Camila Melo">
-    <div class="cabeca"><h3>Camila Melo</h3><span class="cargo">GERENTE DE OPERAÇÕES</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/rafael-serra.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="camila-melo" data-nome="Camila Melo">
+      <div class="pessoa-topo"><h3>Camila Melo</h3><span class="cargo">GERENTE DE OPERAÇÕES</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -477,16 +603,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/camila-melo.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="jose-martins" data-nome="José Martins">
-    <div class="cabeca"><h3>José Martins</h3><span class="cargo">PRESIDENTE E CVO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/camila-melo.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="jose-martins" data-nome="José Martins">
+      <div class="pessoa-topo"><h3>José Martins</h3><span class="cargo">PRESIDENTE E CVO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -565,16 +699,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/jose-martins.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="cassio-lopes" data-nome="Cássio Lopes">
-    <div class="cabeca"><h3>Cássio Lopes</h3><span class="cargo">DIRETOR DE EXPANSÃO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/jose-martins.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="cassio-lopes" data-nome="Cássio Lopes">
+      <div class="pessoa-topo"><h3>Cássio Lopes</h3><span class="cargo">DIRETOR DE EXPANSÃO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -653,16 +795,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/cassio-lopes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="claudio-calabria" data-nome="Claudio Calabria">
-    <div class="cabeca"><h3>Claudio Calabria</h3><span class="cargo">GERENTE DE PLANEJAMENTO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/cassio-lopes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="claudio-calabria" data-nome="Claudio Calabria">
+      <div class="pessoa-topo"><h3>Claudio Calabria</h3><span class="cargo">GERENTE DE PLANEJAMENTO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -741,16 +891,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/claudio-calabria.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="thamerson-fortuna" data-nome="Thamerson Fortuna">
-    <div class="cabeca"><h3>Thamerson Fortuna</h3><span class="cargo">ANALISTA FINANCEIRO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/claudio-calabria.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="thamerson-fortuna" data-nome="Thamerson Fortuna">
+      <div class="pessoa-topo"><h3>Thamerson Fortuna</h3><span class="cargo">ANALISTA FINANCEIRO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -829,16 +987,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/thamerson-fortuna.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="paulo-cesar" data-nome="Paulo Cesar">
-    <div class="cabeca"><h3>Paulo Cesar</h3><span class="cargo">ANALISTA DE TI</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/thamerson-fortuna.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="paulo-cesar" data-nome="Paulo Cesar">
+      <div class="pessoa-topo"><h3>Paulo Cesar</h3><span class="cargo">ANALISTA DE TI</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -917,16 +1083,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/paulo-cesar.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="wagner-queiroz" data-nome="Wagner de Queiroz Junior">
-    <div class="cabeca"><h3>Wagner de Queiroz Junior</h3><span class="cargo">HEAD DESIGNER</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/paulo-cesar.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="wagner-queiroz" data-nome="Wagner de Queiroz Junior">
+      <div class="pessoa-topo"><h3>Wagner de Queiroz Junior</h3><span class="cargo">HEAD DESIGNER</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1005,16 +1179,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/wagner-queiroz.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="fernanda-oliveira" data-nome="Fernanda Oliveira">
-    <div class="cabeca"><h3>Fernanda Oliveira</h3><span class="cargo">COORDENADORA DE RH</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/wagner-queiroz.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="fernanda-oliveira" data-nome="Fernanda Oliveira">
+      <div class="pessoa-topo"><h3>Fernanda Oliveira</h3><span class="cargo">COORDENADORA DE RH</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1093,16 +1275,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/fernanda-oliveira.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="natalia-herdy" data-nome="Natália Herdy">
-    <div class="cabeca"><h3>Natália Herdy</h3><span class="cargo">COORDENADORA DE MARKETING</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/fernanda-oliveira.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="natalia-herdy" data-nome="Natália Herdy">
+      <div class="pessoa-topo"><h3>Natália Herdy</h3><span class="cargo">COORDENADORA DE MARKETING</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1181,16 +1371,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/natalia-herdy.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="henrique-gomes" data-nome="Henrique Gomes">
-    <div class="cabeca"><h3>Henrique Gomes</h3><span class="cargo">GESTOR DE PROJETO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/natalia-herdy.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="henrique-gomes" data-nome="Henrique Gomes">
+      <div class="pessoa-topo"><h3>Henrique Gomes</h3><span class="cargo">GESTOR DE PROJETO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1269,16 +1467,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/henrique-gomes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="beatriz-leal" data-nome="Beatriz Leal da Silva">
-    <div class="cabeca"><h3>Beatriz Leal da Silva</h3><span class="cargo">SOCIAL MEDIA</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/henrique-gomes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="beatriz-leal" data-nome="Beatriz Leal da Silva">
+      <div class="pessoa-topo"><h3>Beatriz Leal da Silva</h3><span class="cargo">SOCIAL MEDIA</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1357,16 +1563,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/beatriz-leal.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="ronaldo-spinelli" data-nome="Ronaldo Leal Spinelli">
-    <div class="cabeca"><h3>Ronaldo Leal Spinelli</h3><span class="cargo">COORDENADOR TÉCNICO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/beatriz-leal.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="ronaldo-spinelli" data-nome="Ronaldo Leal Spinelli">
+      <div class="pessoa-topo"><h3>Ronaldo Leal Spinelli</h3><span class="cargo">COORDENADOR TÉCNICO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1445,16 +1659,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/ronaldo-spinelli.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="alessandra-moreira" data-nome="Alessandra Carvalho Moreira">
-    <div class="cabeca"><h3>Alessandra Carvalho Moreira</h3><span class="cargo">COORDENADORA DE LOGÍSTICA</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/ronaldo-spinelli.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="alessandra-moreira" data-nome="Alessandra Carvalho Moreira">
+      <div class="pessoa-topo"><h3>Alessandra Carvalho Moreira</h3><span class="cargo">COORDENADORA DE LOGÍSTICA</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1533,16 +1755,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/alessandra-moreira.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="joao-mauricio" data-nome="João Mauricio">
-    <div class="cabeca"><h3>João Mauricio</h3><span class="cargo">COORDENADOR DE EVENTOS</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/alessandra-moreira.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="joao-mauricio" data-nome="João Mauricio">
+      <div class="pessoa-topo"><h3>João Mauricio</h3><span class="cargo">COORDENADOR DE EVENTOS</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1621,16 +1851,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/joao-mauricio.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="antonio-barreto" data-nome="Antonio Barreto">
-    <div class="cabeca"><h3>Antonio Barreto</h3><span class="cargo">EVENTOS</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/joao-mauricio.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="antonio-barreto" data-nome="Antonio Barreto">
+      <div class="pessoa-topo"><h3>Antonio Barreto</h3><span class="cargo">EVENTOS</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1709,16 +1947,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/antonio-barreto.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="jessica-carneiro" data-nome="Jéssica Carneiro">
-    <div class="cabeca"><h3>Jéssica Carneiro</h3><span class="cargo">COORDENADORA DE SISTEMA</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/antonio-barreto.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="jessica-carneiro" data-nome="Jéssica Carneiro">
+      <div class="pessoa-topo"><h3>Jéssica Carneiro</h3><span class="cargo">COORDENADORA DE SISTEMA</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1797,16 +2043,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/jessica-carneiro.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="flavia-elisque" data-nome="Flávia Elisque">
-    <div class="cabeca"><h3>Flávia Elisque</h3><span class="cargo">DIRETORA ADMINISTRATIVA</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/jessica-carneiro.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="flavia-elisque" data-nome="Flávia Elisque">
+      <div class="pessoa-topo"><h3>Flávia Elisque</h3><span class="cargo">DIRETORA ADMINISTRATIVA</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1885,16 +2139,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/flavia-elisque.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="clara-bardaro" data-nome="Clara Bardaro">
-    <div class="cabeca"><h3>Clara Bardaro</h3><span class="cargo">ATENDIMENTO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/flavia-elisque.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="clara-bardaro" data-nome="Clara Bardaro">
+      <div class="pessoa-topo"><h3>Clara Bardaro</h3><span class="cargo">ATENDIMENTO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -1973,16 +2235,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/clara-bardaro.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="miriam-fernandes" data-nome="Miriam Fernandes">
-    <div class="cabeca"><h3>Miriam Fernandes</h3><span class="cargo">ASSISTENTE FINANCEIRO</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/clara-bardaro.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="miriam-fernandes" data-nome="Miriam Fernandes">
+      <div class="pessoa-topo"><h3>Miriam Fernandes</h3><span class="cargo">ASSISTENTE FINANCEIRO</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -2061,16 +2331,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/miriam-fernandes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="gabriel-muniz" data-nome="Gabriel Monteiro Muniz">
-    <div class="cabeca"><h3>Gabriel Monteiro Muniz</h3><span class="cargo">SUPERVISOR DE ESCOLAS PRÓPRIAS</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/miriam-fernandes.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="gabriel-muniz" data-nome="Gabriel Monteiro Muniz">
+      <div class="pessoa-topo"><h3>Gabriel Monteiro Muniz</h3><span class="cargo">SUPERVISOR DE ESCOLAS PRÓPRIAS</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -2149,16 +2427,24 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/gabriel-muniz.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <article class="pessoa" id="mauricio-helayel" data-nome="Mauricio Helayel">
-    <div class="cabeca"><h3>Mauricio Helayel</h3><span class="cargo">SUPERVISOR DE MARKETING</span></div>
-    <div class="previa"><div class="escala">
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/gabriel-muniz.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <article class="pessoa" id="mauricio-helayel" data-nome="Mauricio Helayel">
+      <div class="pessoa-topo"><h3>Mauricio Helayel</h3><span class="cargo">SUPERVISOR DE MARKETING</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 <table cellpadding="0" cellspacing="0" border="0" role="presentation" width="600"
        style="max-width: 600px; font-family: Arial, sans-serif; border-collapse: collapse;">
   <tbody>
@@ -2237,312 +2523,444 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
 
   </tbody>
 </table>
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/mauricio-helayel.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>
-  <details class="ajuda">
-    <summary>O botão <b>Copiar assinatura</b> não funcionou? Copie à mão</summary>
-    <p>Clique em <b>Abrir em outra aba</b>. Na página que abrir, aperte <kbd>Ctrl</kbd> + <kbd>A</kbd>
-    (a assinatura inteira fica <b>azul</b>) e depois <kbd>Ctrl</kbd> + <kbd>C</kbd>. No Mac, use
-    <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>.</p>
-    <div class="tut-mock" aria-hidden="true">
-      <div class="c-nav"><span class="c-pontos"><i></i><i></i><i></i></span>
-        <span class="c-url">paulocesar0405.github.io/repo-assinaturas/assinaturas-html/seu-nome.html</span></div>
-      <div class="c-pagina">
-        <div class="c-assin">
-          <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
-          <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
-          <span class="c-selecao"></span>
+          </div></div>
         </div>
-        <span class="tut-teclas"><kbd>Ctrl</kbd> + <kbd>A</kbd></span>
       </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/mauricio-helayel.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>
+    <details class="ajuda">
+      <summary><span>O botão <b>Copiar assinatura</b> não funcionou? Copie à mão</span></summary>
+      <p>Clique em <b>Abrir em outra aba</b>. Na página que abrir, aperte <kbd>Ctrl</kbd> + <kbd>A</kbd>
+      (a assinatura inteira fica <b>azul</b>) e depois <kbd>Ctrl</kbd> + <kbd>C</kbd>. No Mac, use
+      <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>.</p>
+      <div class="tut-mock" aria-hidden="true">
+        <div class="c-nav"><span class="c-pontos"><i></i><i></i><i></i></span>
+          <span class="c-url">paulocesar0405.github.io/repo-assinaturas/assinaturas-html/seu-nome.html</span></div>
+        <div class="c-pagina">
+          <div class="c-assin">
+            <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
+            <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
+            <span class="c-selecao"></span>
+          </div>
+          <span class="tut-teclas"><kbd>Ctrl</kbd> + <kbd>A</kbd></span>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="secao clara" id="como-instalar">
+  <div class="secao-in">
+    <p class="sobretitulo"><span>2</span> Cole</p>
+    <h2>Instale no seu e-mail</h2>
+    <p class="intro">Escolha o programa que você usa no computador e siga as telas.</p>
+    <div class="clientes" role="tablist" aria-label="Programa de e-mail">
+      <button type="button" class="cliente" role="tab" id="aba-gmail" aria-controls="tut-gmail">
+        <svg viewBox="0 0 36 36" aria-hidden="true"><rect x="3" y="7" width="30" height="22" rx="4" fill="#FDE2D1"/><path d="M5 10l13 10 13-10" fill="none" stroke="#F36D21" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span><b>Gmail</b><small>no navegador</small></span></button>
+      <button type="button" class="cliente" role="tab" id="aba-outlook" aria-controls="tut-outlook">
+        <svg viewBox="0 0 36 36" aria-hidden="true"><rect x="3" y="6" width="30" height="24" rx="4" fill="#FDE2D1"/><rect x="3" y="6" width="30" height="6" rx="3" fill="#F36D21"/><rect x="8" y="16" width="12" height="2.6" rx="1.3" fill="#F36D21"/><rect x="8" y="21" width="19" height="2.6" rx="1.3" fill="#F9B48B"/></svg>
+        <span><b>Outlook novo</b><small>Windows ou navegador</small></span></button>
+      <button type="button" class="cliente" role="tab" id="aba-classico" aria-controls="tut-classico">
+        <svg viewBox="0 0 36 36" aria-hidden="true"><rect x="3" y="6" width="30" height="24" rx="3" fill="#FDE2D1"/><rect x="3" y="6" width="30" height="5" rx="2.5" fill="#201E1E"/><rect x="7" y="15" width="9" height="11" rx="1.5" fill="#F36D21"/><rect x="19" y="15" width="10" height="2.6" rx="1.3" fill="#F9B48B"/><rect x="19" y="20" width="7" height="2.6" rx="1.3" fill="#F9B48B"/></svg>
+        <span><b>Outlook clássico</b><small>Windows, com o menu Arquivo</small></span></button>
     </div>
-  </details>
+    <p class="qual">Não sabe qual é o seu Outlook? Se ele tem a aba <b>Arquivo</b> no canto de cima à esquerda,
+    é o clássico.</p>
+
+    <div class="tut-painel" id="tut-gmail" role="tabpanel" aria-labelledby="aba-gmail">
+      <h3>Gmail</h3>
+      <ol class="passos">
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 1 de 6</p>
+            <h3 tabindex="-1">Abra as configurações</h3>
+            <p>No Gmail, clique na <b>engrenagem</b>, no canto de cima à direita, e depois em
+            <b>Ver todas as configurações</b>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="janela-barra"><i></i><i></i><i></i><span>mail.google.com</span></div>
+              <div class="g-top">
+                <div class="g-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar e-mail</div>
+                <div class="g-icones">
+                  <span class="g-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+                  <span class="g-avatar">V</span>
+                </div>
+              </div>
+              <div class="g-corpo">
+                <div class="g-painel">
+                  <div class="g-painel-tit">Configurações rápidas</div>
+                  <div class="g-pilula tut-alvo" data-n="2">Ver todas as configurações</div>
+                  <div class="g-fantasma"></div><div class="g-fantasma curto"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 2 de 6</p>
+            <h3 tabindex="-1">Crie uma assinatura nova</h3>
+            <p>Fique na aba <b>Geral</b> e desça até <b>Assinatura</b>. Se tiver uma assinatura antiga da
+            Time Forte, apague na <b>lixeira</b>. Clique em <b>+ Criar nova</b>, escreva
+            <i>Time Forte</i> e clique em <b>Criar</b>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="janela-barra"><i></i><i></i><i></i><span>mail.google.com</span></div>
+              <div class="g-titulo">Configurações</div>
+              <div class="g-abas"><span class="g-aba ativa">Geral</span><span class="g-aba">Marcadores</span>
+                <span class="g-aba">Caixa de entrada</span><span class="g-aba">Contas e importação</span>
+                <span class="g-aba">Filtros</span></div>
+              <div class="g-cfg">
+                <div class="g-rotulo"><b>Assinatura:</b><br><small>(anexada ao final de todas as mensagens enviadas)</small></div>
+                <div>
+                  <div class="g-lista"><div class="g-item"><span>Assinatura antiga</span>
+                    <span class="tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></span></div></div>
+                  <span class="g-pilula g-criar tut-alvo" data-n="2">+ Criar nova</span>
+                </div>
+              </div>
+              <div class="g-dialogo">
+                <div class="g-dialogo-tit">Nomear nova assinatura</div>
+                <div class="g-input">Time Forte</div>
+                <div class="g-acoes"><span>Cancelar</span><span class="tut-alvo" data-n="3">Criar</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 3 de 6</p>
+            <h3 tabindex="-1">Cole a sua assinatura</h3>
+            <p>Clique dentro da caixa grande ao lado do nome e aperte <kbd>Ctrl</kbd> + <kbd>V</kbd>.
+            A assinatura aparece com as imagens.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="janela-barra"><i></i><i></i><i></i><span>mail.google.com</span></div>
+              <div class="g-cfg">
+                <div class="g-lista"><div class="g-item sel">Time Forte</div></div>
+                <div class="g-editor tut-alvo" data-n="1">
+                  <div class="g-ferr"><span>Sans Serif &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
+                  <div class="g-editor-cont">
+                    <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
+                    <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 4 de 6</p>
+            <h3 tabindex="-1">Deixe como padrão</h3>
+            <p>Logo abaixo, em <b>Padrões de assinatura</b>, escolha <i>Time Forte</i> nas <b>duas</b>
+            caixas: novos e-mails e respostas.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="janela-barra"><i></i><i></i><i></i><span>mail.google.com</span></div>
+              <div class="g-padroes">
+                <div class="g-padroes-tit">Padrões de assinatura</div>
+                <div class="g-sels">
+                  <div><div class="g-sel-rot">PARA USO EM NOVOS E-MAILS</div>
+                    <span class="g-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
+                  <div><div class="g-sel-rot">PARA USO EM RESPOSTAS/ENCAMINHAMENTOS</div>
+                    <span class="g-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 5 de 6</p>
+            <h3 tabindex="-1">Salve</h3>
+            <p>Desça até o <b>fim da página</b> e clique em <b>Salvar alterações</b>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="janela-barra"><i></i><i></i><i></i><span>mail.google.com</span></div>
+              <div class="g-rodape"><span class="g-btn tut-alvo" data-n="1">Salvar alterações</span><span class="g-btn">Cancelar</span></div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 6 de 6</p>
+            <h3 tabindex="-1">Pronto! Agora teste</h3>
+            <p>Mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e no
+            endereço (abre o Maps).</p>
+            <p class="passo-obs">No celular não precisa fazer nada: o app do Gmail usa a assinatura do
+            computador. Deixe a "assinatura para celular" do app desligada.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="feito-ilustra"><svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="40" fill="#F36D21"/><path d="M27 45l11 11 23-24" fill="none" stroke="#201E1E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>Assinatura instalada</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="tut-painel" id="tut-outlook" role="tabpanel" aria-labelledby="aba-outlook">
+      <h3>Outlook novo ou na web</h3>
+      <ol class="passos">
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 1 de 5</p>
+            <h3 tabindex="-1">Abra as configurações</h3>
+            <p>No Outlook, clique na <b>engrenagem</b> (Configurações), no canto de cima à direita.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="o-top">
+                <span class="o-marca">Outlook</span>
+                <span class="o-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar</span>
+                <span class="o-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+                <span class="o-avatar">V</span>
+              </div>
+              <div class="o-corpo"><div class="g-fantasma"></div><div class="g-fantasma curto"></div><div class="g-fantasma"></div></div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 2 de 5</p>
+            <h3 tabindex="-1">Crie uma assinatura nova</h3>
+            <p>Vá em <b>Contas</b> &rarr; <b>Assinaturas</b>. Se tiver uma assinatura antiga da Time Forte,
+            apague. Clique em <b>+ Nova assinatura</b> e dê o nome <i>Time Forte</i>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="o-cfg">
+                <div class="o-nav"><div class="o-tit">Configurações</div>
+                  <div class="o-item sel tut-alvo" data-n="1">Contas</div><div class="o-item">Geral</div>
+                  <div class="o-item">Email</div><div class="o-item">Calendário</div></div>
+                <div class="o-sub"><div class="o-tit">Contas</div>
+                  <div class="o-item">Contas de email</div>
+                  <div class="o-item sel tut-alvo" data-n="2">Assinaturas</div></div>
+                <div class="o-cont"><div class="o-tit">Assinaturas</div>
+                  <span class="o-btn tut-alvo" data-n="3">+ Nova assinatura</span>
+                  <div class="o-input">Time Forte</div></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 3 de 5</p>
+            <h3 tabindex="-1">Cole e salve</h3>
+            <p>Clique na caixa grande embaixo do nome, aperte <kbd>Ctrl</kbd> + <kbd>V</kbd> e clique em
+            <b>Salvar</b>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="o-cont">
+                <div class="o-input">Time Forte</div>
+                <div class="o-editor tut-alvo" data-n="1">
+                  <div class="g-ferr"><span>Aptos &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
+                  <div class="g-editor-cont">
+                    <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
+                    <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
+                  </div>
+                </div>
+                <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="2">Salvar</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 4 de 5</p>
+            <h3 tabindex="-1">Deixe como padrão</h3>
+            <p>Logo abaixo, nas assinaturas padrão, escolha <i>Time Forte</i> para <b>novas mensagens</b> e
+            para <b>respostas/encaminhamentos</b>, e clique em <b>Salvar</b> de novo.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock">
+              <div class="o-padroes">
+                <div class="o-tit2">Selecionar assinaturas padrão</div>
+                <div class="o-linha"><span>Para novas mensagens:</span><span class="o-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
+                <div class="o-linha"><span>Para respostas/encaminhamentos:</span><span class="o-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
+                <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="3">Salvar</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 5 de 5</p>
+            <h3 tabindex="-1">Pronto! Agora teste</h3>
+            <p>Mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e no
+            endereço (abre o Maps).</p>
+            <p class="passo-obs">Usa o Outlook no Windows e também no navegador? Confira se a assinatura
+            apareceu nos dois; se não, repita lá. No Mac o caminho é <b>Outlook</b> &rarr;
+            <b>Configurações</b> &rarr; <b>Assinaturas</b>: clique em <b>+</b>, cole e escolha a nova como
+            padrão.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="feito-ilustra"><svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="40" fill="#F36D21"/><path d="M27 45l11 11 23-24" fill="none" stroke="#201E1E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>Assinatura instalada</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+
+    <div class="tut-painel" id="tut-classico" role="tabpanel" aria-labelledby="aba-classico">
+      <h3>Outlook clássico (Windows)</h3>
+      <p class="tut-nota">No Outlook clássico, colar não funciona bem: o editor de assinaturas dele desmonta a
+      montagem das imagens. Por isso, nele você <b>troca o arquivo</b> da assinatura. Dá um pouco mais de
+      trabalho, mas fica perfeita.</p>
+      <ol class="passos">
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 1 de 6</p>
+            <h3 tabindex="-1">Abra as assinaturas</h3>
+            <p>No Outlook, clique em <b>Arquivo</b> &rarr; <b>Opções</b> &rarr; <b>Email</b> &rarr;
+            <b>Assinaturas...</b></p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock w">
+              <div class="w-barra"><span>Opções do Outlook</span><span>&#10005;</span></div>
+              <div class="w-opcoes">
+                <div class="w-lista"><div>Geral</div><div class="sel tut-alvo" data-n="1">Email</div>
+                  <div>Calendário</div><div>Pessoas</div><div>Tarefas</div></div>
+                <div class="w-cont">
+                  <div class="w-sec">Redigir mensagens</div>
+                  <div class="w-linha"><span>Crie ou modifique assinaturas para mensagens.</span>
+                    <span class="w-btn tut-alvo" data-n="2">Assinaturas...</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 2 de 6</p>
+            <h3 tabindex="-1">Crie a assinatura Time Forte</h3>
+            <p>Clique em <b>Novo</b>, dê o nome <b>Time Forte</b> (exatamente assim) e escreva qualquer coisa
+            em <b>Editar assinatura</b>, um <i>x</i> por exemplo: ela vai ser trocada. Em
+            <b>Escolher assinatura padrão</b>, escolha <i>Time Forte</i> nas duas listas. Clique em
+            <b>OK</b> e <b>feche o Outlook</b>.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock w">
+              <div class="w-barra"><span>Assinaturas e Papel de Carta</span><span>&#10005;</span></div>
+              <div class="w-ass">
+                <div class="w-abas"><span class="sel">Assinatura de Email</span><span>Papel de Carta Pessoal</span></div>
+                <div class="w-grade">
+                  <div>
+                    <div class="w-rot">Selecione a assinatura a editar</div>
+                    <div class="w-caixa"><div class="w-item">Time Forte</div></div>
+                    <div class="w-btns"><span class="w-btn">Excluir</span><span class="w-btn tut-alvo" data-n="1">Novo</span>
+                      <span class="w-btn">Salvar</span></div>
+                  </div>
+                  <div>
+                    <div class="w-rot">Escolher assinatura padrão</div>
+                    <div class="w-campo"><span>Conta de email:</span><span class="w-sel">voce@timeforte.com</span></div>
+                    <div class="w-campo"><span>Novas mensagens:</span><span class="w-sel tut-alvo" data-n="3">Time Forte</span></div>
+                    <div class="w-campo"><span>Respostas/encaminhamentos:</span><span class="w-sel tut-alvo" data-n="4">Time Forte</span></div>
+                  </div>
+                </div>
+                <div class="w-rot">Editar assinatura</div>
+                <div class="w-caixa w-edit tut-alvo" data-n="2">x</div>
+                <div class="w-rodape"><span class="w-btn tut-alvo" data-n="5">OK</span><span class="w-btn">Cancelar</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 3 de 6</p>
+            <h3 tabindex="-1">Baixe o arquivo da sua assinatura</h3>
+            <p>Este botão baixa a assinatura que você escolheu lá em cima, já com o nome certo.</p>
+            <button type="button" class="botao baixar" id="baixar" disabled>Baixar Time Forte.htm</button>
+            <p class="baixar-dica" id="baixar-dica">Antes, escolha seu nome no passo 1.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="arquivo-ilustra"><svg viewBox="0 0 54 64"><path d="M4 2h32l16 16v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#D2C9C4" stroke-width="2"/><path d="M36 2v16h16" fill="#FDE2D1" stroke="#D2C9C4" stroke-width="2"/><rect x="8" y="36" width="34" height="14" rx="3" fill="#F36D21"/><text x="25" y="46.5" text-anchor="middle" font-family="Audiowide, sans-serif" font-size="9" fill="#201E1E">HTM</text></svg>
+              <span><b>Time Forte.htm</b><small>vai para a pasta Downloads</small></span></div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 4 de 6</p>
+            <h3 tabindex="-1">Abra a pasta de assinaturas</h3>
+            <p>Aperte <kbd>Windows</kbd> + <kbd>R</kbd>, cole <code>%APPDATA%\Microsoft</code> e aperte
+            <b>Enter</b>. Na pasta que abrir, entre em <b>Assinaturas</b> (em alguns computadores ela se
+            chama <b>Signatures</b>).</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock w">
+              <div class="w-barra"><span>Executar</span><span>&#10005;</span></div>
+              <div class="w-exec">
+                <p>Digite o nome de um programa, pasta, documento ou recurso da Internet e o Windows o abrirá
+                para você.</p>
+                <div class="w-campo"><span>Abrir:</span><span class="w-sel w-larga tut-alvo" data-n="1">%APPDATA%\Microsoft</span></div>
+                <div class="w-rodape"><span class="w-btn tut-alvo" data-n="2">OK</span><span class="w-btn">Cancelar</span></div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 5 de 6</p>
+            <h3 tabindex="-1">Troque o arquivo</h3>
+            <p>Arraste o <b>Time Forte.htm</b> que você baixou (fica em <b>Downloads</b>) para dentro dessa
+            pasta e escolha <b>Substituir o arquivo no destino</b>.</p>
+            <p class="passo-obs">Se o arquivo baixado veio com outro nome, como <i>Time Forte (1).htm</i>,
+            renomeie para <i>Time Forte.htm</i> antes.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="tut-mock w">
+              <div class="w-barra"><span>Assinaturas</span><span>&#10005;</span></div>
+              <div class="w-caminho">AppData &rsaquo; Roaming &rsaquo; Microsoft &rsaquo; Assinaturas</div>
+              <div class="w-arqs"><span class="w-arq">Time Forte.htm</span><span class="w-arq">Time Forte.rtf</span>
+                <span class="w-arq">Time Forte.txt</span></div>
+              <div class="w-dialogo">
+                <div class="w-dialogo-tit">Substituir ou Ignorar Arquivos</div>
+                <div>O destino já tem um arquivo chamado "Time Forte.htm"</div>
+                <div class="w-opcao tut-alvo" data-n="1">&#10003; Substituir o arquivo no destino</div>
+                <div class="w-opcao">Ignorar este arquivo</div>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="passo">
+          <div class="passo-texto">
+            <p class="passo-num">Passo 6 de 6</p>
+            <h3 tabindex="-1">Pronto! Agora teste</h3>
+            <p>Abra o Outlook e crie um e-mail novo: a assinatura já aparece completa. Mande um para você
+            mesmo e clique no telefone, no e-mail e no endereço.</p>
+            <p class="passo-obs">Não edite a assinatura pelas Opções do Outlook depois disso: ao salvar, ele
+            refaz o arquivo e desmonta de novo (se acontecer, repita os passos 3 a 5). No Outlook clássico a
+            faixa de marcas pode aparecer parada, sem animação.</p>
+          </div>
+          <div class="passo-tela" aria-hidden="true">
+            <div class="feito-ilustra"><svg viewBox="0 0 88 88"><circle cx="44" cy="44" r="40" fill="#F36D21"/><path d="M27 45l11 11 23-24" fill="none" stroke="#201E1E" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>Assinatura instalada</div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </div>
 </section>
-
-<section class="bloco" id="como-instalar">
-  <h2><span class="num">2</span> Cole no seu e-mail</h2>
-  <p class="intro">Escolha o programa que você usa no computador:</p>
-  <div class="abas" role="tablist" aria-label="Programa de e-mail">
-    <button type="button" class="aba" role="tab" id="aba-gmail" aria-controls="tut-gmail">Gmail</button>
-    <button type="button" class="aba" role="tab" id="aba-outlook" aria-controls="tut-outlook">Outlook novo ou na web</button>
-    <button type="button" class="aba" role="tab" id="aba-classico" aria-controls="tut-classico">Outlook clássico</button>
-  </div>
-
-  <div class="tut-painel" id="tut-gmail" role="tabpanel" aria-labelledby="aba-gmail">
-    <h3>Gmail</h3>
-    <ol class="tut-passos">
-      <li>
-        <p>Clique na <b>engrenagem</b>, no canto de cima à direita, e depois em
-        <b>Ver todas as configurações</b>.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="g-top">
-            <div class="g-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar e-mail</div>
-            <div class="g-icones">
-              <span class="g-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
-              <span class="g-avatar">V</span>
-            </div>
-          </div>
-          <div class="g-corpo">
-            <div class="g-painel">
-              <div class="g-painel-tit">Configurações rápidas</div>
-              <div class="g-pilula tut-alvo" data-n="2">Ver todas as configurações</div>
-              <div class="g-fantasma"></div><div class="g-fantasma curto"></div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Fique na aba <b>Geral</b> e desça a página até <b>Assinatura</b>. Se tiver uma assinatura
-        antiga da Time Forte, apague (<b>lixeira</b>). Clique em <b>+ Criar nova</b>, escreva um nome
-        (ex.: <i>Time Forte</i>) e clique em <b>Criar</b>.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="g-titulo">Configurações</div>
-          <div class="g-abas"><span class="g-aba ativa">Geral</span><span class="g-aba">Marcadores</span>
-            <span class="g-aba">Caixa de entrada</span><span class="g-aba">Contas e importação</span>
-            <span class="g-aba">Filtros</span></div>
-          <div class="g-cfg">
-            <div class="g-rotulo"><b>Assinatura:</b><br><small>(anexada ao final de todas as mensagens enviadas)</small></div>
-            <div>
-              <div class="g-lista"><div class="g-item"><span>Assinatura antiga</span>
-                <span class="tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></span></div></div>
-              <span class="g-pilula g-criar tut-alvo" data-n="2">+ Criar nova</span>
-            </div>
-          </div>
-          <div class="g-dialogo">
-            <div class="g-dialogo-tit">Nomear nova assinatura</div>
-            <div class="g-input">Time Forte</div>
-            <div class="g-acoes"><span>Cancelar</span><span class="tut-alvo" data-n="3">Criar</span></div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Clique dentro da caixa grande ao lado do nome e cole com <kbd>Ctrl</kbd> + <kbd>V</kbd>.
-        A assinatura aparece com as imagens.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="g-cfg">
-            <div class="g-lista"><div class="g-item sel">Time Forte</div></div>
-            <div class="g-editor tut-alvo" data-n="1">
-              <div class="g-ferr"><span>Sans Serif &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
-              <div class="g-editor-cont">
-                <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
-                <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Logo abaixo, em <b>Padrões de assinatura</b>, escolha a nova nas <b>duas</b> caixas.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="g-padroes">
-            <div class="g-padroes-tit">Padrões de assinatura</div>
-            <div class="g-sels">
-              <div><div class="g-sel-rot">PARA USO EM NOVOS E-MAILS</div>
-                <span class="g-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
-              <div><div class="g-sel-rot">PARA USO EM RESPOSTAS/ENCAMINHAMENTOS</div>
-                <span class="g-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Desça até o <b>fim da página</b> e clique em <b>Salvar alterações</b>.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="g-rodape"><span class="g-btn tut-alvo" data-n="1">Salvar alterações</span><span class="g-btn">Cancelar</span></div>
-        </div>
-      </li>
-    </ol>
-    <p class="tut-obs">No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador
-    (deixe a "assinatura para celular" do app desligada).</p>
-  </div>
-
-  <div class="tut-painel" id="tut-outlook" role="tabpanel" aria-labelledby="aba-outlook">
-    <h3>Outlook novo ou na web</h3>
-    <p class="tut-nota">Vale para o <b>Outlook novo</b> do Windows e para o Outlook no navegador. Se o seu
-    Outlook tem a aba <b>Arquivo</b> no canto de cima à esquerda, ele é o clássico: veja a aba
-    <b>Outlook clássico</b>.</p>
-    <ol class="tut-passos">
-      <li>
-        <p>Clique na <b>engrenagem</b> (Configurações), no canto de cima à direita.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="o-top">
-            <span class="o-marca">Outlook</span>
-            <span class="o-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar</span>
-            <span class="o-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
-            <span class="o-avatar">V</span>
-          </div>
-          <div class="o-corpo"><div class="g-fantasma"></div><div class="g-fantasma curto"></div></div>
-        </div>
-      </li>
-      <li>
-        <p>Vá em <b>Contas</b> &rarr; <b>Assinaturas</b>. Se tiver uma assinatura antiga da Time Forte,
-        apague. Clique em <b>+ Nova assinatura</b> e dê o nome <i>Time Forte</i>.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="o-cfg">
-            <div class="o-nav"><div class="o-tit">Configurações</div>
-              <div class="o-item sel tut-alvo" data-n="1">Contas</div><div class="o-item">Geral</div>
-              <div class="o-item">Email</div><div class="o-item">Calendário</div></div>
-            <div class="o-sub"><div class="o-tit">Contas</div>
-              <div class="o-item">Contas de email</div>
-              <div class="o-item sel tut-alvo" data-n="2">Assinaturas</div></div>
-            <div class="o-cont"><div class="o-tit">Assinaturas</div>
-              <span class="o-btn tut-alvo" data-n="3">+ Nova assinatura</span>
-              <div class="o-input">Time Forte</div></div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Clique na caixa grande embaixo do nome, cole com <kbd>Ctrl</kbd> + <kbd>V</kbd> e clique em
-        <b>Salvar</b>.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="o-cont">
-            <div class="o-input">Time Forte</div>
-            <div class="o-editor tut-alvo" data-n="1">
-              <div class="g-ferr"><span>Aptos &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
-              <div class="g-editor-cont">
-                <img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/pessoas/rafael-serra-contatos.png" alt=""><img src="https://paulocesar0405.github.io/repo-assinaturas/v1/comum/faixa-marcas.gif" alt="">
-                <div class="c-respiro"></div><img src="https://paulocesar0405.github.io/repo-assinaturas/v2/comum/barra-chamada.png" alt="">
-              </div>
-            </div>
-            <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="2">Salvar</span></div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Logo abaixo, nas assinaturas padrão, escolha <i>Time Forte</i> para <b>novas mensagens</b> e
-        para <b>respostas/encaminhamentos</b>, e clique em <b>Salvar</b> de novo.</p>
-        <div class="tut-mock" aria-hidden="true">
-          <div class="o-padroes">
-            <div class="o-tit2">Selecionar assinaturas padrão</div>
-            <div class="o-linha"><span>Para novas mensagens:</span><span class="o-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
-            <div class="o-linha"><span>Para respostas/encaminhamentos:</span><span class="o-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
-            <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="3">Salvar</span></div>
-          </div>
-        </div>
-      </li>
-    </ol>
-    <p class="tut-obs">Usa o Outlook no Windows e também no navegador? Confira se a assinatura apareceu nos
-    dois; se não, repita lá. No Mac, o caminho é <b>Outlook</b> &rarr; <b>Configurações</b> &rarr;
-    <b>Assinaturas</b>: clique em <b>+</b>, cole a assinatura e escolha a nova como padrão.</p>
-  </div>
-
-  <div class="tut-painel" id="tut-classico" role="tabpanel" aria-labelledby="aba-classico">
-    <h3>Outlook clássico (Windows)</h3>
-    <p class="tut-nota">No Outlook clássico, colar não funciona bem: o editor de assinaturas dele desmonta a
-    montagem das imagens. Por isso, nele você <b>troca o arquivo</b> da assinatura. Dá um pouco mais de
-    trabalho, mas fica perfeita.</p>
-    <ol class="tut-passos">
-      <li>
-        <p>No Outlook, clique em <b>Arquivo</b> &rarr; <b>Opções</b> &rarr; <b>Email</b> &rarr;
-        <b>Assinaturas...</b></p>
-        <div class="tut-mock w" aria-hidden="true">
-          <div class="w-barra"><span>Opções do Outlook</span><span>&#10005;</span></div>
-          <div class="w-opcoes">
-            <div class="w-lista"><div>Geral</div><div class="sel tut-alvo" data-n="1">Email</div>
-              <div>Calendário</div><div>Pessoas</div><div>Tarefas</div></div>
-            <div class="w-cont">
-              <div class="w-sec">Redigir mensagens</div>
-              <div class="w-linha"><span>Crie ou modifique assinaturas para mensagens.</span>
-                <span class="w-btn tut-alvo" data-n="2">Assinaturas...</span></div>
-            </div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Clique em <b>Novo</b>, dê o nome <b>Time Forte</b> (exatamente assim) e escreva qualquer coisa
-        na caixa <b>Editar assinatura</b>, um <i>x</i> por exemplo: ela vai ser trocada. Em
-        <b>Escolher assinatura padrão</b>, escolha <i>Time Forte</i> em <b>Novas mensagens</b> e em
-        <b>Respostas/encaminhamentos</b>. Clique em <b>OK</b> e <b>feche o Outlook</b>.</p>
-        <div class="tut-mock w" aria-hidden="true">
-          <div class="w-barra"><span>Assinaturas e Papel de Carta</span><span>&#10005;</span></div>
-          <div class="w-ass">
-            <div class="w-abas"><span class="sel">Assinatura de Email</span><span>Papel de Carta Pessoal</span></div>
-            <div class="w-grade">
-              <div>
-                <div class="w-rot">Selecione a assinatura a editar</div>
-                <div class="w-caixa"><div class="w-item">Time Forte</div></div>
-                <div class="w-btns"><span class="w-btn">Excluir</span><span class="w-btn tut-alvo" data-n="1">Novo</span>
-                  <span class="w-btn">Salvar</span></div>
-              </div>
-              <div>
-                <div class="w-rot">Escolher assinatura padrão</div>
-                <div class="w-campo"><span>Conta de email:</span><span class="w-sel">voce@timeforte.com</span></div>
-                <div class="w-campo"><span>Novas mensagens:</span><span class="w-sel tut-alvo" data-n="3">Time Forte</span></div>
-                <div class="w-campo"><span>Respostas/encaminhamentos:</span><span class="w-sel tut-alvo" data-n="4">Time Forte</span></div>
-              </div>
-            </div>
-            <div class="w-rot">Editar assinatura</div>
-            <div class="w-caixa w-edit tut-alvo" data-n="2">x</div>
-            <div class="w-rodape"><span class="w-btn tut-alvo" data-n="5">OK</span><span class="w-btn">Cancelar</span></div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Baixe o arquivo da sua assinatura:</p>
-        <button type="button" class="botao baixar" id="baixar" disabled>Baixar Time Forte.htm</button>
-        <p class="baixar-dica" id="baixar-dica">Antes, escolha seu nome no passo 1.</p>
-      </li>
-      <li>
-        <p>Aperte <kbd>Windows</kbd> + <kbd>R</kbd>, cole <code>%APPDATA%\Microsoft</code> e aperte
-        <b>Enter</b>. Na pasta que abrir, entre em <b>Assinaturas</b> (em alguns computadores ela se chama
-        <b>Signatures</b>).</p>
-        <div class="tut-mock w" aria-hidden="true">
-          <div class="w-barra"><span>Executar</span><span>&#10005;</span></div>
-          <div class="w-exec">
-            <p>Digite o nome de um programa, pasta, documento ou recurso da Internet e o Windows o abrirá
-            para você.</p>
-            <div class="w-campo"><span>Abrir:</span><span class="w-sel w-larga tut-alvo" data-n="1">%APPDATA%\Microsoft</span></div>
-            <div class="w-rodape"><span class="w-btn tut-alvo" data-n="2">OK</span><span class="w-btn">Cancelar</span></div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Arraste o <b>Time Forte.htm</b> que você baixou (fica em <b>Downloads</b>) para dentro dessa
-        pasta e escolha <b>Substituir o arquivo no destino</b>. Se o arquivo baixado veio com outro nome,
-        como <i>Time Forte (1).htm</i>, renomeie para <i>Time Forte.htm</i> antes.</p>
-        <div class="tut-mock w" aria-hidden="true">
-          <div class="w-barra"><span>Assinaturas</span><span>&#10005;</span></div>
-          <div class="w-caminho">AppData &rsaquo; Roaming &rsaquo; Microsoft &rsaquo; Assinaturas</div>
-          <div class="w-arqs"><span class="w-arq">Time Forte.htm</span><span class="w-arq">Time Forte.rtf</span>
-            <span class="w-arq">Time Forte.txt</span></div>
-          <div class="w-dialogo">
-            <div class="w-dialogo-tit">Substituir ou Ignorar Arquivos</div>
-            <div>O destino já tem um arquivo chamado "Time Forte.htm"</div>
-            <div class="w-opcao tut-alvo" data-n="1">&#10003; Substituir o arquivo no destino</div>
-            <div class="w-opcao">Ignorar este arquivo</div>
-          </div>
-        </div>
-      </li>
-      <li>
-        <p>Abra o Outlook e crie um e-mail novo: a assinatura já aparece completa.</p>
-      </li>
-    </ol>
-    <p class="tut-obs">Depois de trocar o arquivo, não edite a assinatura pelas Opções do Outlook: ao salvar,
-    ele refaz o arquivo e desmonta de novo (se acontecer, repita os passos 3 a 5). No Outlook clássico a
-    faixa de marcas pode aparecer parada, sem animação.</p>
-  </div>
-
-  <div class="tut-fim">
-    <p><b>Teste:</b> mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e
-    no endereço (abre o Maps).</p>
-    <p class="tut-obs">As telas acima são ilustrações: o seu programa pode estar com outras cores ou com
-    nomes um pouco diferentes. Travou em algum passo? Fale com o TI.</p>
-  </div>
-</section>
-
-<footer>
-  <p>Versão atual das assinaturas: <b>v2</b>. Se você instalou uma versão anterior, apague a
-  antiga e instale de novo; os e-mails já enviados continuam certos.</p>
-  <p>Conferência do deploy: <a href="#todas">ver todas as assinaturas</a>. Todas têm que aparecer
-  inteiras, sem imagem quebrada, com a faixa de marcas animando. Página gerada por
-  <code>ferramentas/gerar_html.py</code>.</p>
-</footer>
 </main>
+
+<footer class="rodape">
+  <div class="secao-in">
+    <p>As telas do passo a passo são ilustrações: o seu programa pode estar com outras cores ou com nomes um
+    pouco diferentes. Travou em algum passo? Fale com o TI.</p>
+    <p>Versão atual das assinaturas: <b>v2</b>. Se você instalou uma versão anterior, apague a
+    antiga e instale de novo; os e-mails já enviados continuam certos.</p>
+    <p>Conferência do deploy: <a href="#todas">ver todas as assinaturas</a>. Todas têm que aparecer
+    inteiras, sem imagem quebrada, com a faixa de marcas animando. Página gerada por
+    <code>ferramentas/gerar_html.py</code>.</p>
+  </div>
+</footer>
 <script>
 (function () {
   "use strict";
@@ -2554,7 +2972,7 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
   var itens = Array.prototype.slice.call(document.querySelectorAll("#nomes li"));
   var busca = document.getElementById("busca");
   var nada = document.getElementById("nada");
-  var vazia = document.getElementById("vazia");
+  var secaoEscolha = document.getElementById("escolha");
   var baixar = document.getElementById("baixar");
   var baixarDica = document.getElementById("baixar-dica");
   var escolhida = null;
@@ -2594,6 +3012,7 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
     if (alvo && !todas && !pessoas.hasOwnProperty(alvo)) return;
     escolhida = todas ? null : pessoas[alvo] || null;
     raiz.classList.toggle("todas", todas);
+    secaoEscolha.classList.toggle("tem-escolha", !!escolhida || todas);
     Object.keys(pessoas).forEach(function (s) {
       pessoas[s].classList.toggle("ativa", pessoas[s] === escolhida);
     });
@@ -2602,7 +3021,6 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
       if (escolhida && a.getAttribute("href") === "#" + escolhida.id) a.setAttribute("aria-current", "true");
       else a.removeAttribute("aria-current");
     });
-    vazia.hidden = !!escolhida || todas;
     ajustarPrevias();
     if (baixar) {
       baixar.disabled = !escolhida;
@@ -2647,7 +3065,7 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
     function avisar(ok) {
       retorno.className = "retorno " + (ok ? "ok" : "erro");
       retorno.innerHTML = ok
-        ? "<b>Copiada!</b> Agora cole no seu e-mail com <kbd>Ctrl</kbd> + <kbd>V</kbd>, seguindo o " +
+        ? "<b>&#10003; Copiada!</b> Agora cole no seu e-mail com <kbd>Ctrl</kbd> + <kbd>V</kbd>, seguindo o " +
           "<a href=\"#como-instalar\" data-rolar>passo 2</a>."
         : "Não deu para copiar por aqui. Use o <b>Abrir em outra aba</b> (veja como logo abaixo).";
     }
@@ -2694,9 +3112,69 @@ assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
     }
   });
 
-  // ---- passo 2: abas Gmail / Outlook novo / Outlook clássico. A última
-  // escolhida fica guardada neste navegador.
-  var abas = Array.prototype.slice.call(document.querySelectorAll(".aba"));
+  // ---- passo a passo: uma tela por vez. A barra de progresso sai do <h3>
+  // de cada passo; os botões de voltar e seguir ficam embaixo.
+  function montarPassoAPasso(painel) {
+    var lista = painel.querySelector(".passos");
+    var passos = Array.prototype.slice.call(lista.querySelectorAll(".passo"));
+    var progresso = document.createElement("ol");
+    progresso.className = "progresso";
+    var marcas = passos.map(function (passo, i) {
+      var titulo = passo.querySelector("h3").textContent;
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Passo " + (i + 1) + ": " + titulo);
+      b.innerHTML = "<span class=\"bola\"></span><span class=\"rot\"></span>";
+      b.querySelector(".rot").textContent = titulo;
+      b.addEventListener("click", function () { ir(i, true); });
+      li.appendChild(b);
+      progresso.appendChild(li);
+      return li;
+    });
+    lista.parentNode.insertBefore(progresso, lista);
+
+    var botoes = document.createElement("div");
+    botoes.className = "passos-botoes";
+    var voltar = document.createElement("button");
+    voltar.type = "button";
+    voltar.className = "botao fantasma";
+    voltar.textContent = "← Voltar";
+    var seguir = document.createElement("button");
+    seguir.type = "button";
+    seguir.className = "botao";
+    botoes.appendChild(voltar);
+    botoes.appendChild(seguir);
+    lista.parentNode.insertBefore(botoes, lista.nextSibling);
+
+    var atual = 0;
+    function ir(i, focar) {
+      atual = Math.max(0, Math.min(passos.length - 1, i));
+      passos.forEach(function (p, j) { p.hidden = j !== atual; });
+      marcas.forEach(function (li, j) {
+        li.className = j < atual ? "feito" : j === atual ? "atual" : "";
+        li.querySelector(".bola").textContent = j < atual ? "✓" : String(j + 1);
+        var b = li.querySelector("button");
+        if (j === atual) b.setAttribute("aria-current", "step");
+        else b.removeAttribute("aria-current");
+      });
+      voltar.style.visibility = atual === 0 ? "hidden" : "";
+      seguir.hidden = atual === passos.length - 1;
+      seguir.textContent = atual === passos.length - 2 ? "Terminei →" : "Próximo passo →";
+      if (focar) {
+        if (painel.getBoundingClientRect().top < 0) painel.scrollIntoView({ block: "start" });
+        passos[atual].querySelector("h3").focus({ preventScroll: true });
+      }
+    }
+    voltar.addEventListener("click", function () { ir(atual - 1, true); });
+    seguir.addEventListener("click", function () { ir(atual + 1, true); });
+    ir(0, false);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".tut-painel"), montarPassoAPasso);
+
+  // ---- programa de e-mail (Gmail / Outlook novo / Outlook clássico). O
+  // último escolhido fica guardado neste navegador.
+  var abas = Array.prototype.slice.call(document.querySelectorAll(".cliente"));
   function abrirAba(aba, focar) {
     abas.forEach(function (t) {
       var sel = t === aba;

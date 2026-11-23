@@ -1,7 +1,7 @@
 /* Página de instalação (index.html): comportamento. Lido por gerar_html.py e
    embutido no fim do <body>. Sem este script a página continua funcionando:
    todas as assinaturas aparecem em lista, cada nome é um link para a sua, o
-   "Abrir em outra aba" segue valendo e o passo 2 mostra os três tutoriais um
+   "Abrir em outra aba" segue valendo e os passos de cada programa ficam um
    embaixo do outro. */
 (function () {
   "use strict";
@@ -13,7 +13,7 @@
   var itens = Array.prototype.slice.call(document.querySelectorAll("#nomes li"));
   var busca = document.getElementById("busca");
   var nada = document.getElementById("nada");
-  var vazia = document.getElementById("vazia");
+  var secaoEscolha = document.getElementById("escolha");
   var baixar = document.getElementById("baixar");
   var baixarDica = document.getElementById("baixar-dica");
   var escolhida = null;
@@ -53,6 +53,7 @@
     if (alvo && !todas && !pessoas.hasOwnProperty(alvo)) return;
     escolhida = todas ? null : pessoas[alvo] || null;
     raiz.classList.toggle("todas", todas);
+    secaoEscolha.classList.toggle("tem-escolha", !!escolhida || todas);
     Object.keys(pessoas).forEach(function (s) {
       pessoas[s].classList.toggle("ativa", pessoas[s] === escolhida);
     });
@@ -61,7 +62,6 @@
       if (escolhida && a.getAttribute("href") === "#" + escolhida.id) a.setAttribute("aria-current", "true");
       else a.removeAttribute("aria-current");
     });
-    vazia.hidden = !!escolhida || todas;
     ajustarPrevias();
     if (baixar) {
       baixar.disabled = !escolhida;
@@ -106,7 +106,7 @@
     function avisar(ok) {
       retorno.className = "retorno " + (ok ? "ok" : "erro");
       retorno.innerHTML = ok
-        ? "<b>Copiada!</b> Agora cole no seu e-mail com <kbd>Ctrl</kbd> + <kbd>V</kbd>, seguindo o " +
+        ? "<b>&#10003; Copiada!</b> Agora cole no seu e-mail com <kbd>Ctrl</kbd> + <kbd>V</kbd>, seguindo o " +
           "<a href=\"#como-instalar\" data-rolar>passo 2</a>."
         : "Não deu para copiar por aqui. Use o <b>Abrir em outra aba</b> (veja como logo abaixo).";
     }
@@ -153,9 +153,69 @@
     }
   });
 
-  // ---- passo 2: abas Gmail / Outlook novo / Outlook clássico. A última
-  // escolhida fica guardada neste navegador.
-  var abas = Array.prototype.slice.call(document.querySelectorAll(".aba"));
+  // ---- passo a passo: uma tela por vez. A barra de progresso sai do <h3>
+  // de cada passo; os botões de voltar e seguir ficam embaixo.
+  function montarPassoAPasso(painel) {
+    var lista = painel.querySelector(".passos");
+    var passos = Array.prototype.slice.call(lista.querySelectorAll(".passo"));
+    var progresso = document.createElement("ol");
+    progresso.className = "progresso";
+    var marcas = passos.map(function (passo, i) {
+      var titulo = passo.querySelector("h3").textContent;
+      var li = document.createElement("li");
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Passo " + (i + 1) + ": " + titulo);
+      b.innerHTML = "<span class=\"bola\"></span><span class=\"rot\"></span>";
+      b.querySelector(".rot").textContent = titulo;
+      b.addEventListener("click", function () { ir(i, true); });
+      li.appendChild(b);
+      progresso.appendChild(li);
+      return li;
+    });
+    lista.parentNode.insertBefore(progresso, lista);
+
+    var botoes = document.createElement("div");
+    botoes.className = "passos-botoes";
+    var voltar = document.createElement("button");
+    voltar.type = "button";
+    voltar.className = "botao fantasma";
+    voltar.textContent = "← Voltar";
+    var seguir = document.createElement("button");
+    seguir.type = "button";
+    seguir.className = "botao";
+    botoes.appendChild(voltar);
+    botoes.appendChild(seguir);
+    lista.parentNode.insertBefore(botoes, lista.nextSibling);
+
+    var atual = 0;
+    function ir(i, focar) {
+      atual = Math.max(0, Math.min(passos.length - 1, i));
+      passos.forEach(function (p, j) { p.hidden = j !== atual; });
+      marcas.forEach(function (li, j) {
+        li.className = j < atual ? "feito" : j === atual ? "atual" : "";
+        li.querySelector(".bola").textContent = j < atual ? "✓" : String(j + 1);
+        var b = li.querySelector("button");
+        if (j === atual) b.setAttribute("aria-current", "step");
+        else b.removeAttribute("aria-current");
+      });
+      voltar.style.visibility = atual === 0 ? "hidden" : "";
+      seguir.hidden = atual === passos.length - 1;
+      seguir.textContent = atual === passos.length - 2 ? "Terminei →" : "Próximo passo →";
+      if (focar) {
+        if (painel.getBoundingClientRect().top < 0) painel.scrollIntoView({ block: "start" });
+        passos[atual].querySelector("h3").focus({ preventScroll: true });
+      }
+    }
+    voltar.addEventListener("click", function () { ir(atual - 1, true); });
+    seguir.addEventListener("click", function () { ir(atual + 1, true); });
+    ir(0, false);
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".tut-painel"), montarPassoAPasso);
+
+  // ---- programa de e-mail (Gmail / Outlook novo / Outlook clássico). O
+  // último escolhido fica guardado neste navegador.
+  var abas = Array.prototype.slice.call(document.querySelectorAll(".cliente"));
   function abrirAba(aba, focar) {
     abas.forEach(function (t) {
       var sel = t === aba;
