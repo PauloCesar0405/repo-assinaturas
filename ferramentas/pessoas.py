@@ -448,6 +448,27 @@ PESSOAS = {
         "crop": (-142, -10, 1412, 1201),
         "espelhar": False,
     },
+    "thais-faria": {
+        "nome": "Thais Rosa Faria",
+        "cargo": "AUXILIAR ADMINISTRATIVA",
+        # mesmo número da Camila (Gerente de Operações), como veio no pedido
+        "tel": "+55 21 96725-1171",
+        "whatsapp": "5521967251171",
+        "email": "thais@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "thais-faria-limpo.png",
+        # foto de 23/11/2026: selfie de WhatsApp (720x1280, JPEG), à noite,
+        # parede clara e cabelo cacheado volumoso. Recorte com o
+        # birefnet-portrait (o u2net erra nesse cabelo, caso Fernanda), corpo
+        # de 254 reescalado para opaco e pymatting nos fios (borda com
+        # luminância de 81 para 37). O braço encosta na borda esquerda da foto
+        # de y=690 até embaixo, e nada encosta na direita: espelhada, essa
+        # borda vai para a direita e some sob a diagonal (crop mais largo que
+        # 1.283, como na Alessandra). A mão no cabelo fica embaixo à esquerda.
+        "crop": (-72, 313, 730, 879),
+        "espelhar": True,
+    },
 }
 
 
