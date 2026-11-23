@@ -213,17 +213,28 @@ PESSOAS = {
         "cargo": "GESTOR DE PROJETO",
         "tel": "+55 21 98071-2522",
         "whatsapp": "5521980712522",
-        "email": "henriquegones@timeforte.com",
+        # e-mail CORRIGIDO em 23/11/2026 (era henriquegones@, com N, como veio
+        # no pedido de 18/11): os contatos antigos estavam no ar, então os
+        # novos são rev_contatos 2
+        "email": "henriquegomes@timeforte.com",
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "henrique-gomes-limpo.png",
-        # foto de 18/11/2026: PRINT de celular (1170x2532) de uma foto com
-        # zoom, em evento - suave, camiseta preta em fundo escuro. Recorte só
-        # da faixa y 250-1750 (tira a barra de status), com birefnet-portrait,
-        # que separou a camiseta do fundo. Borda clara = o cabelo grisalho,
-        # não halo. A foto corta os ombros: o crop estoura as laterais.
-        "crop": (-332, 80, 1413, 1440),
+        # foto TROCADA em 23/11/2026. A 1ª (18/11) era um PRINT de celular de
+        # uma foto com zoom, em evento: suave, cortando os ombros (crop
+        # (-332, 80, 1413, 1440), estourando as laterais). A nova, 1536x1024 e
+        # já sem fundo, é pela pose e pelo nome do arquivo a mesma foto
+        # refeita por IA, com os dois ombros inteiros. Como na do Mauricio, o
+        # corpo veio com alpha 253: reescalei para opaco e tirei 372 pixels
+        # soltos de alpha <= 6. Borda clara = o cabelo grisalho, não halo. O
+        # card v2 dele estava no ar desde 18/11, então a foto nova é rev 2:
+        # card em henrique-gomes-r2.png, o antigo fica intacto. Crop mais
+        # largo que 1.283 para o ombro direito sair por baixo da diagonal; o
+        # esquerdo termina em curva, 14px antes da borda do crop.
+        "crop": (208, -25, 1388, 788),
         "espelhar": False,
+        "rev": 2,
+        "rev_contatos": 2,
     },
     "beatriz-leal": {
         "nome": "Beatriz Leal da Silva",
