@@ -92,11 +92,12 @@ ferramentas/               ← a "fábrica"
   gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
   gerar_html.py            ← monta o .html medindo as fatias no disco (+ index.html)
   pagina.html/.css/.js     ← molde, estilo e comportamento da página de
-                             instalação: busca, botão Copiar, passo a passo
-                             em abas (Gmail, Outlook novo/web, Outlook
-                             clássico). As "telas" são ilustrações em HTML,
-                             não prints: print mostraria uma caixa de
-                             entrada numa página pública
+                             instalação: busca, mini assinaturas, botão
+                             Copiar, passo a passo de uma tela por vez para
+                             Gmail, Outlook novo/web e Outlook clássico. As
+                             "telas" são ilustrações em HTML, não prints:
+                             print mostraria uma caixa de entrada numa
+                             página pública
   fontes/                  ← Ubuntu (Bold/Regular) + Audiowide; o texto de
                              cada licença vive ao lado do .ttf (UFL 1.0 e
                              SIL OFL 1.1 exigem isso na redistribuição)
@@ -333,7 +334,14 @@ mexa na "assinatura mobile" do app, que é texto puro).
   mesmos 6 links e 6 imagens do `Ctrl+A`/`Ctrl+C` na página publicada da
   pessoa (só muda a grafia dos estilos), e os dois sobrevivem iguais ao
   colar num editor. O teste que vale continua sendo colar no Gmail e
-  clicar.
+  clicar. No mesmo dia o visual foi refeito (o Paulo aprovou o cabeçalho,
+  as mini assinaturas, o botão Copiar e o aviso do plano B; o resto não):
+  a página segue a assinatura, em preto e laranja com a diagonal de 10°;
+  cada nome é uma mini assinatura (o painel do próprio card); a escolhida
+  aparece numa janela de e-mail; o passo a passo virou uma tela por vez,
+  com barra de progresso. Fontes da marca (Ubuntu, e Audiowide só em
+  palavras: os algarismos dela confundem, o 4 parece "Ч") servidas de
+  `ferramentas/fontes/`.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.

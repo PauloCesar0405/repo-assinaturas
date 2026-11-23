@@ -189,21 +189,30 @@ def indice():
             tabela = fh.read().split("-->", 1)[1].strip()
         exemplo = exemplo or slug
         nome, cargo = html.escape(p["nome"]), html.escape(p["cargo"])
-        # o avatar e o proprio card, ampliado em cima da foto (ver pagina.css)
-        nomes.append(f'    <li><a class="nome" href="#{slug}"><span class="avatar"><img '
+        # mini assinatura: a foto e o painel do proprio card (ver pagina.css)
+        nomes.append(f'      <li><a class="nome" href="#{slug}"><span class="avatar"><img '
                      f'src="{URL}/pessoas/{pessoas.card(slug)}" alt=""></span>'
                      f'<span><b>{nome}</b><small>{cargo}</small></span></a></li>')
-        blocos.append(f"""  <article class="pessoa" id="{slug}" data-nome="{nome}">
-    <div class="cabeca"><h3>{nome}</h3><span class="cargo">{cargo}</span></div>
-    <div class="previa"><div class="escala">
+        # a assinatura numa janela de e-mail; so a <table> dela e copiada
+        blocos.append(f"""    <article class="pessoa" id="{slug}" data-nome="{nome}">
+      <div class="pessoa-topo"><h3>{nome}</h3><span class="cargo">{cargo}</span></div>
+      <div class="email">
+        <div class="email-barra" aria-hidden="true"><span>Nova mensagem</span><span class="email-botoes">&#8211; &#9633; &#10005;</span></div>
+        <div class="email-campo" aria-hidden="true"><span>Para</span><i class="ph w35"></i></div>
+        <div class="email-campo" aria-hidden="true"><span>Assunto</span><i class="ph w20"></i></div>
+        <div class="email-corpo">
+          <i class="ph w60" aria-hidden="true"></i><i class="ph w30" aria-hidden="true"></i>
+          <div class="previa"><div class="escala">
 {tabela}
-    </div></div>
-    <div class="acoes">
-      <button type="button" class="botao copiar">Copiar assinatura</button>
-      <a class="botao sec" href="assinaturas-html/{slug}.html" target="_blank" rel="noopener">Abrir em outra aba</a>
-    </div>
-    <p class="retorno" role="status"></p>
-  </article>""")
+          </div></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button type="button" class="botao copiar">Copiar assinatura</button>
+        <a class="botao contorno abrir" href="assinaturas-html/{slug}.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+      </div>
+      <p class="retorno" role="status"></p>
+    </article>""")
 
     def ler(nome):
         with open(os.path.join(BASE, nome), encoding="utf-8") as fh:
@@ -215,8 +224,11 @@ def indice():
     pagina = ler("pagina.html").split("-->", 1)[1].lstrip()
     cores = (f":root {{ --preto: {hexa(marca.PRETO)}; --laranja: {hexa(marca.LARANJA)}; "
              f"--laranja-escuro: {hexa(marca.LARANJA_ESCURO)}; }}")
-    if not os.path.exists(os.path.join(RAIZ, *LOGO.split("/"))):
-        raise SystemExit(f"ABORTADO: falta o logotipo do topo da pagina ({LOGO}).")
+    # o que a pagina carrega do proprio repositorio (as fontes vem do pagina.css)
+    for arq in (LOGO, "ferramentas/fontes/Ubuntu-Regular.ttf", "ferramentas/fontes/Ubuntu-Bold.ttf",
+                "ferramentas/fontes/Audiowide-Regular.ttf"):
+        if not os.path.exists(os.path.join(RAIZ, *arq.split("/"))):
+            raise SystemExit(f"ABORTADO: a pagina de instalacao usa {arq}, que nao existe.")
     for marcador, valor in (("__CSS__", f"{cores}\n{css}"),
                             ("__JS__", js),
                             ("__LOGO__", LOGO),
