@@ -91,9 +91,11 @@ ferramentas/               ← a "fábrica"
   gerar_card.py            ← card + faixa + barra
   gerar_contatos.py        ← faixa de contatos, fatiada (+ dimensões p/ o HTML)
   gerar_html.py            ← monta o .html medindo as fatias no disco (+ index.html)
-  tutorial.html            ← passo a passo da página de instalação (Chrome +
-                             Gmail). As "telas" do Gmail são ilustrações em
-                             HTML, não prints: print mostraria uma caixa de
+  pagina.html/.css/.js     ← molde, estilo e comportamento da página de
+                             instalação: busca, botão Copiar, passo a passo
+                             em abas (Gmail, Outlook novo/web, Outlook
+                             clássico). As "telas" são ilustrações em HTML,
+                             não prints: print mostraria uma caixa de
                              entrada numa página pública
   fontes/                  ← Ubuntu (Bold/Regular) + Audiowide; o texto de
                              cada licença vive ao lado do .ttf (UFL 1.0 e
@@ -104,7 +106,8 @@ fotos/                     ← originais das fotos. FORA do git (.gitignore):
                              e o repo é público. Só o recorte entra em insumos/
 docs/como-instalar.md      ← guia de instalação no Gmail/Outlook
 index.html                 ← página de INSTALAÇÃO do time (+ verificação do
-                             deploy). GERADA por gerar_html.py a cada rodada
+                             deploy em index.html#todas). GERADA por
+                             gerar_html.py a cada rodada
 CLAUDE.md                  ← este arquivo
 ```
 
@@ -127,8 +130,8 @@ git commit -m "rebuild"
 git push origin master
 ```
 
-O Pages atualiza em ~1–10 min (cache). Verifique abrindo `index.html`
-publicado ou as URLs diretas das imagens.
+O Pages atualiza em ~1–10 min (cache). Verifique abrindo o `index.html#todas`
+publicado (todas as assinaturas de uma vez) ou as URLs diretas das imagens.
 
 ## Marca (Manual Time Forte)
 
@@ -265,12 +268,17 @@ cada foto, que precisa de olho humano.
 
 O Gmail não aceita colar HTML cru. O time instala sozinho pela **página de
 instalação** (https://paulocesar0405.github.io/repo-assinaturas/ — o
-`index.html`, gerado do cadastro, com prévia e passo a passo). Fluxo:
-1. Abra o `.html` da pessoa **no Chrome** (botão "Abrir minha assinatura"
-   na página; as imagens carregam do Pages).
-2. `Ctrl+A`, `Ctrl+C` na página renderizada.
-3. Gmail → Configurações → Geral → Assinatura → Criar nova → `Ctrl+V` →
-   definir como padrão → Salvar.
+`index.html`, gerado do cadastro, com busca, prévia e passo a passo em abas
+para Gmail, Outlook novo/web e Outlook clássico). O link pode ir direto
+para uma pessoa: `.../repo-assinaturas/#<slug>`. Fluxo:
+1. Ache o nome e clique em **Copiar assinatura**. O botão põe na área de
+   transferência a `<table>` do `.html` da pessoa — o mesmo que o
+   `Ctrl+A`/`Ctrl+C` na página dela, que segue como plano B pelo botão
+   "Abrir em outra aba".
+2. Gmail → Configurações → Geral → Assinatura → Criar nova → `Ctrl+V` →
+   definir como padrão → Salvar. Outlook novo/web: Configurações → Contas
+   → Assinaturas. Outlook clássico: troca de arquivo (o editor dele
+   desmonta o colado), com o `Time Forte.htm` baixado da própria página.
 
 No celular, a assinatura configurada no desktop sincroniza sozinha (não
 mexa na "assinatura mobile" do app, que é texto puro).
@@ -316,6 +324,16 @@ mexa na "assinatura mobile" do app, que é texto puro).
   Oliveira, que ainda não tinha instalado, entrou direto na v2.
   Tipografia (Audiowide/Ubuntu) ficou como estava: o logotipo novo não usa
   Audiowide, mas sem o manual novo não há fonte certa para pôr no lugar.
+- Página de instalação refeita (23/11/2026): a lista com as prévias de
+  todo mundo tinha 12 mil px e obrigava a descer até o próprio cartão e
+  voltar ao tutorial. Virou busca + nomes com avatar (o próprio card,
+  ampliado) e só a assinatura escolhida aparece; botão Copiar (Clipboard
+  API, caindo para seleção + `execCommand`); abas Gmail / Outlook
+  novo/web / Outlook clássico. No Chrome, o HTML copiado pelo botão tem os
+  mesmos 6 links e 6 imagens do `Ctrl+A`/`Ctrl+C` na página publicada da
+  pessoa (só muda a grafia dos estilos), e os dois sobrevivem iguais ao
+  colar num editor. O teste que vale continua sendo colar no Gmail e
+  clicar.
 - Hospedagem: GitHub Pages venceu por ser da própria equipe e transferível
   via domínio. Recomendação pendente: apontar `assinaturas.timeforte.com`
   por CNAME antes do rollout dos 30, para sair da conta pessoal.

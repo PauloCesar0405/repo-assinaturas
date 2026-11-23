@@ -1,0 +1,354 @@
+<!--
+  Molde da página de instalação (index.html). Lido por gerar_html.py, que
+  troca os marcadores e grava o index.html da raiz; este comentário fica de
+  fora. Marcadores: __CSS__ (cores de marca.py + pagina.css), __JS__
+  (pagina.js), __LOGO__, __NOMES__ (os botões com os nomes), __PESSOAS__ (um
+  <article> por pessoa, com a prévia e os botões), __EX_CARD__ / __EX_CONT__
+  (card e contatos da 1ª pessoa do cadastro, a assinatura de exemplo das
+  ilustrações), __FAIXA__, __BARRA__, __VERSAO__.
+  As "telas" do Gmail, do Outlook e do Windows são ILUSTRAÇÕES em HTML, não
+  prints: print de verdade mostraria a caixa de entrada de alguém numa página
+  pública. Os rótulos seguem os programas em português; se um deles mudar um
+  nome, mude aqui.
+-->
+<!doctype html>
+<!-- GERADO por ferramentas/gerar_html.py (pessoas.py + pagina.html/.css/.js) - nao edite na mao. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Assinaturas Time Forte</title>
+<script>document.documentElement.className += " js";</script>
+<style>
+__CSS__
+</style>
+</head>
+<body>
+<header class="topo">
+  <div class="topo-in">
+    <img class="logo" src="__LOGO__" alt="Time Forte" width="159" height="24">
+    <h1>Assinaturas de e-mail</h1>
+    <p>Ache seu nome, copie a sua assinatura e cole no seu e-mail. Leva uns 2 minutos.</p>
+  </div>
+</header>
+
+<main>
+<p class="aviso-celular">A instalação é feita no <b>computador</b>. Pelo celular dá para conferir a sua
+assinatura; depois de instalada, o app do e-mail já usa a do computador.</p>
+
+<section class="bloco" id="escolha">
+  <h2><span class="num">1</span> Encontre e copie a sua assinatura</h2>
+  <label class="busca"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    <input type="search" id="busca" placeholder="Digite seu nome" aria-label="Digite seu nome" autocomplete="off" spellcheck="false"></label>
+  <ul class="nomes" id="nomes">
+__NOMES__
+  </ul>
+  <p class="nada" id="nada" hidden>Ninguém com esse nome por aqui. Se você já pediu a sua, ela ainda não
+  ficou pronta.</p>
+  <p class="vazia" id="vazia">Clique no seu nome para ver a sua assinatura aqui.</p>
+__PESSOAS__
+  <details class="ajuda">
+    <summary>O botão <b>Copiar assinatura</b> não funcionou? Copie à mão</summary>
+    <p>Clique em <b>Abrir em outra aba</b>. Na página que abrir, aperte <kbd>Ctrl</kbd> + <kbd>A</kbd>
+    (a assinatura inteira fica <b>azul</b>) e depois <kbd>Ctrl</kbd> + <kbd>C</kbd>. No Mac, use
+    <kbd>&#8984;</kbd> no lugar de <kbd>Ctrl</kbd>.</p>
+    <div class="tut-mock" aria-hidden="true">
+      <div class="c-nav"><span class="c-pontos"><i></i><i></i><i></i></span>
+        <span class="c-url">paulocesar0405.github.io/repo-assinaturas/assinaturas-html/seu-nome.html</span></div>
+      <div class="c-pagina">
+        <div class="c-assin">
+          <img src="__EX_CARD__" alt=""><img src="__EX_CONT__" alt=""><img src="__FAIXA__" alt="">
+          <div class="c-respiro"></div><img src="__BARRA__" alt="">
+          <span class="c-selecao"></span>
+        </div>
+        <span class="tut-teclas"><kbd>Ctrl</kbd> + <kbd>A</kbd></span>
+      </div>
+    </div>
+  </details>
+</section>
+
+<section class="bloco" id="como-instalar">
+  <h2><span class="num">2</span> Cole no seu e-mail</h2>
+  <p class="intro">Escolha o programa que você usa no computador:</p>
+  <div class="abas" role="tablist" aria-label="Programa de e-mail">
+    <button type="button" class="aba" role="tab" id="aba-gmail" aria-controls="tut-gmail">Gmail</button>
+    <button type="button" class="aba" role="tab" id="aba-outlook" aria-controls="tut-outlook">Outlook novo ou na web</button>
+    <button type="button" class="aba" role="tab" id="aba-classico" aria-controls="tut-classico">Outlook clássico</button>
+  </div>
+
+  <div class="tut-painel" id="tut-gmail" role="tabpanel" aria-labelledby="aba-gmail">
+    <h3>Gmail</h3>
+    <ol class="tut-passos">
+      <li>
+        <p>Clique na <b>engrenagem</b>, no canto de cima à direita, e depois em
+        <b>Ver todas as configurações</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-top">
+            <div class="g-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar e-mail</div>
+            <div class="g-icones">
+              <span class="g-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+              <span class="g-avatar">V</span>
+            </div>
+          </div>
+          <div class="g-corpo">
+            <div class="g-painel">
+              <div class="g-painel-tit">Configurações rápidas</div>
+              <div class="g-pilula tut-alvo" data-n="2">Ver todas as configurações</div>
+              <div class="g-fantasma"></div><div class="g-fantasma curto"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Fique na aba <b>Geral</b> e desça a página até <b>Assinatura</b>. Se tiver uma assinatura
+        antiga da Time Forte, apague (<b>lixeira</b>). Clique em <b>+ Criar nova</b>, escreva um nome
+        (ex.: <i>Time Forte</i>) e clique em <b>Criar</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-titulo">Configurações</div>
+          <div class="g-abas"><span class="g-aba ativa">Geral</span><span class="g-aba">Marcadores</span>
+            <span class="g-aba">Caixa de entrada</span><span class="g-aba">Contas e importação</span>
+            <span class="g-aba">Filtros</span></div>
+          <div class="g-cfg">
+            <div class="g-rotulo"><b>Assinatura:</b><br><small>(anexada ao final de todas as mensagens enviadas)</small></div>
+            <div>
+              <div class="g-lista"><div class="g-item"><span>Assinatura antiga</span>
+                <span class="tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></span></div></div>
+              <span class="g-pilula g-criar tut-alvo" data-n="2">+ Criar nova</span>
+            </div>
+          </div>
+          <div class="g-dialogo">
+            <div class="g-dialogo-tit">Nomear nova assinatura</div>
+            <div class="g-input">Time Forte</div>
+            <div class="g-acoes"><span>Cancelar</span><span class="tut-alvo" data-n="3">Criar</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Clique dentro da caixa grande ao lado do nome e cole com <kbd>Ctrl</kbd> + <kbd>V</kbd>.
+        A assinatura aparece com as imagens.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-cfg">
+            <div class="g-lista"><div class="g-item sel">Time Forte</div></div>
+            <div class="g-editor tut-alvo" data-n="1">
+              <div class="g-ferr"><span>Sans Serif &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
+              <div class="g-editor-cont">
+                <img src="__EX_CARD__" alt=""><img src="__EX_CONT__" alt=""><img src="__FAIXA__" alt="">
+                <div class="c-respiro"></div><img src="__BARRA__" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Logo abaixo, em <b>Padrões de assinatura</b>, escolha a nova nas <b>duas</b> caixas.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-padroes">
+            <div class="g-padroes-tit">Padrões de assinatura</div>
+            <div class="g-sels">
+              <div><div class="g-sel-rot">PARA USO EM NOVOS E-MAILS</div>
+                <span class="g-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
+              <div><div class="g-sel-rot">PARA USO EM RESPOSTAS/ENCAMINHAMENTOS</div>
+                <span class="g-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Desça até o <b>fim da página</b> e clique em <b>Salvar alterações</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="g-rodape"><span class="g-btn tut-alvo" data-n="1">Salvar alterações</span><span class="g-btn">Cancelar</span></div>
+        </div>
+      </li>
+    </ol>
+    <p class="tut-obs">No celular não precisa fazer nada: o app do Gmail usa a assinatura do computador
+    (deixe a "assinatura para celular" do app desligada).</p>
+  </div>
+
+  <div class="tut-painel" id="tut-outlook" role="tabpanel" aria-labelledby="aba-outlook">
+    <h3>Outlook novo ou na web</h3>
+    <p class="tut-nota">Vale para o <b>Outlook novo</b> do Windows e para o Outlook no navegador. Se o seu
+    Outlook tem a aba <b>Arquivo</b> no canto de cima à esquerda, ele é o clássico: veja a aba
+    <b>Outlook clássico</b>.</p>
+    <ol class="tut-passos">
+      <li>
+        <p>Clique na <b>engrenagem</b> (Configurações), no canto de cima à direita.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="o-top">
+            <span class="o-marca">Outlook</span>
+            <span class="o-busca"><svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>Pesquisar</span>
+            <span class="o-ic tut-alvo" data-n="1"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 0 0 .12-.61l-1.92-3.32a.488.488 0 0 0-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.484.484 0 0 0-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58a.49.49 0 0 0-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg></span>
+            <span class="o-avatar">V</span>
+          </div>
+          <div class="o-corpo"><div class="g-fantasma"></div><div class="g-fantasma curto"></div></div>
+        </div>
+      </li>
+      <li>
+        <p>Vá em <b>Contas</b> &rarr; <b>Assinaturas</b>. Se tiver uma assinatura antiga da Time Forte,
+        apague. Clique em <b>+ Nova assinatura</b> e dê o nome <i>Time Forte</i>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="o-cfg">
+            <div class="o-nav"><div class="o-tit">Configurações</div>
+              <div class="o-item sel tut-alvo" data-n="1">Contas</div><div class="o-item">Geral</div>
+              <div class="o-item">Email</div><div class="o-item">Calendário</div></div>
+            <div class="o-sub"><div class="o-tit">Contas</div>
+              <div class="o-item">Contas de email</div>
+              <div class="o-item sel tut-alvo" data-n="2">Assinaturas</div></div>
+            <div class="o-cont"><div class="o-tit">Assinaturas</div>
+              <span class="o-btn tut-alvo" data-n="3">+ Nova assinatura</span>
+              <div class="o-input">Time Forte</div></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Clique na caixa grande embaixo do nome, cole com <kbd>Ctrl</kbd> + <kbd>V</kbd> e clique em
+        <b>Salvar</b>.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="o-cont">
+            <div class="o-input">Time Forte</div>
+            <div class="o-editor tut-alvo" data-n="1">
+              <div class="g-ferr"><span>Aptos &#9662;</span><b>B</b><i>I</i><u>U</u><span>A &#9662;</span><span>&#8801;</span></div>
+              <div class="g-editor-cont">
+                <img src="__EX_CARD__" alt=""><img src="__EX_CONT__" alt=""><img src="__FAIXA__" alt="">
+                <div class="c-respiro"></div><img src="__BARRA__" alt="">
+              </div>
+            </div>
+            <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="2">Salvar</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Logo abaixo, nas assinaturas padrão, escolha <i>Time Forte</i> para <b>novas mensagens</b> e
+        para <b>respostas/encaminhamentos</b>, e clique em <b>Salvar</b> de novo.</p>
+        <div class="tut-mock" aria-hidden="true">
+          <div class="o-padroes">
+            <div class="o-tit2">Selecionar assinaturas padrão</div>
+            <div class="o-linha"><span>Para novas mensagens:</span><span class="o-sel tut-alvo" data-n="1">Time Forte <span>&#9662;</span></span></div>
+            <div class="o-linha"><span>Para respostas/encaminhamentos:</span><span class="o-sel tut-alvo" data-n="2">Time Forte <span>&#9662;</span></span></div>
+            <div class="o-rodape"><span class="o-btn prim tut-alvo" data-n="3">Salvar</span></div>
+          </div>
+        </div>
+      </li>
+    </ol>
+    <p class="tut-obs">Usa o Outlook no Windows e também no navegador? Confira se a assinatura apareceu nos
+    dois; se não, repita lá. No Mac, o caminho é <b>Outlook</b> &rarr; <b>Configurações</b> &rarr;
+    <b>Assinaturas</b>: clique em <b>+</b>, cole a assinatura e escolha a nova como padrão.</p>
+  </div>
+
+  <div class="tut-painel" id="tut-classico" role="tabpanel" aria-labelledby="aba-classico">
+    <h3>Outlook clássico (Windows)</h3>
+    <p class="tut-nota">No Outlook clássico, colar não funciona bem: o editor de assinaturas dele desmonta a
+    montagem das imagens. Por isso, nele você <b>troca o arquivo</b> da assinatura. Dá um pouco mais de
+    trabalho, mas fica perfeita.</p>
+    <ol class="tut-passos">
+      <li>
+        <p>No Outlook, clique em <b>Arquivo</b> &rarr; <b>Opções</b> &rarr; <b>Email</b> &rarr;
+        <b>Assinaturas...</b></p>
+        <div class="tut-mock w" aria-hidden="true">
+          <div class="w-barra"><span>Opções do Outlook</span><span>&#10005;</span></div>
+          <div class="w-opcoes">
+            <div class="w-lista"><div>Geral</div><div class="sel tut-alvo" data-n="1">Email</div>
+              <div>Calendário</div><div>Pessoas</div><div>Tarefas</div></div>
+            <div class="w-cont">
+              <div class="w-sec">Redigir mensagens</div>
+              <div class="w-linha"><span>Crie ou modifique assinaturas para mensagens.</span>
+                <span class="w-btn tut-alvo" data-n="2">Assinaturas...</span></div>
+            </div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Clique em <b>Novo</b>, dê o nome <b>Time Forte</b> (exatamente assim) e escreva qualquer coisa
+        na caixa <b>Editar assinatura</b>, um <i>x</i> por exemplo: ela vai ser trocada. Em
+        <b>Escolher assinatura padrão</b>, escolha <i>Time Forte</i> em <b>Novas mensagens</b> e em
+        <b>Respostas/encaminhamentos</b>. Clique em <b>OK</b> e <b>feche o Outlook</b>.</p>
+        <div class="tut-mock w" aria-hidden="true">
+          <div class="w-barra"><span>Assinaturas e Papel de Carta</span><span>&#10005;</span></div>
+          <div class="w-ass">
+            <div class="w-abas"><span class="sel">Assinatura de Email</span><span>Papel de Carta Pessoal</span></div>
+            <div class="w-grade">
+              <div>
+                <div class="w-rot">Selecione a assinatura a editar</div>
+                <div class="w-caixa"><div class="w-item">Time Forte</div></div>
+                <div class="w-btns"><span class="w-btn">Excluir</span><span class="w-btn tut-alvo" data-n="1">Novo</span>
+                  <span class="w-btn">Salvar</span></div>
+              </div>
+              <div>
+                <div class="w-rot">Escolher assinatura padrão</div>
+                <div class="w-campo"><span>Conta de email:</span><span class="w-sel">voce@timeforte.com</span></div>
+                <div class="w-campo"><span>Novas mensagens:</span><span class="w-sel tut-alvo" data-n="3">Time Forte</span></div>
+                <div class="w-campo"><span>Respostas/encaminhamentos:</span><span class="w-sel tut-alvo" data-n="4">Time Forte</span></div>
+              </div>
+            </div>
+            <div class="w-rot">Editar assinatura</div>
+            <div class="w-caixa w-edit tut-alvo" data-n="2">x</div>
+            <div class="w-rodape"><span class="w-btn tut-alvo" data-n="5">OK</span><span class="w-btn">Cancelar</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Baixe o arquivo da sua assinatura:</p>
+        <button type="button" class="botao baixar" id="baixar" disabled>Baixar Time Forte.htm</button>
+        <p class="baixar-dica" id="baixar-dica">Antes, escolha seu nome no passo 1.</p>
+      </li>
+      <li>
+        <p>Aperte <kbd>Windows</kbd> + <kbd>R</kbd>, cole <code>%APPDATA%\Microsoft</code> e aperte
+        <b>Enter</b>. Na pasta que abrir, entre em <b>Assinaturas</b> (em alguns computadores ela se chama
+        <b>Signatures</b>).</p>
+        <div class="tut-mock w" aria-hidden="true">
+          <div class="w-barra"><span>Executar</span><span>&#10005;</span></div>
+          <div class="w-exec">
+            <p>Digite o nome de um programa, pasta, documento ou recurso da Internet e o Windows o abrirá
+            para você.</p>
+            <div class="w-campo"><span>Abrir:</span><span class="w-sel w-larga tut-alvo" data-n="1">%APPDATA%\Microsoft</span></div>
+            <div class="w-rodape"><span class="w-btn tut-alvo" data-n="2">OK</span><span class="w-btn">Cancelar</span></div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Arraste o <b>Time Forte.htm</b> que você baixou (fica em <b>Downloads</b>) para dentro dessa
+        pasta e escolha <b>Substituir o arquivo no destino</b>. Se o arquivo baixado veio com outro nome,
+        como <i>Time Forte (1).htm</i>, renomeie para <i>Time Forte.htm</i> antes.</p>
+        <div class="tut-mock w" aria-hidden="true">
+          <div class="w-barra"><span>Assinaturas</span><span>&#10005;</span></div>
+          <div class="w-caminho">AppData &rsaquo; Roaming &rsaquo; Microsoft &rsaquo; Assinaturas</div>
+          <div class="w-arqs"><span class="w-arq">Time Forte.htm</span><span class="w-arq">Time Forte.rtf</span>
+            <span class="w-arq">Time Forte.txt</span></div>
+          <div class="w-dialogo">
+            <div class="w-dialogo-tit">Substituir ou Ignorar Arquivos</div>
+            <div>O destino já tem um arquivo chamado "Time Forte.htm"</div>
+            <div class="w-opcao tut-alvo" data-n="1">&#10003; Substituir o arquivo no destino</div>
+            <div class="w-opcao">Ignorar este arquivo</div>
+          </div>
+        </div>
+      </li>
+      <li>
+        <p>Abra o Outlook e crie um e-mail novo: a assinatura já aparece completa.</p>
+      </li>
+    </ol>
+    <p class="tut-obs">Depois de trocar o arquivo, não edite a assinatura pelas Opções do Outlook: ao salvar,
+    ele refaz o arquivo e desmonta de novo (se acontecer, repita os passos 3 a 5). No Outlook clássico a
+    faixa de marcas pode aparecer parada, sem animação.</p>
+  </div>
+
+  <div class="tut-fim">
+    <p><b>Teste:</b> mande um e-mail para você mesmo e clique no telefone (abre o WhatsApp), no e-mail e
+    no endereço (abre o Maps).</p>
+    <p class="tut-obs">As telas acima são ilustrações: o seu programa pode estar com outras cores ou com
+    nomes um pouco diferentes. Travou em algum passo? Fale com o TI.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Versão atual das assinaturas: <b>__VERSAO__</b>. Se você instalou uma versão anterior, apague a
+  antiga e instale de novo; os e-mails já enviados continuam certos.</p>
+  <p>Conferência do deploy: <a href="#todas">ver todas as assinaturas</a>. Todas têm que aparecer
+  inteiras, sem imagem quebrada, com a faixa de marcas animando. Página gerada por
+  <code>ferramentas/gerar_html.py</code>.</p>
+</footer>
+</main>
+<script>
+__JS__
+</script>
+</body>
+</html>
