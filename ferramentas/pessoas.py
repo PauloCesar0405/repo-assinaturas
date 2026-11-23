@@ -416,6 +416,27 @@ PESSOAS = {
         "crop": (26, 80, 394, 346),
         "espelhar": False,
     },
+    "mauricio-helayel": {
+        "nome": "Mauricio Helayel",
+        "cargo": "SUPERVISOR DE MARKETING",
+        "tel": "+55 21 98883-2979",
+        "whatsapp": "5521988832979",
+        "email": "mauricio@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "mauricio-helayel-limpo.png",
+        # foto de 23/11/2026: retrato frontal já sem fundo, 1309x1201, com o
+        # nome de arquivo no padrão da 2ª do Antonio (IA). Borda limpa (lum
+        # 69, sem halo). O corpo veio com alpha 253, não 255: reescalei o
+        # alpha (x255/253) para ficar opaco e tirei 1015 pixels soltos de
+        # alpha <= 6 (ilhas e poeira longe do corpo). A foto é quase quadrada
+        # e o rosto enche o quadro: o crop usa a altura inteira (a jaqueta vai
+        # até a base, sem laranja embaixo) e sobe 10px, o que deixa o rosto do
+        # tamanho do Henrique e a folga do cabelo igual à do Antonio. Os
+        # ombros terminam antes das laterais do painel, como no Henrique.
+        "crop": (-142, -10, 1412, 1201),
+        "espelhar": False,
+    },
 }
 
 
