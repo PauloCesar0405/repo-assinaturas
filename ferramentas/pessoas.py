@@ -213,7 +213,10 @@ PESSOAS = {
         "cargo": "GESTOR DE PROJETO",
         "tel": "+55 21 98071-2522",
         "whatsapp": "5521980712522",
-        "email": "henriquegones@timeforte.com",
+        # e-mail CORRIGIDO em 23/11/2026 (era henriquegones@, com N, como veio
+        # no pedido de 18/11): os contatos antigos estavam no ar, então os
+        # novos são rev_contatos 2
+        "email": "henriquegomes@timeforte.com",
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "henrique-gomes-limpo.png",
@@ -231,6 +234,7 @@ PESSOAS = {
         "crop": (208, -25, 1388, 788),
         "espelhar": False,
         "rev": 2,
+        "rev_contatos": 2,
     },
     "beatriz-leal": {
         "nome": "Beatriz Leal da Silva",
