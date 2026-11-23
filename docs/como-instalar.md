@@ -33,23 +33,36 @@ em `assinaturas-html/`).
 ## Passo único — instalar
 
 **Página de instalação:** https://paulocesar0405.github.io/repo-assinaturas/
-— lista todo mundo, com prévia e o passo a passo do Gmail. Mande esse link
-para o time: cada um acha o próprio nome e clica em "Abrir minha
-assinatura" (é o `assinaturas-html/<pessoa>.html` publicado).
+— cada um busca o próprio nome, vê a prévia e clica em **Copiar
+assinatura**; o passo a passo tem abas para Gmail, Outlook novo/web e
+Outlook clássico. Mande esse link para o time. Para mandar direto a de uma
+pessoa: `.../repo-assinaturas/#<slug>` (ex.: `#mauricio-helayel`).
 
-**Gmail (web):** abra `assinaturas-html/<pessoa>.html` no Chrome →
-`Ctrl+A`, `Ctrl+C` na página renderizada → Gmail → Configurações →
-Geral → Assinatura → Criar nova → `Ctrl+V` → definir como padrão para
-novos e-mails e respostas → Salvar. (Copia-se a página renderizada,
-nunca o código-fonte.)
+O botão Copiar põe na área de transferência a `<table>` do
+`assinaturas-html/<pessoa>.html`: o mesmo que o `Ctrl+A`/`Ctrl+C` na
+página renderizada da pessoa, que continua valendo pelo botão "Abrir em
+outra aba". (Copia-se sempre a assinatura renderizada, nunca o
+código-fonte.)
 
-**Outlook clássico (Windows):** crie uma assinatura vazia chamada
-`Time Forte` em Arquivo → Opções → Email → Assinaturas, feche o Outlook
-e substitua o `%APPDATA%\Microsoft\Signatures\Time Forte.htm` pelo nosso
-arquivo renomeado. O editor dele desmonta HTML colado; o replace é fiel.
+**Gmail (web):** Copiar assinatura → Gmail → Configurações → Geral →
+Assinatura → Criar nova → `Ctrl+V` → definir como padrão para novos
+e-mails e respostas → Salvar alterações.
 
-**Outlook novo / Web:** Configurações → Redigir e responder → colar o
-renderizado (mesmo truque do Gmail).
+**Outlook novo / Web:** Copiar assinatura → Configurações (engrenagem) →
+Contas → Assinaturas → + Nova assinatura → `Ctrl+V` → Salvar → escolher a
+nova como padrão para novas mensagens e respostas/encaminhamentos →
+Salvar. No Mac: Outlook → Configurações → Assinaturas.
+
+**Outlook clássico (Windows):** o editor dele desmonta HTML colado, então
+a assinatura entra trocando o arquivo. Crie uma assinatura chamada
+`Time Forte` (com um "x" de conteúdo) em Arquivo → Opções → Email →
+Assinaturas, já como padrão para novas mensagens e respostas, e feche o
+Outlook. Na aba Outlook clássico da página, **Baixar Time Forte.htm** gera
+o arquivo da pessoa escolhida (UTF-8 com BOM e `meta charset`, para os
+acentos dos textos alternativos). Ele substitui o `Time Forte.htm` em
+`%APPDATA%\Microsoft\Assinaturas`; a pasta leva o nome na língua do
+Office (`Signatures` no Office em inglês). Editar a assinatura depois
+pelas Opções faz o Outlook regravar o arquivo e desfaz a troca.
 
 **Celular:** os apps usam uma "assinatura mobile" própria em texto puro.
 Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
@@ -77,9 +90,10 @@ Deixe-a desativada; a assinatura configurada no desktop sincroniza sozinha.
 GitHub Pages, servido de `master`:
 `https://paulocesar0405.github.io/repo-assinaturas/v2/...` (e a faixa em `.../v1/comum/`)
 
-Para conferir se o deploy está no ar, abra a página de instalação (o
-`index.html` publicado): a prévia de cada pessoa tem que aparecer inteira,
-sem imagem quebrada, com a faixa animando.
+Para conferir se o deploy está no ar, abra a página de instalação em
+`index.html#todas` (link "ver todas as assinaturas", no rodapé): a prévia
+de cada pessoa tem que aparecer inteira, sem imagem quebrada, com a faixa
+animando.
 
 > Pendência registrada no `CLAUDE.md`: apontar `assinaturas.timeforte.com`
 > por CNAME antes do rollout do time, para as URLs saírem de uma conta

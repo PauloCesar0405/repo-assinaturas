@@ -13,7 +13,8 @@ Estrutura gerada: uma <table> de 4 blocos. Os contatos são 3 fatias, cada
 uma no seu <a> - ver o porquê em gerar_contatos.py e no CLAUDE.md.
 
 Toda rodada também reescreve o index.html da raiz: a página de instalação,
-com todo mundo que tem .html, na ordem de pessoas.py.
+com todo mundo que tem .html, na ordem de pessoas.py (molde em
+pagina.html, pagina.css e pagina.js).
 """
 import html
 import os
@@ -32,6 +33,8 @@ PAGES = "https://paulocesar0405.github.io/repo-assinaturas"
 URL = f"{PAGES}/{marca.VERSAO}"
 URL_FAIXA = f"{PAGES}/{'/'.join(marca.FAIXA)}"   # viva, fica em v1/ (ver marca.py)
 SITE = "https://www.timeforte.com"
+# logotipo do topo da pagina de instalacao, relativo a raiz do site
+LOGO = "ferramentas/insumos/timeforte_aplicacao_preto.png"
 
 for _f in (sys.stdout, sys.stderr):
     try:
@@ -169,10 +172,13 @@ def montar(slug):
 
 def indice():
     """Reescreve o index.html da raiz: a pagina que o time abre para instalar
-    a propria assinatura, e que tambem serve de verificacao do deploy. Sai do
-    cadastro, na ordem de pessoas.py, e a previa de cada pessoa e a <table>
-    do proprio .html dela - o que aparece aqui e exatamente o que vai ser
-    copiado. Quem ainda nao tem .html gerado fica de fora."""
+    a propria assinatura, e que tambem serve de verificacao do deploy
+    (index.html#todas mostra todo mundo). Sai do cadastro, na ordem de
+    pessoas.py, e a previa de cada pessoa e a <table> do proprio .html dela:
+    o que aparece aqui e exatamente o que vai ser copiado, pelo botao Copiar
+    ou pelo Ctrl+A/Ctrl+C na outra aba. O molde e pagina.html, com o estilo
+    em pagina.css e o comportamento em pagina.js. Quem ainda nao tem .html
+    gerado fica de fora."""
     hexa = lambda c: "#%02X%02X%02X" % c
     nomes, blocos, exemplo = [], [], None
     for slug, p in pessoas.PESSOAS.items():
@@ -183,94 +189,48 @@ def indice():
             tabela = fh.read().split("-->", 1)[1].strip()
         exemplo = exemplo or slug
         nome, cargo = html.escape(p["nome"]), html.escape(p["cargo"])
-        nomes.append(f'          <li><a href="#{slug}">{nome}</a></li>')
-        blocos.append(f"""
-<article class="pessoa" id="{slug}">
-  <div class="cabeca">
-    <div><h3>{nome}</h3><span class="cargo">{cargo}</span></div>
-    <a class="botao" href="assinaturas-html/{slug}.html" target="_blank" rel="noopener">Abrir minha assinatura &rarr;</a>
-  </div>
-  <div class="previa">
+        # o avatar e o proprio card, ampliado em cima da foto (ver pagina.css)
+        nomes.append(f'    <li><a class="nome" href="#{slug}"><span class="avatar"><img '
+                     f'src="{URL}/pessoas/{pessoas.card(slug)}" alt=""></span>'
+                     f'<span><b>{nome}</b><small>{cargo}</small></span></a></li>')
+        blocos.append(f"""  <article class="pessoa" id="{slug}" data-nome="{nome}">
+    <div class="cabeca"><h3>{nome}</h3><span class="cargo">{cargo}</span></div>
+    <div class="previa"><div class="escala">
 {tabela}
-  </div>
-  <a class="voltar" href="#como-instalar">&uarr; Passo a passo para instalar</a>
-</article>""")
+    </div></div>
+    <div class="acoes">
+      <button type="button" class="botao copiar">Copiar assinatura</button>
+      <a class="botao sec" href="assinaturas-html/{slug}.html" target="_blank" rel="noopener">Abrir em outra aba</a>
+    </div>
+    <p class="retorno" role="status"></p>
+  </article>""")
 
-    # tutorial: CSS + HTML num arquivo a parte (ferramentas/tutorial.html); a
-    # assinatura de exemplo das ilustracoes e a da 1a pessoa do cadastro
-    with open(os.path.join(BASE, "tutorial.html"), encoding="utf-8") as fh:
-        css_tut, tutorial = fh.read().split("<!-- ===CORPO=== -->")
-    css_tut = css_tut.split("*/", 1)[1]   # o comentario do topo e para quem edita
-    for marca_, valor in (("__NOMES__", "\n".join(nomes)),
-                          ("__EX_CARD__", f"{URL}/pessoas/{pessoas.card(exemplo)}"),
-                          ("__EX_CONT__", f"{URL}/pessoas/{pessoas.contatos(exemplo)}.png"),
-                          ("__FAIXA__", URL_FAIXA),
-                          ("__BARRA__", f"{URL}/comum/barra-chamada.png")):
-        tutorial = tutorial.replace(marca_, valor)
+    def ler(nome):
+        with open(os.path.join(BASE, nome), encoding="utf-8") as fh:
+            return fh.read()
 
-    pagina = f"""<!doctype html>
-<!-- GERADO por ferramentas/gerar_html.py a partir de pessoas.py - nao edite na mao. -->
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Assinaturas Time Forte</title>
-<style>
-  :root {{ --preto: {hexa(marca.PRETO)}; --laranja: {hexa(marca.LARANJA)};
-           --laranja-escuro: {hexa(marca.LARANJA_ESCURO)}; --cinza: #6E6A69;
-           --fundo: #F4F4F5; --linha: #E4E4E7; }}
-  * {{ box-sizing: border-box; }}
-  body {{ margin: 0; background: var(--fundo); color: var(--preto);
-          font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Ubuntu, Roboto, sans-serif; }}
-  main {{ max-width: 720px; margin: 0 auto; padding: 32px 16px 64px; }}
-  header {{ border-left: 6px solid var(--laranja); padding-left: 16px; margin-bottom: 28px; }}
-  h1 {{ font-size: 28px; line-height: 1.2; margin: 0 0 4px; }}
-  header p {{ margin: 0; color: var(--cinza); }}
-  h2 {{ font-size: 18px; margin: 0 0 12px; }}
-  kbd {{ font: 13px/1 ui-monospace, Consolas, monospace; background: var(--fundo);
-         border: 1px solid #D4D4D8; border-bottom-width: 2px; border-radius: 4px; padding: 2px 5px; }}
-  .nomes {{ display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 0 0 20px; padding: 0; }}
-  .nomes a {{ display: block; padding: 6px 14px; border-radius: 999px; background: #fff;
-              border: 1px solid var(--linha); color: var(--preto); text-decoration: none; font-size: 14px; }}
-  .nomes a:hover {{ border-color: var(--laranja); }}
-  .pessoa {{ background: #fff; border: 1px solid var(--linha); border-radius: 12px;
-             padding: 20px 24px; margin-bottom: 16px; scroll-margin-top: 16px; }}
-  .pessoa:target {{ border-color: var(--laranja); box-shadow: 0 0 0 3px rgba(243, 109, 33, .25); }}
-  .cabeca {{ display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-             gap: 12px; margin-bottom: 16px; }}
-  .cabeca h3 {{ font-size: 18px; margin: 0; }}
-  .cargo {{ color: var(--cinza); font-size: 12px; font-weight: 700; letter-spacing: .12em; }}
-  .botao {{ display: inline-block; background: var(--laranja); color: var(--preto); font-weight: 700;
-            text-decoration: none; padding: 10px 16px; border-radius: 8px; }}
-  .botao:hover {{ background: var(--laranja-escuro); color: #fff; }}
-  .previa {{ overflow-x: auto; }}
-  .voltar {{ display: inline-block; margin-top: 12px; color: var(--cinza); font-size: 13px; }}
-  footer {{ color: var(--cinza); font-size: 13px; margin-top: 32px; }}
-  @media (max-width: 480px) {{ .pessoa {{ padding: 16px; }} h1 {{ font-size: 24px; }} }}
-{css_tut.strip()}
-</style>
-</head>
-<body>
-<main>
-<header>
-  <h1>Assinaturas de e-mail</h1>
-  <p>Time Forte Marketing Esportivo &middot; encontre seu nome e instale em 2 minutos.</p>
-</header>
+    # o comentario do topo de cada molde e para quem edita: fica de fora
+    css = ler("pagina.css").split("*/", 1)[1].strip()
+    js = ler("pagina.js").split("*/", 1)[1].strip()
+    pagina = ler("pagina.html").split("-->", 1)[1].lstrip()
+    cores = (f":root {{ --preto: {hexa(marca.PRETO)}; --laranja: {hexa(marca.LARANJA)}; "
+             f"--laranja-escuro: {hexa(marca.LARANJA_ESCURO)}; }}")
+    if not os.path.exists(os.path.join(RAIZ, *LOGO.split("/"))):
+        raise SystemExit(f"ABORTADO: falta o logotipo do topo da pagina ({LOGO}).")
+    for marcador, valor in (("__CSS__", f"{cores}\n{css}"),
+                            ("__JS__", js),
+                            ("__LOGO__", LOGO),
+                            ("__NOMES__", "\n".join(nomes)),
+                            ("__PESSOAS__", "\n".join(blocos)),
+                            ("__EX_CARD__", f"{URL}/pessoas/{pessoas.card(exemplo)}"),
+                            ("__EX_CONT__", f"{URL}/pessoas/{pessoas.contatos(exemplo)}.png"),
+                            ("__FAIXA__", URL_FAIXA),
+                            ("__BARRA__", f"{URL}/comum/barra-chamada.png"),
+                            ("__VERSAO__", marca.VERSAO)):
+        if marcador not in pagina:
+            raise SystemExit(f"ABORTADO: pagina.html sem o marcador {marcador}.")
+        pagina = pagina.replace(marcador, valor)
 
-{tutorial.strip()}
-{"".join(blocos)}
-
-<footer>
-  Versão atual das assinaturas: <b>{marca.VERSAO}</b>. Se você instalou antes de mudar a versão, apague a
-  antiga e instale de novo; os e-mails já enviados continuam certos. Esta página também é a
-  verificação do deploy: todas as assinaturas acima têm que aparecer inteiras, sem imagem
-  quebrada, com a faixa de marcas animando. Gerada por <code>ferramentas/gerar_html.py</code>.
-</footer>
-</main>
-</body>
-</html>
-"""
     alvo = os.path.join(RAIZ, "index.html")
     with open(alvo, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(pagina)
