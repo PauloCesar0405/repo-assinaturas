@@ -392,6 +392,30 @@ PESSOAS = {
         "crop": (0, -10, 520, 395),
         "espelhar": False,
     },
+    "gabriel-muniz": {
+        "nome": "Gabriel Monteiro Muniz",
+        # 30 caracteres e cabe (540 de 594px): como na Natália, o "~24" da
+        # tabela de limites é conservador
+        "cargo": "SUPERVISOR DE ESCOLAS PRÓPRIAS",
+        "tel": "+55 21 98704-3477",
+        "whatsapp": "5521987043477",
+        # o pedido trouxe "Gabriel Muniz" no campo do e-mail; endereço dado
+        # pelo Paulo. Com 26 caracteres, ainda sai no corpo cheio de 14px
+        "email": "gabrielmuniz@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "gabriel-muniz-limpo.png",
+        # foto de 23/11/2026: só o "-removebg-preview" (433x576), sem a
+        # original. Tirei o filete bege de fundo (um poste) colado no braço
+        # esquerdo, de y=408 até a mesa; o resto como veio (uma ilha, borda
+        # com luminância 109). Altura 266 = escala 1:1, o maior rosto sem
+        # ampliar o preview, e mais largo que 1.283 para o ombro direito sair
+        # por baixo da diagonal. O braço esquerdo abre na base e fica a 3px da
+        # borda do crop: x0 acima de 28 vira corte reto. Base no peito, acima
+        # do crachá (y~397).
+        "crop": (26, 80, 394, 346),
+        "espelhar": False,
+    },
 }
 
 
