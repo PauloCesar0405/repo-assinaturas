@@ -558,6 +558,29 @@ PESSOAS = {
         "crop": (43, -13, 1249, 927),
         "espelhar": False,
     },
+    "felipe-siciliano": {
+        # nome completo (32 ch) cabe, encolhido perto do piso e justo na
+        # borda direita do card
+        "nome": "Felipe Armando Pirenei Siciliano",
+        "cargo": "COORDENADOR TÉCNICO",
+        "tel": "+55 21 98810-6325",
+        "whatsapp": "5521988106325",
+        "email": "felipe@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "felipe-siciliano-limpo.png",
+        # foto de 24/11/2026: "Homem do Flamengo em fundo transparente"
+        # (1024x1536, PNG já recortado), a que apareceu na pasta depois do
+        # pedido (ele não citou foto). Foto de campo: de agasalho do
+        # Flamengo, falando e olhando de lado. O corpo veio com alpha 253:
+        # reescalei (x255/253) e tirei 325 pixels de poeira e ilhas longe do
+        # corpo. Borda limpa (luminância 76, sem halo). A cabeça é pequena na
+        # foto: o crop amplia (escala 0,50) com a cabeça em ~60% do painel, e
+        # os dois ombros ficam inteiros, o direito terminando junto da
+        # diagonal.
+        "crop": (199, 198, 882, 730),
+        "espelhar": False,
+    },
 }
 
 
