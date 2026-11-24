@@ -515,8 +515,10 @@ PESSOAS = {
         # descida natural, braço um pouco mais gordinho". As pontas dos
         # cachos que encostavam na borda esmaecem em vez do corte reto. Lona
         # 220px mais larga à direita; o rosto e o resto da foto ficam como no
-        # recorte.
-        "crop": (-237, 218, 1559, 1618),
+        # recorte. Enquadramento mais aberto que o das outras (escala 0,165):
+        # com 0,19 a cabeça dominava o painel ("muito cabeçuda", nas palavras
+        # do Paulo), e aberto aparecem a mão e a pulseira.
+        "crop": (-373, 190, 1695, 1802),
         "espelhar": False,
     },
 }
