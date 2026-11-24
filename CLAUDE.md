@@ -233,7 +233,13 @@ geradores**, tudo está em `ferramentas/pessoas.py`.
    ou o ombro **encostar na borda direita da foto**, isso vira um corte reto
    com laranja do lado (a diagonal fica até 45px à direita da foto). Aí use
    um crop mais largo que 1.283: o painel recorta a foto, e a borda cai sob
-   a diagonal (caso Alessandra).
+   a diagonal (caso Alessandra). Se só a borda esquerda encosta, espelhar
+   a foto (`espelhar`) leva essa borda para baixo da diagonal (caso Thais).
+   Se os **dois** ombros saem pelas bordas (rosto enchendo o quadro), os
+   ombros podem ser completados no insumo: contorno desenhado continuando o
+   ombro real até o braço e tecido com a cor da camisa, com a foto original
+   intacta byte a byte e **sem alterar a aparência da pessoa** (caso Rafael
+   Marinho, nov/2026).
 3. **`python3 build.py <slug>`** → gera `<slug>.png` e as fatias de
    contatos. Peça que já existe em `v2/` é **pulada com aviso**, nunca
    sobrescrita (é por isso que gerar a 2ª pessoa não toca em `v2/comum/`).

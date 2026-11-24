@@ -469,6 +469,28 @@ PESSOAS = {
         "crop": (-72, 313, 730, 879),
         "espelhar": True,
     },
+    "rafael-marinho": {
+        "nome": "Rafael Marinho",
+        "cargo": "ANALISTA FINANCEIRO",
+        "tel": "+55 21 98498-2376",
+        "whatsapp": "5521984982376",
+        "email": "rafaelmarinho@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "rafael-marinho-limpo.png",
+        # foto de 24/11/2026 (WhatsApp, 1166x1349, fundo branco de estúdio):
+        # o rosto enche o quadro e os dois ombros saíam pelas bordas da foto,
+        # o que no card viraria dois cortes retos com laranja dos lados.
+        # Recorte com o birefnet-portrait + pymatting. Os ombros que a foto
+        # cortou foram COMPLETADOS a pedido do Paulo: lona 300px mais larga de
+        # cada lado, contorno desenhado continuando a posição e a inclinação
+        # do ombro real na borda até o braço, e tecido sintetizado com a cor e
+        # a textura da camisa. A foto original fica em x=300 do insumo, com
+        # rosto, cabelo, pescoço e gola idênticos byte a byte: só se acrescentou
+        # o que estava fora do quadro, sem alterar a aparência dele.
+        "crop": (115, -56, 1688, 1170),
+        "espelhar": False,
+    },
 }
 
 
