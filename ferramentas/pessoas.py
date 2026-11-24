@@ -510,14 +510,15 @@ PESSOAS = {
         # saía pela borda da foto: a pedido do Paulo, foi COMPLETADO além
         # dela, pele com a cor e a textura da borda. O contorno segue a
         # descida natural do ombro da foto (inclinação 1,2 na borda) até o
-        # braço, 110px além da borda. A 1ª versão, com o ombro arredondado
-        # em bola e 125px além, ficou desproporcional e o Paulo pediu "a
-        # descida natural, braço um pouco mais gordinho". As pontas dos
-        # cachos que encostavam na borda esmaecem em vez do corte reto. Lona
-        # 220px mais larga à direita; o rosto e o resto da foto ficam como no
-        # recorte. Enquadramento mais aberto que o das outras (escala 0,165):
-        # com 0,19 a cabeça dominava o painel ("muito cabeçuda", nas palavras
-        # do Paulo), e aberto aparecem a mão e a pulseira.
+        # braço, 150px além da borda, perto da grossura do outro braço dela.
+        # Foi o Paulo que ajustou: o ombro em bola (125px) ficou
+        # desproporcional, e com 110px "faltou completar o braço". As pontas
+        # dos cachos que encostavam na borda esmaecem em vez do corte reto.
+        # Lona 260px mais larga à direita; o rosto e o resto da foto ficam
+        # como no recorte. Enquadramento mais aberto que o das outras
+        # (escala 0,165): com 0,19 a cabeça dominava o painel ("muito
+        # cabeçuda", nas palavras do Paulo), e aberto aparecem a mão e a
+        # pulseira.
         "crop": (-373, 190, 1695, 1802),
         "espelhar": False,
     },
