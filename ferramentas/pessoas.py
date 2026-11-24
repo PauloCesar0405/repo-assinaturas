@@ -491,6 +491,30 @@ PESSOAS = {
         "crop": (115, -56, 1688, 1170),
         "espelhar": False,
     },
+    "inara-modena": {
+        "nome": "Inara Modena",
+        "cargo": "ASSISTENTE DE LOGÍSTICA",
+        # mesmo número da Alessandra (Coordenadora de Logística), como veio
+        # no pedido
+        "tel": "+55 21 98498-2375",
+        "whatsapp": "5521984982375",
+        "email": "inara@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "inara-modena-limpo.png",
+        # foto de 24/11/2026, a 2ª que o Paulo mandou: "Retrato de busto com
+        # fundo transparente" (1086x1448, PNG já recortado), com o busto e os
+        # dois ombros inteiros. A 1ª era print de story com o ombro direito
+        # cortado pela borda; completar o braço não ficou bom, e ele trocou
+        # pela foto. O corpo veio com alpha 253, não 255: reescalei (x255/253)
+        # e tirei 69 pixels de poeira (alpha <= 6 longe do corpo). Borda
+        # limpa (luminância 69, sem halo). Enquadramento mais aberto, com a
+        # mão e a pulseira (escala 0,20): com a cabeça grande no painel, ela
+        # ficava "muito cabeçuda", nas palavras do Paulo. O busto afina perto
+        # da base da imagem, então o crop para acima disso (y=1253).
+        "crop": (-314, -77, 1392, 1253),
+        "espelhar": False,
+    },
 }
 
 
