@@ -538,6 +538,26 @@ PESSOAS = {
         "crop": (39, 12, 1117, 852),
         "espelhar": False,
     },
+    "willian-moura": {
+        "nome": "Willian Oliveira de Moura",
+        "cargo": "SUPERVISOR COMERCIAL",
+        "tel": "+55 21 98066-1166",
+        "whatsapp": "5521980661166",
+        "email": "willian@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "willian-moura-limpo.png",
+        # foto de 24/11/2026: "Retrato masculino recortado em fundo
+        # transparente" (1284x1225, PNG já recortado; nome de arquivo no
+        # padrão das tratadas por IA, como a do Mauricio). O corpo veio com
+        # alpha 253: reescalei (x255/253) e tirei 205 pixels de poeira e
+        # ilhas longe do corpo. Borda limpa (luminância 96: cabelo escuro e
+        # camiseta preta, sem halo). O crop fica dentro da foto, com os dois
+        # ombros inteiros, e a cabeça ocupa uns 62% da altura do painel, como
+        # nos outros homens. O nome completo (25 ch) cabe.
+        "crop": (43, -13, 1249, 927),
+        "espelhar": False,
+    },
 }
 
 
