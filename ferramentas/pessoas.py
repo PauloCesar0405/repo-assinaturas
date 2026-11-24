@@ -581,6 +581,26 @@ PESSOAS = {
         "crop": (199, 198, 882, 730),
         "espelhar": False,
     },
+    "mariana-santos": {
+        # nome completo (26 ch) cabe no corpo cheio de 50, com 9px de folga
+        "nome": "Mariana Barbosa dos Santos",
+        "cargo": "ANALISTA FINANCEIRA",
+        "tel": "+55 21 99955-4503",
+        "whatsapp": "5521999554503",
+        "email": "mariana@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "mariana-santos-limpo.png",
+        # foto de 24/11/2026: "Retrato profissional de meio corpo" (1254x1254,
+        # PNG já recortado), a última que entrou na pasta. O corpo veio com
+        # alpha 253: reescalei (x255/253) e tirei 320 pixels de poeira longe
+        # do corpo. Borda limpa (luminância 48, sem halo). Os dois ombros
+        # estão inteiros na foto: o crop (escala 0,27) deixa a cabeça em ~60%
+        # do painel, os ombros terminam dentro dele com laranja dos dois lados,
+        # e o corte reto da base da foto (y=1208) fica bem abaixo do painel.
+        "crop": (-71, 50, 1212, 1050),
+        "espelhar": False,
+    },
 }
 
 
