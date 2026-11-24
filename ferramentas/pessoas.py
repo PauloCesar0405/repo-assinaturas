@@ -508,10 +508,14 @@ PESSOAS = {
         # homem ao fundo junto do cabelo, e a xuxinha rosa ficou opaca como
         # na foto (o birefnet a deixou meio transparente). O ombro direito
         # saía pela borda da foto: a pedido do Paulo, foi COMPLETADO além
-        # dela (contorno desenhado continuando o topo do ombro até o braço,
-        # pele com a cor e a textura da borda) e as pontas dos cachos que
-        # encostavam na borda esmaecem em vez do corte reto. Lona 220px mais
-        # larga à direita; o rosto e o resto da foto ficam como no recorte.
+        # dela, pele com a cor e a textura da borda. O contorno segue a
+        # descida natural do ombro da foto (inclinação 1,2 na borda) até o
+        # braço, 110px além da borda. A 1ª versão, com o ombro arredondado
+        # em bola e 125px além, ficou desproporcional e o Paulo pediu "a
+        # descida natural, braço um pouco mais gordinho". As pontas dos
+        # cachos que encostavam na borda esmaecem em vez do corte reto. Lona
+        # 220px mais larga à direita; o rosto e o resto da foto ficam como no
+        # recorte.
         "crop": (-237, 218, 1559, 1618),
         "espelhar": False,
     },
