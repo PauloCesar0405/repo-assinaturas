@@ -502,28 +502,17 @@ PESSOAS = {
         "endereco": ENDERECO_SEDE,
         "maps": MAPS_SEDE,
         "foto": "inara-modena-limpo.png",
-        # foto de 24/11/2026: print de story (1206x2144, WebP), com a foto
-        # levemente girada dentro de uma moldura escura e gente ao fundo.
-        # Recorte com o birefnet-portrait + pymatting; saíram restos de um
-        # homem ao fundo junto do cabelo, e a xuxinha rosa ficou opaca como
-        # na foto (o birefnet a deixou meio transparente). O ombro direito
-        # saía pela borda da foto: a pedido do Paulo, foi COMPLETADO além
-        # dela, pele com a cor e a textura da borda. O contorno segue a
-        # descida natural do ombro da foto (inclinação 1,2 na borda) até o
-        # ombro (o mesmo da versão de 150px) e daí passa, com a mesma
-        # tangente, para o BRAÇO, que desce reto a 230px da borda. O Paulo
-        # foi ajustando: o ombro em bola (125px) ficou desproporcional, os
-        # braços de 110 e 150px ficaram finos, alargar o ombro junto (250px)
-        # estragou o ombro, que estava bom, e engrossar o braço abrindo para
-        # baixo ficou "torto". Então o ombro ficou igual e o braço desce
-        # grosso e reto.
-        # As pontas dos cachos que encostavam na borda esmaecem em vez do
-        # corte reto. Lona 340px mais larga à direita; o rosto e o resto da
-        # foto ficam como no recorte. Enquadramento mais aberto que o das outras
-        # (escala 0,165): com 0,19 a cabeça dominava o painel ("muito
-        # cabeçuda", nas palavras do Paulo), e aberto aparecem a mão e a
-        # pulseira.
-        "crop": (-373, 190, 1695, 1802),
+        # foto de 24/11/2026, a 2ª que o Paulo mandou: "Retrato de busto com
+        # fundo transparente" (1086x1448, PNG já recortado), com o busto e os
+        # dois ombros inteiros. A 1ª era print de story com o ombro direito
+        # cortado pela borda; completar o braço não ficou bom, e ele trocou
+        # pela foto. O corpo veio com alpha 253, não 255: reescalei (x255/253)
+        # e tirei 69 pixels de poeira (alpha <= 6 longe do corpo). Borda
+        # limpa (luminância 69, sem halo). Enquadramento mais aberto, com a
+        # mão e a pulseira (escala 0,20): com a cabeça grande no painel, ela
+        # ficava "muito cabeçuda", nas palavras do Paulo. O busto afina perto
+        # da base da imagem, então o crop para acima disso (y=1253).
+        "crop": (-314, -77, 1392, 1253),
         "espelhar": False,
     },
 }
