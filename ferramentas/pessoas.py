@@ -491,6 +491,30 @@ PESSOAS = {
         "crop": (115, -56, 1688, 1170),
         "espelhar": False,
     },
+    "inara-modena": {
+        "nome": "Inara Modena",
+        "cargo": "ASSISTENTE DE LOGÍSTICA",
+        # mesmo número da Alessandra (Coordenadora de Logística), como veio
+        # no pedido
+        "tel": "+55 21 98498-2375",
+        "whatsapp": "5521984982375",
+        "email": "inara@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "inara-modena-limpo.png",
+        # foto de 24/11/2026: print de story (1206x2144, WebP), com a foto
+        # levemente girada dentro de uma moldura escura e gente ao fundo.
+        # Recorte com o birefnet-portrait + pymatting; saíram restos de um
+        # homem ao fundo junto do cabelo, e a xuxinha rosa ficou opaca como
+        # na foto (o birefnet a deixou meio transparente). O ombro direito
+        # saía pela borda da foto: a pedido do Paulo, foi COMPLETADO além
+        # dela (contorno desenhado continuando o topo do ombro até o braço,
+        # pele com a cor e a textura da borda) e as pontas dos cachos que
+        # encostavam na borda esmaecem em vez do corte reto. Lona 220px mais
+        # larga à direita; o rosto e o resto da foto ficam como no recorte.
+        "crop": (-237, 218, 1559, 1618),
+        "espelhar": False,
+    },
 }
 
 
