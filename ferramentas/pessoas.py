@@ -515,6 +515,29 @@ PESSOAS = {
         "crop": (-314, -77, 1392, 1253),
         "espelhar": False,
     },
+    "joao-victor": {
+        # nome completo (João Victor Pimentel de Souza Maia, 34 ch) não cabe
+        # nem no piso de 44 (629px de 594 úteis); o Paulo pediu, nesse caso,
+        # os 3 primeiros nomes
+        "nome": "João Victor Pimentel",
+        "cargo": "GERENTE COMERCIAL",
+        "tel": "+55 21 98498-2377",
+        "whatsapp": "5521984982377",
+        "email": "joaovictor@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "joao-victor-limpo.png",
+        # foto de 24/11/2026: "Retrato isolado com óculos e camiseta preta"
+        # (1150x1368, PNG já recortado; nome de arquivo no padrão das
+        # tratadas por IA, como a do Mauricio). O corpo veio com alpha 253:
+        # reescalei (x255/253) e tirei 225 pixels de poeira e ilhas longe do
+        # corpo. Cabelo cacheado castanho-claro com fios soltos: a borda dá
+        # luminância 116, mas é a cor do cabelo, sem halo. O crop fica dentro
+        # da foto, com os dois ombros inteiros, e a cabeça ocupa uns 62% da
+        # altura do painel, como nos outros homens.
+        "crop": (39, 12, 1117, 852),
+        "espelhar": False,
+    },
 }
 
 
