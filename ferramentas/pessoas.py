@@ -601,6 +601,27 @@ PESSOAS = {
         "crop": (-71, 50, 1212, 1050),
         "espelhar": False,
     },
+    "gabriela-fontoura": {
+        "nome": "Gabriela Fontoura",
+        "cargo": "GESTORA ARENA TIME FORTE",
+        "tel": "+55 21 98226-7623",
+        "whatsapp": "5521982267623",
+        "email": "gabriela@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "gabriela-fontoura-limpo.png",
+        # foto de 25/11/2026: "Mulher recortada em fundo transparente"
+        # (1254x1254, PNG já recortado). O corpo veio com alpha 252-253:
+        # reescalei (x255/253) e tirei 69 pixels de poeira longe do corpo.
+        # Borda limpa (luminância 28, sem halo). O cabelo encosta no topo da
+        # foto e o braço esquerdo sai pela borda direita (de y=750 para
+        # baixo): o crop começa em y=10, então o topo do painel corta o
+        # cabelo, e é mais largo que 1.283 (1.451, como o da Alessandra) para
+        # a borda direita da foto cair sob a diagonal. A cabeça fica em ~65%
+        # do painel, com o rosto um pouco à esquerda do centro.
+        "crop": (-84, 10, 1367, 1010),
+        "espelhar": False,
+    },
 }
 
 
