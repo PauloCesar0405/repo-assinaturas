@@ -622,6 +622,25 @@ PESSOAS = {
         "crop": (-84, 10, 1367, 1010),
         "espelhar": False,
     },
+    "fillipe-moraes": {
+        "nome": "Fillipe Moraes",
+        "cargo": "GESTOR ARENA TIME FORTE",
+        "tel": "+55 21 96652-6287",
+        "whatsapp": "5521966526287",
+        "email": "fillipe@timeforte.com",
+        "endereco": ENDERECO_SEDE,
+        "maps": MAPS_SEDE,
+        "foto": "fillipe-moraes-limpo.png",
+        # foto de 25/11/2026: "Homem sorridente com braços cruzados"
+        # (1254x1254, PNG já recortado). O corpo veio com alpha 253:
+        # reescalei (x255/253) e tirei 382 pixels de poeira longe do corpo.
+        # Borda limpa (luminância 96, sem halo). O crop deixa a cabeça em ~64%
+        # do painel, como nos outros homens, e corta acima do logo "ARENA TF"
+        # da camisa (y 786-920): para o logo caber inteiro, o enquadramento
+        # teria que abrir até a cabeça ficar em ~52%.
+        "crop": (110, 35, 1053, 770),
+        "espelhar": False,
+    },
 }
 
 
